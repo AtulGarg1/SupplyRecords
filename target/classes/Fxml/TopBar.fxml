@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.input.KeyCodeCombination?>
+
+<MenuBar prefHeight="26.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1"
+         fx:controller="com.supplyrecord.supplyrecords.Controllers.TopBarController">
+   <Menu mnemonicParsing="false" text="Add">
+      <MenuItem fx:id="menu_addItem" mnemonicParsing="false" text="Item">
+         <accelerator>
+            <KeyCodeCombination alt="DOWN" code="A" control="UP" meta="UP" shift="UP" shortcut="UP"/>
+         </accelerator>
+      </MenuItem>
+      <MenuItem fx:id="menu_addParty" mnemonicParsing="false" text="Party"/>
+      <MenuItem fx:id="menu_addBankAccount" mnemonicParsing="false" text="Bank Account"/>
+   </Menu>
+   <Menu mnemonicParsing="false" text="Supply Inwards">
+      <MenuItem fx:id="menu_addSupplyInwards" mnemonicParsing="false" text="Add">
+         <accelerator>
+            <KeyCodeCombination alt="DOWN" code="A" control="UP" meta="UP" shift="UP" shortcut="UP"/>
+         </accelerator>
+      </MenuItem>
+      <MenuItem fx:id="menu_editSupplyInwards" mnemonicParsing="false" text="Edit"/>
+      <MenuItem fx:id="menu_listSupplyInwards" mnemonicParsing="false" text="List"/>
+   </Menu>
+   <Menu mnemonicParsing="false" text="Supply Outwards">
+      <MenuItem fx:id="menu_addSupplyOutwards" mnemonicParsing="false" text="Add"/>
+      <MenuItem fx:id="menu_editSupplyOutwards" mnemonicParsing="false" text="Edit"/>
+      <MenuItem fx:id="menu_listSupplyOutwards" mnemonicParsing="false" text="List"/>
+   </Menu>
+   <Menu mnemonicParsing="false" text="Payments Made">
+      <MenuItem fx:id="menu_addPaymentsMade" mnemonicParsing="false" text="Add"/>
+      <MenuItem fx:id="menu_editPaymentsMade" mnemonicParsing="false" text="Edit"/>
+      <MenuItem fx:id="menu_listPaymentsMade" mnemonicParsing="false" text="List"/>
+   </Menu>
+   <Menu mnemonicParsing="false" text="Payments Received">
+      <MenuItem fx:id="menu_addPaymentsReceived" mnemonicParsing="false" text="Add"/>
+      <MenuItem fx:id="menu_editPaymentsReceived" mnemonicParsing="false" text="Edit"/>
+      <MenuItem fx:id="menu_listPaymentsReceived" mnemonicParsing="false" text="List"/>
+   </Menu>
+</MenuBar>
