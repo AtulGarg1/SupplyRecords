@@ -16,5 +16,6 @@ module com.supplyrecord.supplyrecords {
     exports com.supplyrecord.supplyrecords.Controllers.SupplyOutwards;
     exports com.supplyrecord.supplyrecords.customComponents;
     exports com.supplyrecord.supplyrecords.Models;
+    exports com.supplyrecord.supplyrecords.Models.DataClasses;
     exports com.supplyrecord.supplyrecords.Views;
 }

@@ -21,7 +21,7 @@
          <TextField fx:id="tf_firmName" styleClass="input_field" />
          <Label text="Password:" />
          <PasswordField fx:id="tf_password" styleClass="input_field" />
-         <Button fx:id="btn_login" maxWidth="360.0" minWidth="360.0" mnemonicParsing="false" onAction="#onLogin" prefWidth="360.0" text="Login">
+         <Button fx:id="btn_login" maxWidth="360.0" minWidth="360.0" mnemonicParsing="false" onAction="#onLogin" prefWidth="360.0" styleClass="login_btn" text="Login">
             <VBox.margin>
                <Insets top="50.0" />
             </VBox.margin></Button>

@@ -1,0 +1,22 @@
+.bold_label {
+    -fx-font-size: 1.1em;
+    -fx-font-weight: bold;
+}
+
+AutoCompleteTextField, DecimalTextField, TextField, UppercaseTextField, GridPane > Label {
+    -fx-background-color: #FFFFFF;
+    -fx-pref-height: 35;
+    -fx-font-size: 1.2em;
+}
+
+DatePicker {
+    -fx-pref-height: 35;
+    -fx-font-size: 1.2em;
+}
+
+.btn {
+    -fx-background-color: #132A13;
+    -fx-text-fill: #FFFFFF;
+    -fx-pref-width: 120;
+    -fx-font-size: 1.2em;
+}

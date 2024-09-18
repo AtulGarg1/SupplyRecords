@@ -11,4 +11,9 @@ public class DecimalTextField extends TextField {
             }
         });
     }
+
+    public DecimalTextField(String text) {
+        this();
+        setText(text);
+    }
 }

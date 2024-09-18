@@ -7,7 +7,7 @@ import java.util.Arrays;
 import java.util.stream.Collectors;
 
 public record SupplyInwardRecord(
-        long recordId, String firmName, String partyName, double amount,
+        long recordId, String firmName, String partyName, double totalAmount,
         LocalDate date, double biltiCharge, double bardana, double labourCost,
         double commission, double postage, double bazaarCharges, double otherExpenses
 ) {

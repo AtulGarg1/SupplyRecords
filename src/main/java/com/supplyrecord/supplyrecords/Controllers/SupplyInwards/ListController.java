@@ -2,11 +2,14 @@ package com.supplyrecord.supplyrecords.Controllers.SupplyInwards;
 
 import com.supplyrecord.supplyrecords.Models.AutoSuggestions;
 import com.supplyrecord.supplyrecords.Models.DataClasses.SupplyInwardRecord;
+import com.supplyrecord.supplyrecords.Models.LocalData;
 import com.supplyrecord.supplyrecords.Models.ViewSelected;
 import com.supplyrecord.supplyrecords.customComponents.AutoCompleteTextField;
+import javafx.event.EventType;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
@@ -27,30 +30,31 @@ public class ListController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         text_partyName.getSuggestions().addAll(AutoSuggestions.PartyNames);
-        list = filteredList = fetchData();
-
-        gridPane.setOnMouseClicked(this::showDetailsFor);
+        list = filteredList = LocalData.getInstance().getSupplyInwardRecordsList();
         setupGridPane();
     }
 
-    private ArrayList<SupplyInwardRecord> fetchData() {
-        // TODO: fetch from DB
-        return SupplyInwardRecord.generateDummyData();
-    }
-
     private void setupGridPane() {
-        gridPane.getChildren().removeIf(Text.class::isInstance);
+        gridPane.getChildren().removeIf(TextField.class::isInstance);
         for (int i = 0; i < filteredList.size(); i++) addRow(i);
     }
 
     private void addRow(int index) {
         int rowNo = gridPane.getRowCount();
-        SupplyInwardRecord placeholderClass = filteredList.get(index);
+        SupplyInwardRecord supplyInwardRecord = filteredList.get(index);
 
-        gridPane.add(new Text((index+1) + "."), 0, rowNo);
-        gridPane.add(new Text(placeholderClass.partyName()), 1, rowNo);
-        gridPane.add(new Text("₹" + placeholderClass.amount()), 2, rowNo);
-        gridPane.add(new Text(placeholderClass.formattedDate()), 3, rowNo);
+        TextField sno = new TextField((index+1) + ".");
+        TextField partyName = new TextField(supplyInwardRecord.partyName());
+        TextField totalAmount = new TextField("₹" + supplyInwardRecord.totalAmount());
+        TextField date = new TextField(supplyInwardRecord.formattedDate());
+
+        makeFieldsNonEditable(sno, partyName, totalAmount, date);
+        attachOnClickListener(supplyInwardRecord, sno, partyName, totalAmount, date);
+
+        gridPane.add(sno, 0, rowNo);
+        gridPane.add(partyName, 1, rowNo);
+        gridPane.add(totalAmount, 2, rowNo);
+        gridPane.add(date, 3, rowNo);
     }
 
     public void onSearch() {
@@ -71,11 +75,19 @@ public class ListController implements Initializable {
         setupGridPane();
     }
 
-    private void showDetailsFor(MouseEvent event) {
-        if (GridPane.getRowIndex((Node) event.getTarget()) != null) {
-            int index = GridPane.getRowIndex((Node) event.getTarget()) - 1;
-            ListRecordController.setRecordId(filteredList.get(index).recordId());
-            ViewSelected.getInstance().setSelected(ViewSelected.ListRecordSupplyInwards);
+    private void attachOnClickListener(SupplyInwardRecord supplyInwardRecord, TextField... textFields) {
+        for (TextField textField: textFields) {
+            textField.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
+                ListRecordController.setRecord(supplyInwardRecord);
+                ViewSelected.getInstance().setSelected(ViewSelected.ListRecordSupplyInwards);
+            });
+        }
+    }
+
+    private void makeFieldsNonEditable(TextField... textFields) {
+        for (TextField textField: textFields) {
+            textField.setEditable(false);
+            textField.setFocusTraversable(false);
         }
     }
 }

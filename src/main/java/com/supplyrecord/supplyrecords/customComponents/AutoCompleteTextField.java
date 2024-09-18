@@ -15,21 +15,32 @@ import javafx.scene.text.TextFlow;
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class AutoCompleteTextField extends TextField {
-    private final SortedSet<String> suggestions;
-    private final ContextMenu suggestionsPopup;
+public class AutoCompleteTextField extends UppercaseTextField {
+    private SortedSet<String> suggestions;
+    private ContextMenu suggestionsPopup;
 
     public AutoCompleteTextField() {
         super();
+        init();
+    }
+
+    public AutoCompleteTextField(ArrayList<String> suggestions) {
+        super();
+        init();
+        this.suggestions.addAll(suggestions);
+    }
+
+    public AutoCompleteTextField(String text, ArrayList<String> suggestions) {
+        super(text);
+        init();
+        this.suggestions.addAll(suggestions);
+    }
+
+    private void init() {
         this.suggestions = new TreeSet<>();
         this.suggestionsPopup = new ContextMenu();
         setListener();
         setKeyListener();
-    }
-
-    public AutoCompleteTextField(ArrayList<String> suggestions) {
-        this();
-        this.suggestions.addAll(suggestions);
     }
 
     public SortedSet<String> getSuggestions() {

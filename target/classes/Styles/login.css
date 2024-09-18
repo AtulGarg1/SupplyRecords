@@ -34,7 +34,7 @@
     -fx-font-size: 1.2em;
 }
 
-.login_form_container Button {
+.login_btn {
     -fx-background-color: #132A13;
     -fx-text-fill: #FFFFFF;
     -fx-pref-height: 30;
