@@ -33,7 +33,9 @@ public class ViewSelected {
     public static final String ListRecordSupplyInwards = "list_record_supply_inwards";
     public static final String AddSupplyOutwards = "add_supply_outwards";
     public static final String EditSupplyOutwards = "edit_supply_outwards";
+    public static final String EditRecordSupplyOutwards = "edit_record_supply_outwards";
     public static final String ListSupplyOutwards = "list_supply_outwards";
+    public static final String ListRecordSupplyOutwards = "list_record_supply_outwards";
     public static final String AddPaymentsMade = "add_payments_made";
     public static final String EditPaymentsMade = "edit_payments_made";
     public static final String ListPaymentsMade = "list_payments_made";

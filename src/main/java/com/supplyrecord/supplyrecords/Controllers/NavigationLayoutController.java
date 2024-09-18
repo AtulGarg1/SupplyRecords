@@ -21,6 +21,10 @@ public class NavigationLayoutController implements Initializable {
                 case ViewSelected.ListSupplyInwards -> nav_layout.setCenter(ViewFactory.getInstance().getListSupplyInwardsView());
                 case ViewSelected.ListRecordSupplyInwards -> nav_layout.setCenter(ViewFactory.getInstance().getListRecordSupplyInwardsView());
                 case ViewSelected.AddSupplyOutwards -> nav_layout.setCenter(ViewFactory.getInstance().getAddSupplyOutwardsView());
+                case ViewSelected.EditSupplyOutwards -> nav_layout.setCenter(ViewFactory.getInstance().getEditSupplyOutwardsView());
+                case ViewSelected.EditRecordSupplyOutwards -> nav_layout.setCenter(ViewFactory.getInstance().getEditRecordSupplyOutwardsView());
+                case ViewSelected.ListSupplyOutwards -> nav_layout.setCenter(ViewFactory.getInstance().getListSupplyOutwardsView());
+                case ViewSelected.ListRecordSupplyOutwards -> nav_layout.setCenter(ViewFactory.getInstance().getListRecordSupplyOutwardsView());
                 default -> nav_layout.setCenter(ViewFactory.getInstance().getDashboardView());
             }
         }));

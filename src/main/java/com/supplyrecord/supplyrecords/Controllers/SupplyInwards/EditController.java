@@ -1,5 +1,6 @@
 package com.supplyrecord.supplyrecords.Controllers.SupplyInwards;
 
+import com.supplyrecord.supplyrecords.Controllers.SupplyOutwards.EditRecordController;
 import com.supplyrecord.supplyrecords.Models.AutoSuggestions;
 import com.supplyrecord.supplyrecords.Models.DataClasses.SupplyInwardRecord;
 import com.supplyrecord.supplyrecords.Models.LocalData;
@@ -34,7 +35,7 @@ public class EditController implements Initializable {
     }
 
     private void setupGridPane() {
-        gridPane.getChildren().removeIf(Text.class::isInstance);
+        gridPane.getChildren().removeIf(TextField.class::isInstance);
         for (int i = 0; i < filteredList.size(); i++) addRow(i);
     }
 
@@ -77,8 +78,8 @@ public class EditController implements Initializable {
     private void attachOnClickListener(SupplyInwardRecord supplyInwardRecord, TextField... textFields) {
         for (TextField textField: textFields) {
             textField.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
-                ListRecordController.setRecord(supplyInwardRecord);
-                ViewSelected.getInstance().setSelected(ViewSelected.ListRecordSupplyInwards);
+                EditRecordController.setRecord(supplyInwardRecord);
+                ViewSelected.getInstance().setSelected(ViewSelected.EditRecordSupplyInwards);
             });
         }
     }
