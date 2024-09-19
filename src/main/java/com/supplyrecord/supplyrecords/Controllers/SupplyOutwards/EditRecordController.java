@@ -1,7 +1,7 @@
 package com.supplyrecord.supplyrecords.Controllers.SupplyOutwards;
 
 import com.supplyrecord.supplyrecords.Models.AutoSuggestions;
-import com.supplyrecord.supplyrecords.Models.DataClasses.SupplyInwardRecord;
+import com.supplyrecord.supplyrecords.Models.DataClasses.SupplyOutwardRecord;
 import com.supplyrecord.supplyrecords.Models.DataClasses.SupplyItemDetail;
 import com.supplyrecord.supplyrecords.Models.LocalData;
 import com.supplyrecord.supplyrecords.customComponents.AutoCompleteTextField;
@@ -33,7 +33,7 @@ public class EditRecordController implements Initializable {
     public DecimalTextField text_total;
     public Button btn_save;
 
-    private static final ObjectProperty<SupplyInwardRecord> record = new SimpleObjectProperty<>();
+    private static final ObjectProperty<SupplyOutwardRecord> record = new SimpleObjectProperty<>();
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -45,19 +45,19 @@ public class EditRecordController implements Initializable {
 
     private void fillValues() {
         gridPane.getChildren().removeIf(TextField.class::isInstance);
-        SupplyInwardRecord supplyInwardRecord = record.getValue();
+        SupplyOutwardRecord supplyOutwardRecord = record.getValue();
 
-        text_partyName.setText(String.valueOf(supplyInwardRecord.partyName()));
-        text_biltiCharge.setText(String.valueOf(supplyInwardRecord.biltiCharge()));
-        text_bardana.setText(String.valueOf(supplyInwardRecord.bardana()));
-        text_labourCost.setText(String.valueOf(supplyInwardRecord.labourCost()));
-        text_commission.setText(String.valueOf(supplyInwardRecord.commission()));
-        text_postage.setText(String.valueOf(supplyInwardRecord.postage()));
-        text_bazaarCharges.setText(String.valueOf(supplyInwardRecord.bazaarCharges()));
-        text_otherExpenses.setText(String.valueOf(supplyInwardRecord.otherExpenses()));
+        text_partyName.setText(String.valueOf(supplyOutwardRecord.partyName()));
+        text_biltiCharge.setText(String.valueOf(supplyOutwardRecord.biltiCharge()));
+        text_bardana.setText(String.valueOf(supplyOutwardRecord.bardana()));
+        text_labourCost.setText(String.valueOf(supplyOutwardRecord.labourCost()));
+        text_commission.setText(String.valueOf(supplyOutwardRecord.commission()));
+        text_postage.setText(String.valueOf(supplyOutwardRecord.postage()));
+        text_bazaarCharges.setText(String.valueOf(supplyOutwardRecord.bazaarCharges()));
+        text_otherExpenses.setText(String.valueOf(supplyOutwardRecord.otherExpenses()));
 
         ArrayList<SupplyItemDetail> supplyItemDetails =
-                LocalData.getInstance().fetchSupplyItemDetailsFor(supplyInwardRecord.recordId());
+                LocalData.getInstance().fetchSupplyItemDetailsFor(supplyOutwardRecord.recordId());
         double subTotal = 0;
 
         for (SupplyItemDetail supplyItemDetail : supplyItemDetails) {
@@ -70,8 +70,7 @@ public class EditRecordController implements Initializable {
             DecimalTextField price = new DecimalTextField(String.valueOf(supplyItemDetail.price()));
             DecimalTextField total = new DecimalTextField(String.valueOf(itemTotal));
 
-            makeNotEditable(sno);
-            makeNotEditable(total);
+            makeNotEditable(sno, total);
 
             qty.textProperty().addListener((observableVal, oldVal, newVal) -> updateItemTotal(qty, price, total));
             price.textProperty().addListener((observableVal, oldVal, newVal) -> updateItemTotal(qty, price, total));
@@ -86,7 +85,7 @@ public class EditRecordController implements Initializable {
         }
 
         text_subTotal.setText(String.valueOf(subTotal));
-        text_total.setText(String.valueOf(supplyInwardRecord.totalAmount()));
+        text_total.setText(String.valueOf(supplyOutwardRecord.totalAmount()));
 
         addEmptyRows();
     }
@@ -99,8 +98,7 @@ public class EditRecordController implements Initializable {
             DecimalTextField price = new DecimalTextField();
             DecimalTextField total = new DecimalTextField();
 
-            makeNotEditable(sno);
-            makeNotEditable(total);
+            makeNotEditable(sno, total);
 
             qty.textProperty().addListener((observableVal, oldVal, newVal) -> updateItemTotal(qty, price, total));
             price.textProperty().addListener((observableVal, oldVal, newVal) -> updateItemTotal(qty, price, total));
@@ -115,8 +113,8 @@ public class EditRecordController implements Initializable {
     }
 
     public void onSave() {
-        SupplyInwardRecord supplyInwardRecord =
-                new SupplyInwardRecord(
+        SupplyOutwardRecord supplyOutwardRecord =
+                new SupplyOutwardRecord(
                         record.getValue().recordId(), LocalData.getInstance().getFirmName(),
                         text_partyName.getText(),
                         isDouble(text_total.getText()) ? Double.parseDouble(text_total.getText()) : 0,
@@ -215,7 +213,7 @@ public class EditRecordController implements Initializable {
         }
     }
 
-    public static void setRecord(SupplyInwardRecord record) {
+    public static void setRecord(SupplyOutwardRecord record) {
         EditRecordController.record.set(record);
     }
 }

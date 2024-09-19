@@ -1,7 +1,7 @@
 package com.supplyrecord.supplyrecords.Controllers.SupplyOutwards;
 
-import com.supplyrecord.supplyrecords.Models.DataClasses.SupplyInwardRecord;
 import com.supplyrecord.supplyrecords.Models.DataClasses.SupplyItemDetail;
+import com.supplyrecord.supplyrecords.Models.DataClasses.SupplyOutwardRecord;
 import com.supplyrecord.supplyrecords.Models.LocalData;
 import com.supplyrecord.supplyrecords.customComponents.AutoCompleteTextField;
 import com.supplyrecord.supplyrecords.customComponents.DecimalTextField;
@@ -71,7 +71,7 @@ public class AddController implements Initializable {
 
         double itemTotal =
                 (isDouble(qty) ? Double.parseDouble(qty) : 0) *
-                        (isDouble(price) ? Double.parseDouble(price) : 0);
+                (isDouble(price) ? Double.parseDouble(price) : 0);
 
         tf_total.setText(
                 itemTotal == 0 ? "" : String.format("%.2f", itemTotal)
@@ -81,8 +81,8 @@ public class AddController implements Initializable {
     private void updateSubTotal(String oldVal, String newVal) {
         double subTotal =
                 (isDouble(text_subTotal.getText()) ? Double.parseDouble(text_subTotal.getText()) : 0) -
-                        (isDouble(oldVal) ? Double.parseDouble(oldVal) : 0) +
-                        (isDouble(newVal) ? Double.parseDouble(newVal) : 0);
+                (isDouble(oldVal) ? Double.parseDouble(oldVal) : 0) +
+                (isDouble(newVal) ? Double.parseDouble(newVal) : 0);
 
         text_subTotal.setText(
                 subTotal == 0 ? "" : String.format("%.2f", subTotal)
@@ -92,8 +92,8 @@ public class AddController implements Initializable {
     private void updateTotal(String oldVal, String newVal) {
         double total =
                 (isDouble(text_total.getText()) ? Double.parseDouble(text_total.getText()) : 0) -
-                        (isDouble(oldVal) ? Double.parseDouble(oldVal) : 0) +
-                        (isDouble(newVal) ? Double.parseDouble(newVal) : 0);
+                (isDouble(oldVal) ? Double.parseDouble(oldVal) : 0) +
+                (isDouble(newVal) ? Double.parseDouble(newVal) : 0);
 
         text_total.setText(
                 total == 0 ? "" : String.format("%.2f", total)
@@ -101,8 +101,8 @@ public class AddController implements Initializable {
     }
 
     public void onSave() {
-        SupplyInwardRecord supplyInwardRecord =
-                new SupplyInwardRecord(
+        SupplyOutwardRecord supplyOutwardRecord =
+                new SupplyOutwardRecord(
                         -1, LocalData.getInstance().getFirmName(),
                         text_partyName.getText(),
                         isDouble(text_total.getText()) ? Double.parseDouble(text_total.getText()) : 0,
@@ -116,7 +116,7 @@ public class AddController implements Initializable {
                         isDouble(text_otherExpenses.getText()) ? Double.parseDouble(text_total.getText()) : 0
                 );
 
-        // TODO: insert supplyInwardRecord in DB and fetch its recordId
+        // TODO: insert supplyOutwardRecord in DB and fetch its recordId
         long recordId = -1;
 
         ArrayList<SupplyItemDetail> supplyItemDetails = new ArrayList<>();

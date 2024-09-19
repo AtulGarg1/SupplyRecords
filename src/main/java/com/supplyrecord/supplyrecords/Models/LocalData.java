@@ -2,6 +2,7 @@ package com.supplyrecord.supplyrecords.Models;
 
 import com.supplyrecord.supplyrecords.Models.DataClasses.SupplyInwardRecord;
 import com.supplyrecord.supplyrecords.Models.DataClasses.SupplyItemDetail;
+import com.supplyrecord.supplyrecords.Models.DataClasses.SupplyOutwardRecord;
 
 import java.util.ArrayList;
 
@@ -16,9 +17,11 @@ public class LocalData {
     private static LocalData localData;
     private String firmName;
     private final ArrayList<SupplyInwardRecord> supplyInwardRecordsList;
+    private final ArrayList<SupplyOutwardRecord> supplyOutwardRecordsList;
 
     private LocalData() {
         supplyInwardRecordsList = fetchSupplyInwardRecordsList();
+        supplyOutwardRecordsList = fetchSupplyOutwardRecordsList();
     }
 
     public static synchronized LocalData getInstance() {
@@ -36,13 +39,22 @@ public class LocalData {
         return firmName;
     }
 
+    public ArrayList<SupplyInwardRecord> getSupplyInwardRecordsList() {
+        return supplyInwardRecordsList;
+    }
+
+    public ArrayList<SupplyOutwardRecord> getSupplyOutwardRecordsList() {
+        return supplyOutwardRecordsList;
+    }
+
     private ArrayList<SupplyInwardRecord> fetchSupplyInwardRecordsList() {
         // TODO: fetch data using firm_name
         return SupplyInwardRecord.generateDummyData();
     }
 
-    public ArrayList<SupplyInwardRecord> getSupplyInwardRecordsList() {
-        return supplyInwardRecordsList;
+    private ArrayList<SupplyOutwardRecord> fetchSupplyOutwardRecordsList() {
+        // TODO: fetch data using firm_name
+        return SupplyOutwardRecord.generateDummyData();
     }
 
     // TODO: Should be moved to DB interface

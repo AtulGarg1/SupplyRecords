@@ -51,8 +51,7 @@ public class AddController implements Initializable {
         DecimalTextField price = new DecimalTextField();
         DecimalTextField total = new DecimalTextField();
 
-        makeNotEditable(sno);
-        makeNotEditable(total);
+        makeNotEditable(sno, total);
 
         qty.textProperty().addListener((observableVal, oldVal, newVal) -> updateItemTotal(qty, price, total));
         price.textProperty().addListener((observableVal, oldVal, newVal) -> updateItemTotal(qty, price, total));

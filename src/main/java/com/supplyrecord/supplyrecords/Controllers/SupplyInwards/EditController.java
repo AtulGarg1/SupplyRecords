@@ -1,6 +1,6 @@
 package com.supplyrecord.supplyrecords.Controllers.SupplyInwards;
 
-import com.supplyrecord.supplyrecords.Controllers.SupplyOutwards.EditRecordController;
+import com.supplyrecord.supplyrecords.Controllers.SupplyInwards.EditRecordController;
 import com.supplyrecord.supplyrecords.Models.AutoSuggestions;
 import com.supplyrecord.supplyrecords.Models.DataClasses.SupplyInwardRecord;
 import com.supplyrecord.supplyrecords.Models.LocalData;

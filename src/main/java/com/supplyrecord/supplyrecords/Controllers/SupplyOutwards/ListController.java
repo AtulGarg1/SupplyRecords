@@ -1,18 +1,15 @@
 package com.supplyrecord.supplyrecords.Controllers.SupplyOutwards;
 
 import com.supplyrecord.supplyrecords.Models.AutoSuggestions;
-import com.supplyrecord.supplyrecords.Models.DataClasses.SupplyInwardRecord;
+import com.supplyrecord.supplyrecords.Models.DataClasses.SupplyOutwardRecord;
 import com.supplyrecord.supplyrecords.Models.LocalData;
 import com.supplyrecord.supplyrecords.Models.ViewSelected;
 import com.supplyrecord.supplyrecords.customComponents.AutoCompleteTextField;
-import javafx.event.EventType;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
-import javafx.scene.text.Text;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -24,13 +21,13 @@ public class ListController implements Initializable {
     public DatePicker dp_dateTo;
     public GridPane gridPane;
 
-    private ArrayList<SupplyInwardRecord> list;
-    private ArrayList<SupplyInwardRecord> filteredList;
+    private ArrayList<SupplyOutwardRecord> list;
+    private ArrayList<SupplyOutwardRecord> filteredList;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         text_partyName.getSuggestions().addAll(AutoSuggestions.PartyNames);
-        list = filteredList = LocalData.getInstance().getSupplyInwardRecordsList();
+        list = filteredList = LocalData.getInstance().getSupplyOutwardRecordsList();
         setupGridPane();
     }
 
@@ -41,15 +38,15 @@ public class ListController implements Initializable {
 
     private void addRow(int index) {
         int rowNo = gridPane.getRowCount();
-        SupplyInwardRecord supplyInwardRecord = filteredList.get(index);
+        SupplyOutwardRecord supplyOutwardRecord = filteredList.get(index);
 
         TextField sno = new TextField((index+1) + ".");
-        TextField partyName = new TextField(supplyInwardRecord.partyName());
-        TextField totalAmount = new TextField("₹" + supplyInwardRecord.totalAmount());
-        TextField date = new TextField(supplyInwardRecord.formattedDate());
+        TextField partyName = new TextField(supplyOutwardRecord.partyName());
+        TextField totalAmount = new TextField("₹" + supplyOutwardRecord.totalAmount());
+        TextField date = new TextField(supplyOutwardRecord.formattedDate());
 
         makeFieldsNonEditable(sno, partyName, totalAmount, date);
-        attachOnClickListener(supplyInwardRecord, sno, partyName, totalAmount, date);
+        attachOnClickListener(supplyOutwardRecord, sno, partyName, totalAmount, date);
 
         gridPane.add(sno, 0, rowNo);
         gridPane.add(partyName, 1, rowNo);
@@ -58,12 +55,12 @@ public class ListController implements Initializable {
     }
 
     public void onSearch() {
-        SupplyInwardRecord.Filter filter = new SupplyInwardRecord.Filter(
+        SupplyOutwardRecord.Filter filter = new SupplyOutwardRecord.Filter(
                 text_partyName.getText(),
                 dp_dateFrom.getValue(),
                 dp_dateTo.getValue()
         );
-        filteredList = SupplyInwardRecord.filterList(list, filter);
+        filteredList = SupplyOutwardRecord.filterList(list, filter);
         setupGridPane();
     }
 
@@ -75,10 +72,10 @@ public class ListController implements Initializable {
         setupGridPane();
     }
 
-    private void attachOnClickListener(SupplyInwardRecord supplyInwardRecord, TextField... textFields) {
+    private void attachOnClickListener(SupplyOutwardRecord SupplyOutwardRecord, TextField... textFields) {
         for (TextField textField: textFields) {
             textField.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
-                ListRecordController.setRecord(supplyInwardRecord);
+                ListRecordController.setRecord(SupplyOutwardRecord);
                 ViewSelected.getInstance().setSelected(ViewSelected.ListRecordSupplyOutwards);
             });
         }
