@@ -8,6 +8,7 @@ import com.supplyrecord.supplyrecords.customComponents.UppercaseTextField;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.fxml.Initializable;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 
@@ -29,9 +30,11 @@ public class ListRecordController implements Initializable {
     public DecimalTextField text_total;
 
     private static final ObjectProperty<SupplyOutwardRecord> record = new SimpleObjectProperty<>();
+    public ScrollPane scrollPane;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
         makeFieldsNonEditable(
                 text_partyName, text_subTotal, text_biltiCharge, text_bardana, text_labourCost,
                 text_commission, text_postage, text_bazaarCharges, text_otherExpenses, text_total

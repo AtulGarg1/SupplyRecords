@@ -1,5 +1,6 @@
 package com.supplyrecord.supplyrecords.Controllers.Add;
 
+import com.supplyrecord.supplyrecords.Models.AutoSuggestions;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
@@ -16,14 +17,17 @@ public class AddBankAccountController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {}
 
     public void onSave() {
-        if (validate()) {
-            getStage().close();
+        String bankName = text_bankAccount.getText().trim();
+
+        if (validate(bankName)) {
+            AutoSuggestions.BankNames.add(bankName);
             // TODO: create entry in DB
+            getStage().close();
         }
     }
 
-    private boolean validate() {
-        return !text_bankAccount.getText().isEmpty();
+    private boolean validate(String bankName) {
+        return !bankName.isEmpty() && !AutoSuggestions.BankNames.contains(bankName);
     }
 
     private Stage getStage() {

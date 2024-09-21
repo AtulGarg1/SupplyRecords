@@ -1,5 +1,6 @@
 package com.supplyrecord.supplyrecords.Controllers.Add;
 
+import com.supplyrecord.supplyrecords.Models.AutoSuggestions;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
@@ -16,14 +17,17 @@ public class AddPartyController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {}
 
     public void onSave() {
-        if (validate()) {
-            getStage().close();
+        String partyName = text_partyName.getText().trim();
+
+        if (validate(partyName)) {
+            AutoSuggestions.PartyNames.add(partyName);
             // TODO: create entry in DB
+            getStage().close();
         }
     }
 
-    private boolean validate() {
-        return !text_partyName.getText().isEmpty();
+    private boolean validate(String partyName) {
+        return !partyName.isEmpty() && !AutoSuggestions.PartyNames.contains(partyName);
     }
 
     private Stage getStage() {

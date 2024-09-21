@@ -8,28 +8,31 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane prefHeight="300.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.supplyrecord.supplyrecords.Controllers.Add.AddBankAccountController">
+<AnchorPane prefHeight="200.0" prefWidth="450.0" stylesheets="@../../Styles/common.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.supplyrecord.supplyrecords.Controllers.Add.AddBankAccountController">
    <children>
       <VBox layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <HBox prefHeight="40.0" prefWidth="200.0">
+            <HBox alignment="CENTER" prefHeight="40.0" prefWidth="200.0" spacing="20.0">
                <children>
-                  <Label text="Bank Account:">
+                  <Label styleClass="bold_label" text="Bank Account :">
                      <HBox.margin>
-                        <Insets right="20.0" top="3.0" />
+                        <Insets top="6.0" />
                      </HBox.margin>
                   </Label>
                   <TextField fx:id="text_bankAccount" />
                </children>
                <VBox.margin>
-                  <Insets left="120.0" top="130.0" />
+                  <Insets top="48.0" />
                </VBox.margin>
             </HBox>
-            <Button fx:id="btn_save" mnemonicParsing="false" onAction="#onSave" prefWidth="60.0" text="Save">
+            <HBox alignment="CENTER" prefWidth="200.0">
+               <children>
+                  <Button fx:id="btn_save" mnemonicParsing="false" onAction="#onSave" prefWidth="60.0" styleClass="btn" text="Save" />
+               </children>
                <VBox.margin>
-                  <Insets left="220.0" top="70.0" />
+                  <Insets top="48.0" />
                </VBox.margin>
-            </Button>
+            </HBox>
          </children>
       </VBox>
    </children>

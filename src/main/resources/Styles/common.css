@@ -20,3 +20,7 @@ DatePicker {
     -fx-pref-width: 120;
     -fx-font-size: 1.2em;
 }
+
+.err_label {
+    -fx-text-fill: red;
+}

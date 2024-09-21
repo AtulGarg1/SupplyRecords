@@ -3,9 +3,9 @@
 <?import com.supplyrecord.supplyrecords.customComponents.DecimalTextField?>
 <?import com.supplyrecord.supplyrecords.customComponents.UppercaseTextField?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
-<?import javafx.scene.control.Separator?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
@@ -19,18 +19,18 @@
          <children>
             <HBox maxWidth="620.0" minWidth="620.0" prefWidth="620.0">
                <children>
-                  <Label styleClass="bold_label" text="Party Name :">
+                  <Label styleClass="bold_label" text="Supplier Name :">
                      <HBox.margin>
                         <Insets right="8.0" top="6.0" />
                      </HBox.margin>
                   </Label>
-                  <UppercaseTextField fx:id="text_partyName" />
+                  <UppercaseTextField fx:id="text_supplierName" />
                </children>
                <VBox.margin>
                   <Insets />
                </VBox.margin>
             </HBox>
-            <ScrollPane maxWidth="620.0" minWidth="620.0" prefHeight="340.0" prefWidth="620.0">
+            <ScrollPane fx:id="scrollPane" maxWidth="620.0" minWidth="620.0" prefHeight="340.0" prefWidth="620.0">
                <content>
                   <GridPane fx:id="gridPane" hgap="5.0" prefHeight="100.0" vgap="5.0">
                      <columnConstraints>
@@ -81,121 +81,7 @@
             </ScrollPane>
             <HBox alignment="TOP_RIGHT" maxWidth="620.0" minWidth="620.0" prefWidth="620.0">
                <children>
-                  <Label styleClass="bold_label" text="Sub Total :">
-                     <HBox.margin>
-                        <Insets right="8.0" top="6.0" />
-                     </HBox.margin>
-                  </Label>
-                  <DecimalTextField fx:id="text_subTotal" />
-               </children>
-               <VBox.margin>
-                  <Insets top="8.0" />
-               </VBox.margin>
-            </HBox>
-            <HBox maxWidth="620.0" minWidth="620.0" prefWidth="620.0" spacing="8.0">
-               <children>
-                  <Label styleClass="bold_label" text="Additional Expenses" />
-                  <Separator prefHeight="0.0" prefWidth="486.0">
-                     <HBox.margin>
-                        <Insets top="10.0" />
-                     </HBox.margin>
-                  </Separator>
-               </children>
-            </HBox>
-            <HBox maxWidth="620.0" minWidth="620.0" prefWidth="620.0">
-               <children>
-                  <Label alignment="CENTER_RIGHT" maxWidth="105.0" minWidth="105.0" prefWidth="105.0" styleClass="bold_label" text="Bilti Charges :">
-                     <HBox.margin>
-                        <Insets right="8.0" top="6.0" />
-                     </HBox.margin>
-                  </Label>
-                  <DecimalTextField fx:id="text_biltiCharge" />
-               </children>
-               <VBox.margin>
-                  <Insets top="8.0" />
-               </VBox.margin>
-            </HBox>
-            <HBox maxWidth="620.0" minWidth="620.0" prefWidth="620.0">
-               <children>
-                  <Label alignment="CENTER_RIGHT" maxWidth="105.0" minWidth="105.0" prefWidth="105.0" styleClass="bold_label" text="Bardana :">
-                     <HBox.margin>
-                        <Insets right="8.0" top="6.0" />
-                     </HBox.margin>
-                  </Label>
-                  <DecimalTextField fx:id="text_bardana" />
-               </children>
-               <VBox.margin>
-                  <Insets top="6.0" />
-               </VBox.margin>
-            </HBox>
-            <HBox maxWidth="620.0" minWidth="620.0" prefWidth="620.0">
-               <children>
-                  <Label alignment="CENTER_RIGHT" maxWidth="105.0" minWidth="105.0" prefWidth="105.0" styleClass="bold_label" text="Labour cost :">
-                     <HBox.margin>
-                        <Insets right="8.0" top="6.0" />
-                     </HBox.margin>
-                  </Label>
-                  <DecimalTextField fx:id="text_labourCost" />
-               </children>
-               <VBox.margin>
-                  <Insets top="6.0" />
-               </VBox.margin>
-            </HBox>
-            <HBox maxWidth="620.0" minWidth="620.0" prefWidth="620.0">
-               <children>
-                  <Label alignment="CENTER_RIGHT" maxWidth="105.0" minWidth="105.0" prefWidth="105.0" styleClass="bold_label" text="Commission :">
-                     <HBox.margin>
-                        <Insets right="8.0" top="6.0" />
-                     </HBox.margin>
-                  </Label>
-                  <DecimalTextField fx:id="text_commission" />
-               </children>
-               <VBox.margin>
-                  <Insets top="6.0" />
-               </VBox.margin>
-            </HBox>
-            <HBox maxWidth="620.0" minWidth="620.0" prefWidth="620.0">
-               <children>
-                  <Label alignment="CENTER_RIGHT" maxWidth="105.0" minWidth="105.0" prefWidth="105.0" styleClass="bold_label" text="Postage :">
-                     <HBox.margin>
-                        <Insets right="8.0" top="6.0" />
-                     </HBox.margin>
-                  </Label>
-                  <DecimalTextField fx:id="text_postage" />
-               </children>
-               <VBox.margin>
-                  <Insets top="6.0" />
-               </VBox.margin>
-            </HBox>
-            <HBox maxWidth="620.0" minWidth="620.0" prefWidth="620.0">
-               <children>
-                  <Label alignment="CENTER_RIGHT" maxWidth="105.0" minWidth="105.0" prefWidth="105.0" styleClass="bold_label" text="Bazaar Charges :">
-                     <HBox.margin>
-                        <Insets right="8.0" top="6.0" />
-                     </HBox.margin>
-                  </Label>
-                  <DecimalTextField fx:id="text_bazaarCharges" />
-               </children>
-               <VBox.margin>
-                  <Insets top="6.0" />
-               </VBox.margin>
-            </HBox>
-            <HBox maxWidth="620.0" minWidth="620.0" prefWidth="620.0">
-               <children>
-                  <Label alignment="CENTER_RIGHT" maxWidth="105.0" minWidth="105.0" prefWidth="105.0" styleClass="bold_label" text="Other Expenses :">
-                     <HBox.margin>
-                        <Insets right="8.0" top="6.0" />
-                     </HBox.margin>
-                  </Label>
-                  <DecimalTextField fx:id="text_otherExpenses" />
-               </children>
-               <VBox.margin>
-                  <Insets top="6.0" />
-               </VBox.margin>
-            </HBox>
-            <HBox maxWidth="620.0" minWidth="620.0" prefWidth="620.0">
-               <children>
-                  <Label alignment="CENTER_RIGHT" maxWidth="105.0" minWidth="105.0" prefWidth="105.0" styleClass="bold_label" text="Total :">
+                  <Label styleClass="bold_label" text="Total :">
                      <HBox.margin>
                         <Insets right="8.0" top="6.0" />
                      </HBox.margin>
@@ -203,7 +89,7 @@
                   <DecimalTextField fx:id="text_total" />
                </children>
                <VBox.margin>
-                  <Insets top="20.0" />
+                  <Insets top="8.0" />
                </VBox.margin>
             </HBox>
          </children>

@@ -1,5 +1,6 @@
 package com.supplyrecord.supplyrecords.Models;
 
+import com.supplyrecord.supplyrecords.Models.DataClasses.PaymentRecord;
 import com.supplyrecord.supplyrecords.Models.DataClasses.SupplyInwardRecord;
 import com.supplyrecord.supplyrecords.Models.DataClasses.SupplyItemDetail;
 import com.supplyrecord.supplyrecords.Models.DataClasses.SupplyOutwardRecord;
@@ -18,10 +19,15 @@ public class LocalData {
     private String firmName;
     private final ArrayList<SupplyInwardRecord> supplyInwardRecordsList;
     private final ArrayList<SupplyOutwardRecord> supplyOutwardRecordsList;
+    private final ArrayList<PaymentRecord> paymentsMadeList;
+    private final ArrayList<PaymentRecord> paymentsReceivedList;
 
     private LocalData() {
         supplyInwardRecordsList = fetchSupplyInwardRecordsList();
         supplyOutwardRecordsList = fetchSupplyOutwardRecordsList();
+        paymentsMadeList = fetchPaymentsMadeList();
+        paymentsReceivedList = fetchPaymentsReceivedList();
+
     }
 
     public static synchronized LocalData getInstance() {
@@ -47,6 +53,14 @@ public class LocalData {
         return supplyOutwardRecordsList;
     }
 
+    public ArrayList<PaymentRecord> getPaymentsMadeList() {
+        return paymentsMadeList;
+    }
+
+    public ArrayList<PaymentRecord> getPaymentsReceivedList() {
+        return paymentsReceivedList;
+    }
+
     private ArrayList<SupplyInwardRecord> fetchSupplyInwardRecordsList() {
         // TODO: fetch data using firm_name
         return SupplyInwardRecord.generateDummyData();
@@ -55,6 +69,16 @@ public class LocalData {
     private ArrayList<SupplyOutwardRecord> fetchSupplyOutwardRecordsList() {
         // TODO: fetch data using firm_name
         return SupplyOutwardRecord.generateDummyData();
+    }
+
+    private ArrayList<PaymentRecord> fetchPaymentsMadeList() {
+        // TODO: fetch data using firm_name
+        return PaymentRecord.generateDummyData(false);
+    }
+
+    private ArrayList<PaymentRecord> fetchPaymentsReceivedList() {
+        // TODO: fetch data using firm_name
+        return PaymentRecord.generateDummyData(true);
     }
 
     // TODO: Should be moved to DB interface

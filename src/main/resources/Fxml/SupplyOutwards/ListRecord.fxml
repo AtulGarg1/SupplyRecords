@@ -30,7 +30,7 @@
                         <Insets />
                     </VBox.margin>
                 </HBox>
-                <ScrollPane maxWidth="620.0" minWidth="620.0" prefHeight="340.0" prefWidth="620.0">
+                <ScrollPane fx:id="scrollPane" maxWidth="620.0" minWidth="620.0" prefHeight="340.0" prefWidth="620.0">
                     <content>
                         <GridPane fx:id="gridPane" hgap="5.0" prefHeight="100.0" vgap="5.0">
                             <columnConstraints>

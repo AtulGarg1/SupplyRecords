@@ -23,6 +23,9 @@ public class ViewFactory {
     private AnchorPane listSupplyOutwardsView;
     private AnchorPane listRecordSupplyOutwardsView;
 
+    private AnchorPane editPaymentsMadeView;
+    private AnchorPane listPaymentsMadeView;
+
     public static synchronized ViewFactory getInstance() {
         if (viewFactory == null) {
             viewFactory = new ViewFactory();
@@ -161,56 +164,90 @@ public class ViewFactory {
         return listRecordSupplyOutwardsView;
     }
 
+    public void showAddPaymentsMadeWindow() {
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/Fxml/PaymentsMade/Add.fxml"));
+        Stage stage = setStage(fxmlLoader, "Add Payment Made");
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.show();
+    }
+
+    public AnchorPane getEditPaymentsMadeView() {
+        if (editPaymentsMadeView == null) {
+            try {
+                editPaymentsMadeView =
+                        new FXMLLoader(getClass().getResource("/Fxml/PaymentsMade/Edit.fxml")).load();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return editPaymentsMadeView;
+    }
+
+    public void showEditRecordPaymentsMadeWindow() {
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/Fxml/PaymentsMade/EditRecord.fxml"));
+        Stage stage = setStage(fxmlLoader, "Edit Payment Made");
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.show();
+    }
+
+    public AnchorPane getListPaymentsMadeView() {
+        if (listPaymentsMadeView == null) {
+            try {
+                listPaymentsMadeView =
+                        new FXMLLoader(getClass().getResource("/Fxml/PaymentsMade/List.fxml")).load();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return listPaymentsMadeView;
+    }
+
     public void showLoginWindow() {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/Fxml/Login.fxml"));
-        Stage stage = setStage(fxmlLoader);
-        stage.setResizable(false);
+        Stage stage = setStage(fxmlLoader, "Login");
         stage.show();
     }
 
     public void showCreateFirmWindow() {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/Fxml/CreateFirm.fxml"));
-        Stage stage = setStage(fxmlLoader);
-        stage.setResizable(false);
+        Stage stage = setStage(fxmlLoader, "Create Firm");
         stage.show();
     }
 
     public void showNavigationLayout() {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/Fxml/NavigationLayout.fxml"));
-        setStage(fxmlLoader).show();
+        setStage(fxmlLoader, "Supply Records").show();
     }
 
     public void showAddItemWindow() {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/Fxml/Add/AddItem.fxml"));
-        Stage stage = setStage(fxmlLoader);
-        stage.setResizable(false);
+        Stage stage = setStage(fxmlLoader, "Add Item");
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.show();
     }
 
     public void showAddPartyWindow() {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/Fxml/Add/AddParty.fxml"));
-        Stage stage = setStage(fxmlLoader);
-        stage.setResizable(false);
+        Stage stage = setStage(fxmlLoader, "Add Party");
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.show();
     }
 
     public void showAddBankAccountWindow() {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/Fxml/Add/AddBankAccount.fxml"));
-        Stage stage = setStage(fxmlLoader);
-        stage.setResizable(false);
+        Stage stage = setStage(fxmlLoader, "Add Bank Account");
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.show();
     }
 
-    private Stage setStage(FXMLLoader fxmlLoader) {
+    private Stage setStage(FXMLLoader fxmlLoader, String title) {
         Stage stage = new Stage();
 
         try {
             Scene scene = new Scene(fxmlLoader.load());
             stage.setScene(scene);
-            stage.setTitle("Supply Records");
+            stage.setTitle(title);
+            stage.setResizable(false);
             return stage;
         } catch (Exception e) {
             e.printStackTrace();

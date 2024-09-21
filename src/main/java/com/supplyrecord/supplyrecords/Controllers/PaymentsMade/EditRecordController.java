@@ -5,6 +5,8 @@ import com.supplyrecord.supplyrecords.Models.DataClasses.PaymentRecord;
 import com.supplyrecord.supplyrecords.Models.LocalData;
 import com.supplyrecord.supplyrecords.customComponents.AutoCompleteTextField;
 import com.supplyrecord.supplyrecords.customComponents.DecimalTextField;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -14,17 +16,19 @@ import java.net.URL;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
 
-public class AddController implements Initializable {
+public class EditRecordController implements Initializable {
     public AutoCompleteTextField text_partyName;
     public DecimalTextField text_amount;
     public AutoCompleteTextField text_bankName;
     public Button btn_save;
     public Label label_err;
 
+    private static final ObjectProperty<PaymentRecord> record = new SimpleObjectProperty<>();
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        text_partyName.getSuggestions().addAll(AutoSuggestions.PartyNames);
-        text_bankName.getSuggestions().addAll(AutoSuggestions.BankNames);
+        fillValues();
+        record.addListener((observableVal, oldVal, newVal) -> fillValues());
     }
 
     public void onSave() {
@@ -46,13 +50,19 @@ public class AddController implements Initializable {
             displayError("Bank Name does not exist.");
         } else {
             PaymentRecord paymentRecord = new PaymentRecord(
-                    -1, LocalData.getInstance().getFirmName(), partyName,
+                    record.getValue().recordId(), LocalData.getInstance().getFirmName(), partyName,
                     Double.parseDouble(amount), bankName, LocalDate.now(), true
             );
             // TODO: insert it in DB
 
             getStage().close();
         }
+    }
+
+    private void fillValues() {
+        text_partyName.setText(record.getValue().partyName());
+        text_amount.setText(String.valueOf(record.getValue().amount()));
+        text_bankName.setText(record.getValue().bankName());
     }
 
     private void displayError(String msg) {
@@ -67,6 +77,10 @@ public class AddController implements Initializable {
         } catch (NumberFormatException e) {
             return false;
         }
+    }
+
+    public static void setRecord(PaymentRecord record) {
+        EditRecordController.record.set(record);
     }
 
     private Stage getStage() {

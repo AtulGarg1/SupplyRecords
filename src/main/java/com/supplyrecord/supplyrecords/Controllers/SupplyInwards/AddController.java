@@ -19,22 +19,13 @@ import java.util.ResourceBundle;
 
 public class AddController implements Initializable {
     public GridPane gridPane;
-    public UppercaseTextField text_partyName;
-    public DecimalTextField text_subTotal;
-    public DecimalTextField text_biltiCharge;
-    public DecimalTextField text_bardana;
-    public DecimalTextField text_labourCost;
-    public DecimalTextField text_commission;
-    public DecimalTextField text_postage;
-    public DecimalTextField text_bazaarCharges;
-    public DecimalTextField text_otherExpenses;
+    public UppercaseTextField text_supplierName;
     public DecimalTextField text_total;
     public Button btn_save;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        makeNotEditable(text_total, text_subTotal);
-        attachUpdateTotal();
+        makeNotEditable(text_total);
         setupGridPane();
     }
 
@@ -55,7 +46,7 @@ public class AddController implements Initializable {
 
         qty.textProperty().addListener((observableVal, oldVal, newVal) -> updateItemTotal(qty, price, total));
         price.textProperty().addListener((observableVal, oldVal, newVal) -> updateItemTotal(qty, price, total));
-        total.textProperty().addListener((observableVal, oldVal, newVal) -> updateSubTotal(oldVal, newVal));
+        total.textProperty().addListener((observableVal, oldVal, newVal) -> updateTotal(oldVal, newVal));
 
         gridPane.add(sno, 0, rowNo);
         gridPane.add(item, 1, rowNo);
@@ -77,17 +68,6 @@ public class AddController implements Initializable {
         );
     }
 
-    private void updateSubTotal(String oldVal, String newVal) {
-        double subTotal =
-                (isDouble(text_subTotal.getText()) ? Double.parseDouble(text_subTotal.getText()) : 0) -
-                (isDouble(oldVal) ? Double.parseDouble(oldVal) : 0) +
-                (isDouble(newVal) ? Double.parseDouble(newVal) : 0);
-
-        text_subTotal.setText(
-                subTotal == 0 ? "" : String.format("%.2f", subTotal)
-        );
-    }
-
     private void updateTotal(String oldVal, String newVal) {
         double total =
                 (isDouble(text_total.getText()) ? Double.parseDouble(text_total.getText()) : 0) -
@@ -102,17 +82,9 @@ public class AddController implements Initializable {
     public void onSave() {
         SupplyInwardRecord supplyInwardRecord =
                 new SupplyInwardRecord(
-                        -1, LocalData.getInstance().getFirmName(),
-                        text_partyName.getText(),
+                        -1, LocalData.getInstance().getFirmName(), text_supplierName.getText(),
                         isDouble(text_total.getText()) ? Double.parseDouble(text_total.getText()) : 0,
-                        LocalDate.now(),
-                        isDouble(text_biltiCharge.getText()) ? Double.parseDouble(text_total.getText()) : 0,
-                        isDouble(text_bardana.getText()) ? Double.parseDouble(text_total.getText()) : 0,
-                        isDouble(text_labourCost.getText()) ? Double.parseDouble(text_total.getText()) : 0,
-                        isDouble(text_commission.getText()) ? Double.parseDouble(text_total.getText()) : 0,
-                        isDouble(text_postage.getText()) ? Double.parseDouble(text_total.getText()) : 0,
-                        isDouble(text_bazaarCharges.getText()) ? Double.parseDouble(text_total.getText()) : 0,
-                        isDouble(text_otherExpenses.getText()) ? Double.parseDouble(text_total.getText()) : 0
+                        LocalDate.now()
                 );
 
         // TODO: insert supplyInwardRecord in DB and fetch its recordId
@@ -152,16 +124,5 @@ public class AddController implements Initializable {
             textField.setEditable(false);
             textField.setFocusTraversable(false);
         }
-    }
-
-    private void attachUpdateTotal() {
-        text_subTotal.textProperty().addListener((observableVal, oldVal, newVal) -> updateTotal(oldVal, newVal));
-        text_biltiCharge.textProperty().addListener((observableVal, oldVal, newVal) -> updateTotal(oldVal, newVal));
-        text_bardana.textProperty().addListener((observableVal, oldVal, newVal) -> updateTotal(oldVal, newVal));
-        text_labourCost.textProperty().addListener((observableVal, oldVal, newVal) -> updateTotal(oldVal, newVal));
-        text_commission.textProperty().addListener((observableVal, oldVal, newVal) -> updateTotal(oldVal, newVal));
-        text_postage.textProperty().addListener((observableVal, oldVal, newVal) -> updateTotal(oldVal, newVal));
-        text_bazaarCharges.textProperty().addListener((observableVal, oldVal, newVal) -> updateTotal(oldVal, newVal));
-        text_otherExpenses.textProperty().addListener((observableVal, oldVal, newVal) -> updateTotal(oldVal, newVal));
     }
 }

@@ -1,5 +1,6 @@
 package com.supplyrecord.supplyrecords.Controllers.Add;
 
+import com.supplyrecord.supplyrecords.Models.AutoSuggestions;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
@@ -17,14 +18,22 @@ public class AddItemController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {}
 
     public void onSave() {
-        if (validate()) {
-            getStage().close();
+        String itemName = text_itemName.getText().trim();
+        String unit = text_unit.getText().trim();
+
+        if (validate(itemName, unit)) {
+            AutoSuggestions.ItemNames.add(itemWithUnit(itemName, unit));
             // TODO: create entry in DB
+            getStage().close();
         }
     }
 
-    private boolean validate() {
-        return !text_itemName.getText().isEmpty() && !text_unit.getText().isEmpty();
+    private boolean validate(String itemName, String unit) {
+        return !itemName.isEmpty() && !unit.isEmpty() && !AutoSuggestions.ItemNames.contains(itemWithUnit(itemName, unit));
+    }
+
+    private String itemWithUnit(String itemName, String unit) {
+        return itemName + " (" + unit + ")";
     }
 
     private Stage getStage() {

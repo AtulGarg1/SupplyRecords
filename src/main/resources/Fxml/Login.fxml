@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.supplyrecord.supplyrecords.customComponents.AutoCompleteTextField?>
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
-<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
@@ -17,9 +17,9 @@
    </VBox>
    <VBox layoutX="340.0" layoutY="100.0" prefHeight="200.0" prefWidth="100.0" styleClass="login_form_container" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="220.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
       <children>
-         <Label text="Firm Name:" />
-         <TextField fx:id="tf_firmName" styleClass="input_field" />
-         <Label text="Password:" />
+         <Label styleClass="bold_label" text="Firm Name:" />
+         <AutoCompleteTextField fx:id="tf_firmName" styleClass="input_field" />
+         <Label styleClass="bold_label" text="Password:" />
          <PasswordField fx:id="tf_password" styleClass="input_field" />
          <Button fx:id="btn_login" maxWidth="360.0" minWidth="360.0" mnemonicParsing="false" onAction="#onLogin" prefWidth="360.0" styleClass="login_btn" text="Login">
             <VBox.margin>
