@@ -46,6 +46,18 @@
                   <Insets top="24.0" />
                </VBox.margin>
             </HBox>
+            <HBox alignment="CENTER" prefWidth="200.0">
+               <children>
+                  <Label fx:id="label_err" styleClass="err_label" visible="false">
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                  </Label>
+               </children>
+               <VBox.margin>
+                  <Insets top="4.0" />
+               </VBox.margin>
+            </HBox>
          </children>
       </VBox>
    </children>

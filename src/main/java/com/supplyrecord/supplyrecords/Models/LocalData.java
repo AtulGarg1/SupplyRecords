@@ -1,5 +1,7 @@
 package com.supplyrecord.supplyrecords.Models;
 
+import com.supplyrecord.supplyrecords.Database.DatabaseApi;
+import com.supplyrecord.supplyrecords.Database.DatabaseImpl;
 import com.supplyrecord.supplyrecords.Models.DataClasses.PaymentRecord;
 import com.supplyrecord.supplyrecords.Models.DataClasses.SupplyInwardRecord;
 import com.supplyrecord.supplyrecords.Models.DataClasses.SupplyItemDetail;
@@ -16,18 +18,20 @@ import java.util.ArrayList;
  * */
 public class LocalData {
     private static LocalData localData;
-    private String firmName;
-    private final ArrayList<SupplyInwardRecord> supplyInwardRecordsList;
-    private final ArrayList<SupplyOutwardRecord> supplyOutwardRecordsList;
-    private final ArrayList<PaymentRecord> paymentsMadeList;
-    private final ArrayList<PaymentRecord> paymentsReceivedList;
+    private static DatabaseApi db;
+
+    private static String firmName;
+    private static ArrayList<SupplyInwardRecord> supplyInwardRecordsList;
+    private static ArrayList<SupplyOutwardRecord> supplyOutwardRecordsList;
+    private static ArrayList<PaymentRecord> paymentsMadeList;
+    private static ArrayList<PaymentRecord> paymentsReceivedList;
 
     private LocalData() {
-        supplyInwardRecordsList = fetchSupplyInwardRecordsList();
-        supplyOutwardRecordsList = fetchSupplyOutwardRecordsList();
-        paymentsMadeList = fetchPaymentsMadeList();
-        paymentsReceivedList = fetchPaymentsReceivedList();
-
+        db = new DatabaseImpl();
+        supplyInwardRecordsList = new ArrayList<>();
+        supplyOutwardRecordsList = new ArrayList<>();
+        paymentsMadeList = new ArrayList<>();
+        paymentsReceivedList = new ArrayList<>();
     }
 
     public static synchronized LocalData getInstance() {
@@ -37,8 +41,15 @@ public class LocalData {
         return localData;
     }
 
+    public static void fetchLists() {
+        supplyInwardRecordsList = db.fetchSupplyInwardRecordsList(firmName);
+        supplyOutwardRecordsList = db.fetchSupplyOutwardRecordsList(firmName);
+        paymentsMadeList = db.fetchPaymentsMadeList(firmName);
+        paymentsReceivedList = db.fetchPaymentsReceivedList(firmName);
+    }
+
     public void setFirmName(String firmName) {
-        this.firmName = firmName;
+        LocalData.firmName = firmName;
     }
 
     public String getFirmName() {
@@ -59,26 +70,6 @@ public class LocalData {
 
     public ArrayList<PaymentRecord> getPaymentsReceivedList() {
         return paymentsReceivedList;
-    }
-
-    private ArrayList<SupplyInwardRecord> fetchSupplyInwardRecordsList() {
-        // TODO: fetch data using firm_name
-        return SupplyInwardRecord.generateDummyData();
-    }
-
-    private ArrayList<SupplyOutwardRecord> fetchSupplyOutwardRecordsList() {
-        // TODO: fetch data using firm_name
-        return SupplyOutwardRecord.generateDummyData();
-    }
-
-    private ArrayList<PaymentRecord> fetchPaymentsMadeList() {
-        // TODO: fetch data using firm_name
-        return PaymentRecord.generateDummyData(false);
-    }
-
-    private ArrayList<PaymentRecord> fetchPaymentsReceivedList() {
-        // TODO: fetch data using firm_name
-        return PaymentRecord.generateDummyData(true);
     }
 
     // TODO: Should be moved to DB interface

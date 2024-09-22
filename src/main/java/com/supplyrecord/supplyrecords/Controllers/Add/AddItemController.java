@@ -1,8 +1,11 @@
 package com.supplyrecord.supplyrecords.Controllers.Add;
 
+import com.supplyrecord.supplyrecords.Database.DatabaseApi;
+import com.supplyrecord.supplyrecords.Database.DatabaseImpl;
 import com.supplyrecord.supplyrecords.Models.AutoSuggestions;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
@@ -13,23 +16,36 @@ public class AddItemController implements Initializable {
     public TextField text_itemName;
     public TextField text_unit;
     public Button btn_save;
+    public Label label_err;
+
+    DatabaseApi db;
 
     @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {}
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        db = new DatabaseImpl();
+    }
 
     public void onSave() {
         String itemName = text_itemName.getText().trim();
         String unit = text_unit.getText().trim();
+        String itemUnit = itemWithUnit(itemName, unit);
 
-        if (validate(itemName, unit)) {
-            AutoSuggestions.ItemNames.add(itemWithUnit(itemName, unit));
-            // TODO: create entry in DB
+        if (itemName.isEmpty()) {
+            displayError("Please enter an Item Name.");
+        } else if (unit.isEmpty()) {
+            displayError("Please enter a Unit.");
+        } else if(AutoSuggestions.ItemNames.contains(itemUnit)) {
+            displayError("Item already exists.");
+        } else {
+            AutoSuggestions.ItemNames.add(itemUnit);
+            db.addItem(itemUnit);
             getStage().close();
         }
     }
 
-    private boolean validate(String itemName, String unit) {
-        return !itemName.isEmpty() && !unit.isEmpty() && !AutoSuggestions.ItemNames.contains(itemWithUnit(itemName, unit));
+    private void displayError(String msg) {
+        label_err.setText(msg);
+        label_err.setVisible(true);
     }
 
     private String itemWithUnit(String itemName, String unit) {
