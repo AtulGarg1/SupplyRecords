@@ -26,7 +26,7 @@ public class ListController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        text_partyName.getSuggestions().addAll(AutoSuggestions.PartyNames);
+        text_partyName.getSuggestions().addAll(AutoSuggestions.SupplierNames);
         list = filteredList = LocalData.getInstance().getPaymentsMadeList();
         setupGridPane();
     }

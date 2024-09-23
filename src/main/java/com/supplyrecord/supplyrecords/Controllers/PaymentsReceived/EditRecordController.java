@@ -1,4 +1,4 @@
-package com.supplyrecord.supplyrecords.Controllers.PaymentsMade;
+package com.supplyrecord.supplyrecords.Controllers.PaymentsReceived;
 
 import com.supplyrecord.supplyrecords.Database.DatabaseApi;
 import com.supplyrecord.supplyrecords.Database.DatabaseImpl;
@@ -31,7 +31,7 @@ public class EditRecordController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         db = new DatabaseImpl();
-        text_partyName.getSuggestions().addAll(AutoSuggestions.SupplierNames);
+        text_partyName.getSuggestions().addAll(AutoSuggestions.PartyNames);
         fillValues();
         record.addListener((observableVal, oldVal, newVal) -> fillValues());
     }
@@ -47,7 +47,7 @@ public class EditRecordController implements Initializable {
             displayError("Please enter an Amount.");
         } else if (bankName.isEmpty()) {
             displayError("Please enter a Bank Name.");
-        } else if (!AutoSuggestions.SupplierNames.contains(partyName)) {
+        } else if (!AutoSuggestions.PartyNames.contains(partyName)) {
             displayError("Party Name does not exist.");
         } else if (!isDouble(amount)) {
             displayError("Please enter a valid Amount.");
@@ -56,7 +56,7 @@ public class EditRecordController implements Initializable {
         } else {
             PaymentRecord paymentRecord = new PaymentRecord(
                     record.getValue().recordId(), LocalData.getInstance().getFirmName(), partyName,
-                    Double.parseDouble(amount), bankName, LocalDate.now(), false
+                    Double.parseDouble(amount), bankName, LocalDate.now(), true
             );
             db.updatePaymentRecord(paymentRecord);
 

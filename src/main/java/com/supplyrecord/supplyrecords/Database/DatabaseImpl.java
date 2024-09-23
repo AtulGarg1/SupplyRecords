@@ -120,6 +120,16 @@ public class DatabaseImpl implements DatabaseApi{
     }
 
     @Override
+    public void addPaymentRecord(PaymentRecord paymentRecord) {
+
+    }
+
+    @Override
+    public void updatePaymentRecord(PaymentRecord paymentRecord) {
+
+    }
+
+    @Override
     public boolean verifyLogin(String firmName, String password) {
         return true;
     }

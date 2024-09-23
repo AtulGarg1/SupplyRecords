@@ -26,6 +26,9 @@ public class ViewFactory {
     private AnchorPane editPaymentsMadeView;
     private AnchorPane listPaymentsMadeView;
 
+    private AnchorPane editPaymentsReceivedView;
+    private AnchorPane listPaymentsReceivedView;
+
     public static synchronized ViewFactory getInstance() {
         if (viewFactory == null) {
             viewFactory = new ViewFactory();
@@ -171,6 +174,13 @@ public class ViewFactory {
         stage.show();
     }
 
+    public void showAddPaymentsReceivedWindow() {
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/Fxml/PaymentsReceived/Add.fxml"));
+        Stage stage = setStage(fxmlLoader, "Add Payment Received");
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.show();
+    }
+
     public AnchorPane getEditPaymentsMadeView() {
         if (editPaymentsMadeView == null) {
             try {
@@ -200,6 +210,37 @@ public class ViewFactory {
             }
         }
         return listPaymentsMadeView;
+    }
+
+    public AnchorPane getEditPaymentsReceivedView() {
+        if (editPaymentsReceivedView == null) {
+            try {
+                editPaymentsReceivedView =
+                        new FXMLLoader(getClass().getResource("/Fxml/PaymentsReceived/Edit.fxml")).load();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return editPaymentsReceivedView;
+    }
+
+    public void showEditRecordPaymentsReceivedWindow() {
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/Fxml/PaymentsReceived/EditRecord.fxml"));
+        Stage stage = setStage(fxmlLoader, "Edit Payment Received");
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.show();
+    }
+
+    public AnchorPane getListPaymentsReceivedView() {
+        if (listPaymentsReceivedView == null) {
+            try {
+                listPaymentsReceivedView =
+                        new FXMLLoader(getClass().getResource("/Fxml/PaymentsReceived/List.fxml")).load();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return listPaymentsReceivedView;
     }
 
     public void showLoginWindow() {

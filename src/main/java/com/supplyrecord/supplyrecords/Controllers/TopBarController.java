@@ -41,7 +41,7 @@ public class TopBarController implements Initializable {
         menu_addPaymentsMade.setOnAction(event -> ViewFactory.getInstance().showAddPaymentsMadeWindow());
         menu_editPaymentsMade.setOnAction(event -> setMenuItemSelected(ViewSelected.EditPaymentsMade));
         menu_listPaymentsMade.setOnAction(event -> setMenuItemSelected(ViewSelected.ListPaymentsMade));
-        menu_addPaymentsReceived.setOnAction(event -> setMenuItemSelected(ViewSelected.AddPaymentsReceived));
+        menu_addPaymentsReceived.setOnAction(event -> ViewFactory.getInstance().showAddPaymentsReceivedWindow());
         menu_editPaymentsReceived.setOnAction(event -> setMenuItemSelected(ViewSelected.EditPaymentsReceived));
         menu_listPaymentsReceived.setOnAction(event -> setMenuItemSelected(ViewSelected.ListPaymentsReceived));
     }

@@ -1,5 +1,7 @@
 package com.supplyrecord.supplyrecords.Controllers.PaymentsMade;
 
+import com.supplyrecord.supplyrecords.Database.DatabaseApi;
+import com.supplyrecord.supplyrecords.Database.DatabaseImpl;
 import com.supplyrecord.supplyrecords.Models.AutoSuggestions;
 import com.supplyrecord.supplyrecords.Models.DataClasses.PaymentRecord;
 import com.supplyrecord.supplyrecords.Models.LocalData;
@@ -21,9 +23,12 @@ public class AddController implements Initializable {
     public Button btn_save;
     public Label label_err;
 
+    private DatabaseApi db;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        text_partyName.getSuggestions().addAll(AutoSuggestions.PartyNames);
+        db = new DatabaseImpl();
+        text_partyName.getSuggestions().addAll(AutoSuggestions.SupplierNames);
         text_bankName.getSuggestions().addAll(AutoSuggestions.BankNames);
     }
 
@@ -38,7 +43,7 @@ public class AddController implements Initializable {
             displayError("Please enter an Amount.");
         } else if (bankName.isEmpty()) {
             displayError("Please enter a Bank Name.");
-        } else if (!AutoSuggestions.PartyNames.contains(partyName)) {
+        } else if (!AutoSuggestions.SupplierNames.contains(partyName)) {
             displayError("Party Name does not exist.");
         } else if (!isDouble(amount)) {
             displayError("Please enter a valid Amount.");
@@ -47,9 +52,9 @@ public class AddController implements Initializable {
         } else {
             PaymentRecord paymentRecord = new PaymentRecord(
                     -1, LocalData.getInstance().getFirmName(), partyName,
-                    Double.parseDouble(amount), bankName, LocalDate.now(), true
+                    Double.parseDouble(amount), bankName, LocalDate.now(), false
             );
-            // TODO: insert it in DB
+            db.addPaymentRecord(paymentRecord);
 
             getStage().close();
         }

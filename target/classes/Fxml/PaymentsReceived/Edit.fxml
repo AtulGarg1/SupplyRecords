@@ -1,10 +1,102 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.layout.*?>
+<?import com.supplyrecord.supplyrecords.customComponents.AutoCompleteTextField?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="com.supplyrecord.supplyrecords.Controllers.PaymentsReceived.EditController"
-            prefHeight="400.0" prefWidth="600.0">
-
+<AnchorPane prefHeight="750.0" prefWidth="1000.0" stylesheets="@../../Styles/common.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.supplyrecord.supplyrecords.Controllers.PaymentsReceived.EditController">
+    <children>
+        <VBox prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <children>
+                <HBox prefWidth="200.0">
+                    <children>
+                        <Label styleClass="bold_label" text="Party Name :">
+                            <HBox.margin>
+                                <Insets right="8.0" top="8.0" />
+                            </HBox.margin>
+                        </Label>
+                        <AutoCompleteTextField fx:id="text_partyName" />
+                        <Label styleClass="bold_label" text="Date From :">
+                            <HBox.margin>
+                                <Insets left="12.0" right="8.0" top="8.0" />
+                            </HBox.margin>
+                        </Label>
+                        <DatePicker fx:id="dp_dateFrom" minHeight="35.0" promptText="dd/mm/yyyy" />
+                        <Label styleClass="bold_label" text="Date To :">
+                            <HBox.margin>
+                                <Insets left="12.0" right="8.0" top="8.0" />
+                            </HBox.margin>
+                        </Label>
+                        <DatePicker fx:id="dp_dateTo" promptText="dd/mm/yyyy" />
+                    </children>
+                </HBox>
+                <HBox prefWidth="200.0" spacing="20.0">
+                    <children>
+                        <Button mnemonicParsing="false" onAction="#onSearch" prefWidth="60.0" styleClass="btn" text="Search" />
+                        <Button mnemonicParsing="false" onAction="#onClear" prefWidth="60.0" styleClass="btn" text="Clear" />
+                    </children>
+                    <VBox.margin>
+                        <Insets top="20.0" />
+                    </VBox.margin>
+                </HBox>
+                <ScrollPane maxWidth="740.0" minWidth="740.0" prefHeight="340.0" prefWidth="740.0" vbarPolicy="ALWAYS">
+                    <content>
+                        <GridPane fx:id="gridPane" hgap="5.0" prefHeight="100.0" vgap="5.0">
+                            <columnConstraints>
+                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="50.0" minWidth="50.0" prefWidth="50.0" />
+                                <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" maxWidth="250.0" minWidth="250.0" prefWidth="250.0" />
+                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" />
+                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="200.0" minWidth="200.0" prefWidth="200.0" />
+                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" />
+                            </columnConstraints>
+                            <rowConstraints>
+                                <RowConstraints maxHeight="35.0" minHeight="35.0" prefHeight="35.0" valignment="CENTER" />
+                            </rowConstraints>
+                            <children>
+                                <Label maxWidth="50.0" minWidth="50.0" prefWidth="50.0" styleClass="bold_label" text="S.No.">
+                                    <padding>
+                                        <Insets left="8.0" />
+                                    </padding>
+                                </Label>
+                                <Label maxWidth="250.0" minWidth="250.0" prefWidth="250.0" styleClass="bold_label" text="Party Name" GridPane.columnIndex="1">
+                                    <padding>
+                                        <Insets left="8.0" />
+                                    </padding>
+                                </Label>
+                                <Label maxWidth="100.0" minWidth="100.0" prefWidth="100.0" styleClass="bold_label" text="Amount" GridPane.columnIndex="2">
+                                    <padding>
+                                        <Insets left="8.0" />
+                                    </padding>
+                                </Label>
+                                <Label maxWidth="200.0" minWidth="200.0" prefWidth="200.0" styleClass="bold_label" text="Bank Name" GridPane.columnIndex="3" />
+                                <Label maxWidth="100.0" minWidth="100.0" prefWidth="100.0" styleClass="bold_label" text="Date" GridPane.columnIndex="4">
+                                    <padding>
+                                        <Insets left="8.0" />
+                                    </padding>
+                                </Label>
+                            </children>
+                            <padding>
+                                <Insets left="4.0" />
+                            </padding>
+                        </GridPane>
+                    </content>
+                    <VBox.margin>
+                        <Insets top="20.0" />
+                    </VBox.margin>
+                </ScrollPane>
+            </children>
+            <padding>
+                <Insets bottom="20.0" left="40.0" right="40.0" top="20.0" />
+            </padding>
+        </VBox>
+    </children>
 </AnchorPane>

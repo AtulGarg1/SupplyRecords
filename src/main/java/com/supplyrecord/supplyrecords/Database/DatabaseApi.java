@@ -38,4 +38,7 @@ public interface DatabaseApi {
     void addSupplyOutwardRecord(SupplyOutwardRecord supplyOutwardRecord);
 
     void updateSupplyOutwardRecord(SupplyOutwardRecord supplyOutwardRecord);
+
+    void addPaymentRecord(PaymentRecord paymentRecord);
+    void updatePaymentRecord(PaymentRecord paymentRecord);
 }
