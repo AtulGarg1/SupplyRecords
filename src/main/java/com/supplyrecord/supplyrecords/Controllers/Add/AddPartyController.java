@@ -17,7 +17,7 @@ public class AddPartyController implements Initializable {
     public Button btn_save;
     public Label label_err;
 
-    DatabaseApi db;
+    private DatabaseApi db;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
