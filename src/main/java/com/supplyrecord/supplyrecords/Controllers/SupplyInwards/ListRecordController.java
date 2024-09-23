@@ -21,7 +21,6 @@ public class ListRecordController implements Initializable {
     public UppercaseTextField text_supplierName;
     public GridPane gridPane;
     public DecimalTextField text_total;
-    public ScrollPane scrollPane;
 
     private DatabaseApi db;
     private static final ObjectProperty<SupplyInwardRecord> record = new SimpleObjectProperty<>();
@@ -30,7 +29,6 @@ public class ListRecordController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         db = new DatabaseImpl();
         makeFieldsNonEditable(text_supplierName, text_total);
-        scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
         fillValues();
         record.addListener((observableVal, oldVal, newVal) -> fillValues());
     }

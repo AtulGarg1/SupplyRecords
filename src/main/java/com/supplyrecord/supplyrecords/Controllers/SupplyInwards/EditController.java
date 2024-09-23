@@ -21,7 +21,6 @@ public class EditController implements Initializable {
     public DatePicker dp_dateFrom;
     public DatePicker dp_dateTo;
     public GridPane gridPane;
-    public ScrollPane scrollPane;
 
     private ArrayList<SupplyInwardRecord> list;
     private ArrayList<SupplyInwardRecord> filteredList;
@@ -30,7 +29,6 @@ public class EditController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         text_supplierName.getSuggestions().addAll(AutoSuggestions.SupplierNames);
         list = filteredList = LocalData.getInstance().getSupplyInwardRecordsList();
-        scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
         setupGridPane();
     }
 
