@@ -14,6 +14,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
+<?import com.supplyrecord.supplyrecords.customComponents.AutoCompleteTextField?>
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="750.0" prefWidth="1000.0" stylesheets="@../../Styles/common.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.supplyrecord.supplyrecords.Controllers.SupplyOutwards.EditRecordController">
     <children>
         <VBox prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -25,7 +26,7 @@
                                 <Insets right="8.0" top="6.0" />
                             </HBox.margin>
                         </Label>
-                        <UppercaseTextField fx:id="text_partyName" />
+                        <AutoCompleteTextField fx:id="text_partyName" />
                     </children>
                     <VBox.margin>
                         <Insets />
@@ -209,9 +210,21 @@
                 </HBox>
                 <Button fx:id="btn_save" mnemonicParsing="false" onAction="#onSave" styleClass="btn" text="Save">
                     <VBox.margin>
-                        <Insets left="400.0" top="20.0" />
+                        <Insets left="400.0" top="14.0" />
                     </VBox.margin>
                 </Button>
+            <HBox alignment="CENTER" prefWidth="200.0">
+               <children>
+                  <Label fx:id="label_err" styleClass="err_label" visible="false">
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                  </Label>
+               </children>
+               <VBox.margin>
+                  <Insets top="6.0" />
+               </VBox.margin>
+            </HBox>
             </children>
             <padding>
                 <Insets bottom="20.0" left="40.0" right="40.0" top="20.0" />

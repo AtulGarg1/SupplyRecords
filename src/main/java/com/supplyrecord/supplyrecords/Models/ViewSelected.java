@@ -26,6 +26,8 @@ public class ViewSelected {
         selected.setValue(selectedViewName);
     }
 
+    public static final String Dashboard = "dashboard";
+
     public static final String AddSupplyInwards = "add_supply_inwards";
     public static final String EditSupplyInwards = "edit_supply_inwards";
     public static final String EditRecordSupplyInwards = "edit_record_supply_inwards";

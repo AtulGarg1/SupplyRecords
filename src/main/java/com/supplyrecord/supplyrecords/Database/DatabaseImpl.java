@@ -2,6 +2,7 @@ package com.supplyrecord.supplyrecords.Database;
 
 import com.supplyrecord.supplyrecords.Models.DataClasses.PaymentRecord;
 import com.supplyrecord.supplyrecords.Models.DataClasses.SupplyInwardRecord;
+import com.supplyrecord.supplyrecords.Models.DataClasses.SupplyItemDetail;
 import com.supplyrecord.supplyrecords.Models.DataClasses.SupplyOutwardRecord;
 
 import java.util.ArrayList;
@@ -59,6 +60,11 @@ public class DatabaseImpl implements DatabaseApi{
     }
 
     @Override
+    public ArrayList<SupplyItemDetail> fetchSupplyItemDetailsFor(long recordId) {
+        return SupplyItemDetail.generateDummyData();
+    }
+
+    @Override
     public void addBankAccount(String bank) {
 
     }
@@ -75,6 +81,41 @@ public class DatabaseImpl implements DatabaseApi{
 
     @Override
     public void addItem(String item) {
+
+    }
+
+    @Override
+    public void addSupplyInwardRecord(SupplyInwardRecord supplyInwardRecord) {
+
+    }
+
+    @Override
+    public long getLatestRecordId() {
+        return 0;
+    }
+
+    @Override
+    public void addSupplyItemDetails(ArrayList<SupplyItemDetail> supplyItemDetails) {
+
+    }
+
+    @Override
+    public void updateSupplyInwardRecord(SupplyInwardRecord supplyInwardRecord) {
+
+    }
+
+    @Override
+    public void deleteSupplyItemDetailsFor(long recordId) {
+
+    }
+
+    @Override
+    public void addSupplyOutwardRecord(SupplyOutwardRecord supplyOutwardRecord) {
+
+    }
+
+    @Override
+    public void updateSupplyOutwardRecord(SupplyOutwardRecord supplyOutwardRecord) {
 
     }
 

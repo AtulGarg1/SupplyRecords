@@ -1,8 +1,9 @@
 package com.supplyrecord.supplyrecords.Controllers.SupplyInwards;
 
+import com.supplyrecord.supplyrecords.Database.DatabaseApi;
+import com.supplyrecord.supplyrecords.Database.DatabaseImpl;
 import com.supplyrecord.supplyrecords.Models.DataClasses.SupplyInwardRecord;
 import com.supplyrecord.supplyrecords.Models.DataClasses.SupplyItemDetail;
-import com.supplyrecord.supplyrecords.Models.LocalData;
 import com.supplyrecord.supplyrecords.customComponents.DecimalTextField;
 import com.supplyrecord.supplyrecords.customComponents.UppercaseTextField;
 import javafx.beans.property.ObjectProperty;
@@ -22,10 +23,12 @@ public class ListRecordController implements Initializable {
     public DecimalTextField text_total;
     public ScrollPane scrollPane;
 
+    private DatabaseApi db;
     private static final ObjectProperty<SupplyInwardRecord> record = new SimpleObjectProperty<>();
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        db = new DatabaseImpl();
         makeFieldsNonEditable(text_supplierName, text_total);
         scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
         fillValues();
@@ -39,7 +42,7 @@ public class ListRecordController implements Initializable {
         text_supplierName.setText(String.valueOf(supplyInwardRecord.supplierName()));
 
         ArrayList<SupplyItemDetail> supplyItemDetails =
-                LocalData.getInstance().fetchSupplyItemDetailsFor(supplyInwardRecord.recordId());
+                db.fetchSupplyItemDetailsFor(supplyInwardRecord.recordId());
 
         for (int i = 0; i < supplyItemDetails.size(); i++) {
             SupplyItemDetail supplyItemDetail = supplyItemDetails.get(i);

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.supplyrecord.supplyrecords.customComponents.UppercaseTextField?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
@@ -7,7 +8,6 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<?import com.supplyrecord.supplyrecords.customComponents.UppercaseTextField?>
 <AnchorPane prefHeight="200.0" prefWidth="450.0" stylesheets="@../../Styles/common.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.supplyrecord.supplyrecords.Controllers.Add.AddItemController">
    <children>
       <VBox alignment="CENTER" prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">

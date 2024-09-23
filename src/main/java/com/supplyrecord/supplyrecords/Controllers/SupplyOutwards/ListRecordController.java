@@ -1,8 +1,9 @@
 package com.supplyrecord.supplyrecords.Controllers.SupplyOutwards;
 
+import com.supplyrecord.supplyrecords.Database.DatabaseApi;
+import com.supplyrecord.supplyrecords.Database.DatabaseImpl;
 import com.supplyrecord.supplyrecords.Models.DataClasses.SupplyOutwardRecord;
 import com.supplyrecord.supplyrecords.Models.DataClasses.SupplyItemDetail;
-import com.supplyrecord.supplyrecords.Models.LocalData;
 import com.supplyrecord.supplyrecords.customComponents.DecimalTextField;
 import com.supplyrecord.supplyrecords.customComponents.UppercaseTextField;
 import javafx.beans.property.ObjectProperty;
@@ -29,11 +30,13 @@ public class ListRecordController implements Initializable {
     public DecimalTextField text_otherExpenses;
     public DecimalTextField text_total;
 
+    private DatabaseApi db;
     private static final ObjectProperty<SupplyOutwardRecord> record = new SimpleObjectProperty<>();
     public ScrollPane scrollPane;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        db = new DatabaseImpl();
         scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
         makeFieldsNonEditable(
                 text_partyName, text_subTotal, text_biltiCharge, text_bardana, text_labourCost,
@@ -57,7 +60,7 @@ public class ListRecordController implements Initializable {
         text_otherExpenses.setText(String.valueOf(supplyOutwardRecord.otherExpenses()));
 
         ArrayList<SupplyItemDetail> supplyItemDetails =
-                LocalData.getInstance().fetchSupplyItemDetailsFor(supplyOutwardRecord.recordId());
+                db.fetchSupplyItemDetailsFor(supplyOutwardRecord.recordId());
         double subTotal = 0;
 
         for (int i = 0; i < supplyItemDetails.size(); i++) {

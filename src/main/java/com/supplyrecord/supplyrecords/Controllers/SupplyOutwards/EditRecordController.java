@@ -1,9 +1,12 @@
 package com.supplyrecord.supplyrecords.Controllers.SupplyOutwards;
 
+import com.supplyrecord.supplyrecords.Database.DatabaseApi;
+import com.supplyrecord.supplyrecords.Database.DatabaseImpl;
 import com.supplyrecord.supplyrecords.Models.AutoSuggestions;
 import com.supplyrecord.supplyrecords.Models.DataClasses.SupplyOutwardRecord;
 import com.supplyrecord.supplyrecords.Models.DataClasses.SupplyItemDetail;
 import com.supplyrecord.supplyrecords.Models.LocalData;
+import com.supplyrecord.supplyrecords.Models.ViewSelected;
 import com.supplyrecord.supplyrecords.customComponents.AutoCompleteTextField;
 import com.supplyrecord.supplyrecords.customComponents.DecimalTextField;
 import com.supplyrecord.supplyrecords.customComponents.UppercaseTextField;
@@ -11,6 +14,7 @@ import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 
@@ -20,7 +24,7 @@ import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class EditRecordController implements Initializable {
-    public UppercaseTextField text_partyName;
+    public AutoCompleteTextField text_partyName;
     public GridPane gridPane;
     public DecimalTextField text_subTotal;
     public DecimalTextField text_biltiCharge;
@@ -32,11 +36,15 @@ public class EditRecordController implements Initializable {
     public DecimalTextField text_otherExpenses;
     public DecimalTextField text_total;
     public Button btn_save;
+    public Label label_err;
 
+    private DatabaseApi db;
     private static final ObjectProperty<SupplyOutwardRecord> record = new SimpleObjectProperty<>();
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        db = new DatabaseImpl();
+        text_partyName.getSuggestions().addAll(AutoSuggestions.PartyNames);
         makeNotEditable(text_total, text_subTotal);
         attachUpdateTotal();
         fillValues();
@@ -57,7 +65,7 @@ public class EditRecordController implements Initializable {
         text_otherExpenses.setText(String.valueOf(supplyOutwardRecord.otherExpenses()));
 
         ArrayList<SupplyItemDetail> supplyItemDetails =
-                LocalData.getInstance().fetchSupplyItemDetailsFor(supplyOutwardRecord.recordId());
+                db.fetchSupplyItemDetailsFor(supplyOutwardRecord.recordId());
         double subTotal = 0;
 
         for (SupplyItemDetail supplyItemDetail : supplyItemDetails) {
@@ -113,38 +121,65 @@ public class EditRecordController implements Initializable {
     }
 
     public void onSave() {
-        SupplyOutwardRecord supplyOutwardRecord =
-                new SupplyOutwardRecord(
-                        record.getValue().recordId(), LocalData.getInstance().getFirmName(),
-                        text_partyName.getText(),
-                        isDouble(text_total.getText()) ? Double.parseDouble(text_total.getText()) : 0,
-                        LocalDate.now(),
-                        isDouble(text_biltiCharge.getText()) ? Double.parseDouble(text_total.getText()) : 0,
-                        isDouble(text_bardana.getText()) ? Double.parseDouble(text_total.getText()) : 0,
-                        isDouble(text_labourCost.getText()) ? Double.parseDouble(text_total.getText()) : 0,
-                        isDouble(text_commission.getText()) ? Double.parseDouble(text_total.getText()) : 0,
-                        isDouble(text_postage.getText()) ? Double.parseDouble(text_total.getText()) : 0,
-                        isDouble(text_bazaarCharges.getText()) ? Double.parseDouble(text_total.getText()) : 0,
-                        isDouble(text_otherExpenses.getText()) ? Double.parseDouble(text_total.getText()) : 0
-                );
+        label_err.setVisible(false);
+        String partyName = text_partyName.getText().trim();
 
-        // TODO: update values using the recordId
-        long recordId = record.getValue().recordId();
+        if (partyName.isEmpty()) {
+            displayError("Please enter the Party Name.");
+        } else if (!AutoSuggestions.PartyNames.contains(partyName)) {
+            displayError("Party does not exist.");
+        } else {
+            long recordId = record.getValue().recordId();
 
-        ArrayList<SupplyItemDetail> supplyItemDetails = new ArrayList<>();
-        for (int i = 6; i <= 251; i += 5) {
-            String item = ((AutoCompleteTextField) gridPane.getChildren().get(i)).getText();
-            String qty = ((DecimalTextField) gridPane.getChildren().get(i + 1)).getText();
-            String price = ((DecimalTextField) gridPane.getChildren().get(i + 2)).getText();
+            SupplyOutwardRecord supplyOutwardRecord =
+                    new SupplyOutwardRecord(
+                            recordId, LocalData.getInstance().getFirmName(), partyName,
+                            isDouble(text_total.getText()) ? Double.parseDouble(text_total.getText()) : 0,
+                            LocalDate.now(),
+                            isDouble(text_biltiCharge.getText()) ? Double.parseDouble(text_total.getText()) : 0,
+                            isDouble(text_bardana.getText()) ? Double.parseDouble(text_total.getText()) : 0,
+                            isDouble(text_labourCost.getText()) ? Double.parseDouble(text_total.getText()) : 0,
+                            isDouble(text_commission.getText()) ? Double.parseDouble(text_total.getText()) : 0,
+                            isDouble(text_postage.getText()) ? Double.parseDouble(text_total.getText()) : 0,
+                            isDouble(text_bazaarCharges.getText()) ? Double.parseDouble(text_total.getText()) : 0,
+                            isDouble(text_otherExpenses.getText()) ? Double.parseDouble(text_total.getText()) : 0
+                    );
 
-            if (isValid(item, qty, price)) {
-                SupplyItemDetail supplyItemDetail =
-                        new SupplyItemDetail(recordId, item, Double.parseDouble(qty), Double.parseDouble(price));
-                supplyItemDetails.add(supplyItemDetail);
+            ArrayList<SupplyItemDetail> supplyItemDetails = new ArrayList<>();
+            int i = 6;
+            for (; i <= 251; i += 5) {
+                String item = ((AutoCompleteTextField) gridPane.getChildren().get(i)).getText();
+                String qty = ((DecimalTextField) gridPane.getChildren().get(i + 1)).getText();
+                String price = ((DecimalTextField) gridPane.getChildren().get(i + 2)).getText();
+
+                if (item.isEmpty() && qty.isEmpty() && price.isEmpty()) {
+                    continue;
+                } else if (item.isEmpty()) {
+                    displayError("An Item Name is missing");
+                    break;
+                } else if (!AutoSuggestions.ItemNames.contains(item)) {
+                    displayError("Item does not exist.");
+                    break;
+                } else if (!isDouble(qty)) {
+                    displayError("A Quantity is missing or invalid.");
+                    break;
+                } else if (!isDouble(price)) {
+                    displayError("A Price is missing or invalid.");
+                    break;
+                } else {
+                    SupplyItemDetail supplyItemDetail =
+                            new SupplyItemDetail(recordId, item, Double.parseDouble(qty), Double.parseDouble(price));
+                    supplyItemDetails.add(supplyItemDetail);
+                }
+            }
+
+            if (i > 251) {
+                db.updateSupplyOutwardRecord(supplyOutwardRecord);
+                db.deleteSupplyItemDetailsFor(recordId);
+                db.addSupplyItemDetails(supplyItemDetails);
+                ViewSelected.getInstance().setSelected(ViewSelected.Dashboard);
             }
         }
-
-        // TODO: remove existing entries with this recordId and add new ones to DB
     }
 
     private void makeNotEditable(TextField... textFields) {
@@ -200,8 +235,9 @@ public class EditRecordController implements Initializable {
         text_otherExpenses.textProperty().addListener((observableVal, oldVal, newVal) -> updateTotal(oldVal, newVal));
     }
 
-    private boolean isValid(String item, String qty, String price) {
-        return !item.isEmpty() && isDouble(qty) && isDouble(price);
+    private void displayError(String msg) {
+        label_err.setText(msg);
+        label_err.setVisible(true);
     }
 
     private boolean isDouble(String val) {

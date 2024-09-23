@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.supplyrecord.supplyrecords.customComponents.AutoCompleteTextField?>
 <?import com.supplyrecord.supplyrecords.customComponents.DecimalTextField?>
-<?import com.supplyrecord.supplyrecords.customComponents.UppercaseTextField?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
@@ -23,7 +23,7 @@
                      <Insets right="8.0" top="6.0" />
                   </HBox.margin>
                </Label>
-               <UppercaseTextField fx:id="text_supplierName" />
+               <AutoCompleteTextField fx:id="text_supplierName" />
             </children>
             <VBox.margin>
                <Insets />
@@ -95,6 +95,18 @@
             <VBox.margin>
                <Insets left="400.0" top="200.0" />
             </VBox.margin></Button>
+         <HBox alignment="CENTER" prefWidth="200.0">
+            <children>
+               <Label fx:id="label_err" styleClass="err_label" visible="false">
+                  <HBox.margin>
+                     <Insets />
+                  </HBox.margin>
+               </Label>
+            </children>
+            <VBox.margin>
+               <Insets top="6.0" />
+            </VBox.margin>
+         </HBox>
       </children>
       <padding>
          <Insets bottom="20.0" left="40.0" right="40.0" top="20.0" />

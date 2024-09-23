@@ -4,7 +4,6 @@ import com.supplyrecord.supplyrecords.Database.DatabaseApi;
 import com.supplyrecord.supplyrecords.Database.DatabaseImpl;
 import com.supplyrecord.supplyrecords.Models.DataClasses.PaymentRecord;
 import com.supplyrecord.supplyrecords.Models.DataClasses.SupplyInwardRecord;
-import com.supplyrecord.supplyrecords.Models.DataClasses.SupplyItemDetail;
 import com.supplyrecord.supplyrecords.Models.DataClasses.SupplyOutwardRecord;
 
 import java.util.ArrayList;
@@ -70,11 +69,5 @@ public class LocalData {
 
     public ArrayList<PaymentRecord> getPaymentsReceivedList() {
         return paymentsReceivedList;
-    }
-
-    // TODO: Should be moved to DB interface
-    public ArrayList<SupplyItemDetail> fetchSupplyItemDetailsFor(long recordId) {
-        // TODO: fetch data using record_id
-        return SupplyItemDetail.generateDummyData();
     }
 }
