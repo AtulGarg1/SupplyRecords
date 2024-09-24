@@ -46,8 +46,8 @@ public class EditController implements Initializable {
         TextField bankName = new TextField(paymentRecord.bankName());
         TextField date = new TextField(paymentRecord.formattedDate());
 
-        makeFieldsNonEditable(sno, partyName, amount, date);
-        attachOnClickListener(paymentRecord, sno, partyName, amount, date);
+        makeFieldsNonEditable(sno, partyName, amount, bankName, date);
+        attachOnClickListener(paymentRecord, sno, partyName, amount, bankName, date);
 
         gridPane.add(sno, 0, rowNo);
         gridPane.add(partyName, 1, rowNo);

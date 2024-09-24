@@ -32,6 +32,7 @@ public class EditRecordController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         db = new DatabaseImpl();
         text_partyName.getSuggestions().addAll(AutoSuggestions.PartyNames);
+        text_bankName.getSuggestions().addAll(AutoSuggestions.BankNames);
         fillValues();
         record.addListener((observableVal, oldVal, newVal) -> fillValues());
     }

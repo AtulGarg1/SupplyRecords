@@ -8,7 +8,20 @@ import com.supplyrecord.supplyrecords.Models.DataClasses.SupplyOutwardRecord;
 import java.util.ArrayList;
 
 public interface DatabaseApi {
+    /* ----CREATE---- */
     void createFirm(String firmName, String password);
+
+    void addBankAccount(String bank);
+    void addParty(String party);
+    void addSupplier(String supplier);
+    void addItem(String item);
+
+    void addSupplyInwardRecord(SupplyInwardRecord supplyInwardRecord);
+    void addSupplyOutwardRecord(SupplyOutwardRecord supplyOutwardRecord);
+    void addSupplyItemDetails(ArrayList<SupplyItemDetail> supplyItemDetails);
+    void addPaymentRecord(PaymentRecord paymentRecord);
+
+    /* ----READ---- */
     boolean verifyLogin(String firmName, String password);
 
     ArrayList<String> fetchFirmNames();
@@ -19,26 +32,17 @@ public interface DatabaseApi {
 
     ArrayList<SupplyInwardRecord> fetchSupplyInwardRecordsList(String firmName);
     ArrayList<SupplyOutwardRecord> fetchSupplyOutwardRecordsList(String firmName);
+    ArrayList<SupplyItemDetail> fetchSupplyItemDetailsFor(long recordId);
     ArrayList<PaymentRecord> fetchPaymentsMadeList(String firmName);
     ArrayList<PaymentRecord> fetchPaymentsReceivedList(String firmName);
-    ArrayList<SupplyItemDetail> fetchSupplyItemDetailsFor(long recordId);
 
-    void addBankAccount(String bank);
-    void addParty(String party);
-    void addSupplier(String supplier);
-    void addItem(String item);
-
-    void addSupplyInwardRecord(SupplyInwardRecord supplyInwardRecord);
     long getLatestRecordId();
-    void addSupplyItemDetails(ArrayList<SupplyItemDetail> supplyItemDetails);
 
+    /* ----UPDATE---- */
     void updateSupplyInwardRecord(SupplyInwardRecord supplyInwardRecord);
-    void deleteSupplyItemDetailsFor(long recordId);
-
-    void addSupplyOutwardRecord(SupplyOutwardRecord supplyOutwardRecord);
-
     void updateSupplyOutwardRecord(SupplyOutwardRecord supplyOutwardRecord);
-
-    void addPaymentRecord(PaymentRecord paymentRecord);
     void updatePaymentRecord(PaymentRecord paymentRecord);
+
+    /* ----DELETE---- */
+    void deleteSupplyItemDetailsFor(long recordId);
 }

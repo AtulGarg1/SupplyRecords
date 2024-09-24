@@ -8,7 +8,7 @@ import com.supplyrecord.supplyrecords.Models.DataClasses.SupplyOutwardRecord;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class DatabaseImpl implements DatabaseApi{
+public class DatabaseImpl implements DatabaseApi {
     @Override
     public void createFirm(String firmName, String password) {
 
