@@ -23,7 +23,7 @@ import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class EditRecordController implements Initializable {
-    public AutoCompleteTextField text_supplierName;
+    public AutoCompleteTextField text_partyName;
     public GridPane gridPane;
     public DecimalTextField text_total;
     public Button btn_save;
@@ -35,7 +35,7 @@ public class EditRecordController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         db = new DatabaseImpl();
-        text_supplierName.getSuggestions().addAll(AutoSuggestions.SupplierNames);
+        text_partyName.getSuggestions().addAll(AutoSuggestions.PartyNames);
         makeNotEditable(text_total);
         fillValues();
         record.addListener((observableVal, oldVal, newVal) -> fillValues());
@@ -45,7 +45,7 @@ public class EditRecordController implements Initializable {
         gridPane.getChildren().removeIf(TextField.class::isInstance);
         SupplyInwardRecord supplyInwardRecord = record.getValue();
 
-        text_supplierName.setText(String.valueOf(supplyInwardRecord.supplierName()));
+        text_partyName.setText(String.valueOf(supplyInwardRecord.partyName()));
 
         ArrayList<SupplyItemDetail> supplyItemDetails =
                 db.fetchSupplyItemDetailsFor(supplyInwardRecord.recordId());
@@ -101,18 +101,18 @@ public class EditRecordController implements Initializable {
 
     public void onSave() {
         label_err.setVisible(false);
-        String supplierName = text_supplierName.getText().trim();
+        String partyName = text_partyName.getText().trim();
 
-        if (supplierName.isEmpty()) {
-            displayError("Please enter the Supplier Name.");
-        } else if (!AutoSuggestions.SupplierNames.contains(supplierName)) {
-            displayError("Supplier does not exist.");
+        if (partyName.isEmpty()) {
+            displayError("Please enter the Party Name.");
+        } else if (!AutoSuggestions.PartyNames.contains(partyName)) {
+            displayError("Party does not exist.");
         } else {
             long recordId = record.getValue().recordId();
 
             SupplyInwardRecord supplyInwardRecord =
                     new SupplyInwardRecord(
-                            recordId, LocalData.getInstance().getFirmName(), supplierName,
+                            recordId, LocalData.getInstance().getFirmName(), partyName,
                             isDouble(text_total.getText()) ? Double.parseDouble(text_total.getText()) : 0,
                             LocalDate.now()
                     );

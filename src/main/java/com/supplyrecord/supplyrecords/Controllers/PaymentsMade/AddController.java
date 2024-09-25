@@ -28,7 +28,7 @@ public class AddController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         db = new DatabaseImpl();
-        text_partyName.getSuggestions().addAll(AutoSuggestions.SupplierNames);
+        text_partyName.getSuggestions().addAll(AutoSuggestions.PartyNames);
         text_bankName.getSuggestions().addAll(AutoSuggestions.BankNames);
     }
 
@@ -43,7 +43,7 @@ public class AddController implements Initializable {
             displayError("Please enter an Amount.");
         } else if (bankName.isEmpty()) {
             displayError("Please enter a Bank Name.");
-        } else if (!AutoSuggestions.SupplierNames.contains(partyName)) {
+        } else if (!AutoSuggestions.PartyNames.contains(partyName)) {
             displayError("Party Name does not exist.");
         } else if (!isDouble(amount)) {
             displayError("Please enter a valid Amount.");

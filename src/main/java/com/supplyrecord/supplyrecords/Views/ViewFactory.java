@@ -274,13 +274,6 @@ public class ViewFactory {
         stage.show();
     }
 
-    public void showAddSupplierWindow() {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/Fxml/Add/AddSupplier.fxml"));
-        Stage stage = setStage(fxmlLoader, "Add Supplier");
-        stage.initModality(Modality.APPLICATION_MODAL);
-        stage.show();
-    }
-
     public void showAddBankAccountWindow() {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/Fxml/Add/AddBankAccount.fxml"));
         Stage stage = setStage(fxmlLoader, "Add Bank Account");

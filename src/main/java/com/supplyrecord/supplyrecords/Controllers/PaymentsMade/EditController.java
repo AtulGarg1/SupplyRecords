@@ -26,7 +26,7 @@ public class EditController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        text_partyName.getSuggestions().addAll(AutoSuggestions.SupplierNames);
+        text_partyName.getSuggestions().addAll(AutoSuggestions.PartyNames);
         list = filteredList = LocalData.getInstance().getPaymentsMadeList();
         setupGridPane();
     }

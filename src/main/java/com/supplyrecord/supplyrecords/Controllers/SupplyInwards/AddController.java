@@ -9,7 +9,6 @@ import com.supplyrecord.supplyrecords.Models.ViewSelected;
 import com.supplyrecord.supplyrecords.customComponents.AutoCompleteTextField;
 import com.supplyrecord.supplyrecords.customComponents.DecimalTextField;
 import com.supplyrecord.supplyrecords.Models.AutoSuggestions;
-import com.supplyrecord.supplyrecords.customComponents.UppercaseTextField;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -23,7 +22,7 @@ import java.util.ResourceBundle;
 
 public class AddController implements Initializable {
     public GridPane gridPane;
-    public AutoCompleteTextField text_supplierName;
+    public AutoCompleteTextField text_partyName;
     public DecimalTextField text_total;
     public Button btn_save;
     public Label label_err;
@@ -33,7 +32,7 @@ public class AddController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         db = new DatabaseImpl();
-        text_supplierName.getSuggestions().addAll(AutoSuggestions.SupplierNames);
+        text_partyName.getSuggestions().addAll(AutoSuggestions.PartyNames);
         makeNotEditable(text_total);
         setupGridPane();
     }
@@ -90,16 +89,16 @@ public class AddController implements Initializable {
 
     public void onSave() {
         label_err.setVisible(false);
-        String supplierName = text_supplierName.getText().trim();
+        String partyName = text_partyName.getText().trim();
 
-        if (supplierName.isEmpty()) {
-            displayError("Please enter the Supplier Name.");
-        } else if (!AutoSuggestions.SupplierNames.contains(supplierName)) {
-            displayError("Supplier does not exist.");
+        if (partyName.isEmpty()) {
+            displayError("Please enter the Party Name.");
+        } else if (!AutoSuggestions.PartyNames.contains(partyName)) {
+            displayError("Party does not exist.");
         } else {
             SupplyInwardRecord supplyInwardRecord =
                     new SupplyInwardRecord(
-                            -1, LocalData.getInstance().getFirmName(), supplierName,
+                            -1, LocalData.getInstance().getFirmName(), partyName,
                             isDouble(text_total.getText()) ? Double.parseDouble(text_total.getText()) : 0,
                             LocalDate.now()
                     );

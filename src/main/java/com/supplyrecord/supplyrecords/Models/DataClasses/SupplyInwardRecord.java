@@ -7,14 +7,14 @@ import java.util.Arrays;
 import java.util.stream.Collectors;
 
 public record SupplyInwardRecord(
-        long recordId, String firmName, String supplierName, double totalAmount, LocalDate date
+        long recordId, String firmName, String partyName, double totalAmount, LocalDate date
 ) {
-    public record Filter(String supplierName, LocalDate dateFrom, LocalDate dateTo) {}
+    public record Filter(String partyName, LocalDate dateFrom, LocalDate dateTo) {}
 
     public static ArrayList<SupplyInwardRecord> filterList(ArrayList<SupplyInwardRecord> list, Filter filter) {
         return (ArrayList<SupplyInwardRecord>) list.stream()
                 .filter(item ->
-                        (filter.supplierName.isEmpty() || item.supplierName.equals(filter.supplierName)) &&
+                        (filter.partyName.isEmpty() || item.partyName.equals(filter.partyName)) &&
                         (filter.dateFrom == null || (item.date.isEqual(filter.dateFrom) || item.date.isAfter(filter.dateFrom))) &&
                         (filter.dateTo == null || (item.date.isEqual(filter.dateTo) || item.date.isBefore(filter.dateTo)))
                 )

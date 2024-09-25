@@ -7,7 +7,6 @@ import com.supplyrecord.supplyrecords.Models.ViewSelected;
 import com.supplyrecord.supplyrecords.customComponents.AutoCompleteTextField;
 import javafx.fxml.Initializable;
 import javafx.scene.control.DatePicker;
-import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
@@ -17,7 +16,7 @@ import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class EditController implements Initializable {
-    public AutoCompleteTextField text_supplierName;
+    public AutoCompleteTextField text_partyName;
     public DatePicker dp_dateFrom;
     public DatePicker dp_dateTo;
     public GridPane gridPane;
@@ -27,7 +26,7 @@ public class EditController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        text_supplierName.getSuggestions().addAll(AutoSuggestions.SupplierNames);
+        text_partyName.getSuggestions().addAll(AutoSuggestions.PartyNames);
         list = filteredList = LocalData.getInstance().getSupplyInwardRecordsList();
         setupGridPane();
     }
@@ -42,22 +41,22 @@ public class EditController implements Initializable {
         SupplyInwardRecord supplyInwardRecord = filteredList.get(index);
 
         TextField sno = new TextField((index+1) + ".");
-        TextField supplierName = new TextField(supplyInwardRecord.supplierName());
+        TextField partyName = new TextField(supplyInwardRecord.partyName());
         TextField totalAmount = new TextField("₹" + supplyInwardRecord.totalAmount());
         TextField date = new TextField(supplyInwardRecord.formattedDate());
 
-        makeFieldsNonEditable(sno, supplierName, totalAmount, date);
-        attachOnClickListener(supplyInwardRecord, sno, supplierName, totalAmount, date);
+        makeFieldsNonEditable(sno, partyName, totalAmount, date);
+        attachOnClickListener(supplyInwardRecord, sno, partyName, totalAmount, date);
 
         gridPane.add(sno, 0, rowNo);
-        gridPane.add(supplierName, 1, rowNo);
+        gridPane.add(partyName, 1, rowNo);
         gridPane.add(totalAmount, 2, rowNo);
         gridPane.add(date, 3, rowNo);
     }
 
     public void onSearch() {
         SupplyInwardRecord.Filter filter = new SupplyInwardRecord.Filter(
-                text_supplierName.getText().trim(),
+                text_partyName.getText().trim(),
                 dp_dateFrom.getValue(),
                 dp_dateTo.getValue()
         );
@@ -67,7 +66,7 @@ public class EditController implements Initializable {
 
     public void onClear() {
         filteredList = list;
-        text_supplierName.setText("");
+        text_partyName.setText("");
         dp_dateTo.getEditor().setText("");
         dp_dateFrom.getEditor().setText("");
         setupGridPane();

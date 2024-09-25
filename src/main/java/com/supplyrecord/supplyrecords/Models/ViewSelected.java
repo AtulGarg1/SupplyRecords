@@ -43,7 +43,6 @@ public class ViewSelected {
     public static final String EditPaymentsMade = "edit_payments_made";
     public static final String ListPaymentsMade = "list_payments_made";
 
-    public static final String AddPaymentsReceived = "add_payments_received";
     public static final String EditPaymentsReceived = "edit_payments_received";
     public static final String ListPaymentsReceived = "list_payments_received";
 }

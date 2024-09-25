@@ -3,7 +3,6 @@ package com.supplyrecord.supplyrecords.Controllers.PaymentsMade;
 import com.supplyrecord.supplyrecords.Models.AutoSuggestions;
 import com.supplyrecord.supplyrecords.Models.DataClasses.PaymentRecord;
 import com.supplyrecord.supplyrecords.Models.LocalData;
-import com.supplyrecord.supplyrecords.Views.ViewFactory;
 import com.supplyrecord.supplyrecords.customComponents.AutoCompleteTextField;
 import javafx.fxml.Initializable;
 import javafx.scene.control.DatePicker;
@@ -25,7 +24,7 @@ public class ListController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        text_partyName.getSuggestions().addAll(AutoSuggestions.SupplierNames);
+        text_partyName.getSuggestions().addAll(AutoSuggestions.PartyNames);
         list = filteredList = LocalData.getInstance().getPaymentsMadeList();
         setupGridPane();
     }

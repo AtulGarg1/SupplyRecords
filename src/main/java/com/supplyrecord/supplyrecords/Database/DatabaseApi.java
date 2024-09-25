@@ -13,7 +13,7 @@ public interface DatabaseApi {
 
     void addBankAccount(String bank);
     void addParty(String party);
-    void addSupplier(String supplier);
+
     void addItem(String item);
 
     void addSupplyInwardRecord(SupplyInwardRecord supplyInwardRecord);
@@ -28,7 +28,6 @@ public interface DatabaseApi {
     ArrayList<String> fetchItemNames();
     ArrayList<String> fetchBankNames();
     ArrayList<String> fetchPartyNames();
-    ArrayList<String> fetchSupplierNames();
 
     ArrayList<SupplyInwardRecord> fetchSupplyInwardRecordsList(String firmName);
     ArrayList<SupplyOutwardRecord> fetchSupplyOutwardRecordsList(String firmName);

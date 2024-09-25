@@ -9,7 +9,6 @@ import com.supplyrecord.supplyrecords.customComponents.UppercaseTextField;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.fxml.Initializable;
-import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 
@@ -18,7 +17,7 @@ import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class ListRecordController implements Initializable {
-    public UppercaseTextField text_supplierName;
+    public UppercaseTextField text_partyName;
     public GridPane gridPane;
     public DecimalTextField text_total;
 
@@ -28,7 +27,7 @@ public class ListRecordController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         db = new DatabaseImpl();
-        makeFieldsNonEditable(text_supplierName, text_total);
+        makeFieldsNonEditable(text_partyName, text_total);
         fillValues();
         record.addListener((observableVal, oldVal, newVal) -> fillValues());
     }
@@ -37,7 +36,7 @@ public class ListRecordController implements Initializable {
         gridPane.getChildren().removeIf(TextField.class::isInstance);
         SupplyInwardRecord supplyInwardRecord = record.getValue();
 
-        text_supplierName.setText(String.valueOf(supplyInwardRecord.supplierName()));
+        text_partyName.setText(String.valueOf(supplyInwardRecord.partyName()));
 
         ArrayList<SupplyItemDetail> supplyItemDetails =
                 db.fetchSupplyItemDetailsFor(supplyInwardRecord.recordId());

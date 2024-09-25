@@ -31,12 +31,7 @@ public class DatabaseImpl implements DatabaseApi {
 
     @Override
     public ArrayList<String> fetchPartyNames() {
-        return new ArrayList<>(Arrays.asList("LT/CH", "OD", "ST/CH", "GT/KLK"));
-    }
-
-    @Override
-    public ArrayList<String> fetchSupplierNames() {
-        return new ArrayList<>(Arrays.asList("DEV SHRI", "KRISHNA TRADING", "MANISHA TRADING", "MA TRADERS"));
+        return new ArrayList<>(Arrays.asList("LT/CH", "OD", "ST/CH", "GT/KLK", "DEV SHRI", "RV TRADERS", "JKTC", "ATC"));
     }
 
     @Override
@@ -71,11 +66,6 @@ public class DatabaseImpl implements DatabaseApi {
 
     @Override
     public void addParty(String party) {
-
-    }
-
-    @Override
-    public void addSupplier(String supplier) {
 
     }
 
