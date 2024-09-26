@@ -60,7 +60,7 @@ public class ListRecordController implements Initializable {
         text_otherExpenses.setText(String.valueOf(supplyOutwardRecord.otherExpenses()));
 
         ArrayList<SupplyItemDetail> supplyItemDetails =
-                db.fetchSupplyItemDetailsFor(supplyOutwardRecord.recordId());
+                db.fetchSupplyOutwardItemDetailsFor(supplyOutwardRecord.recordId());
         double subTotal = 0;
 
         for (int i = 0; i < supplyItemDetails.size(); i++) {

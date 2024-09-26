@@ -133,9 +133,11 @@ public class AddController implements Initializable {
             }
 
             if (i > 251) {
+                LocalData.getInstance().getSupplyInwardRecordsList().add(supplyInwardRecord);
                 db.addSupplyInwardRecord(supplyInwardRecord);
-                long recordId = db.getLatestRecordId(); //TODO: figure out how to set recordId
-                db.addSupplyItemDetails(supplyItemDetails);
+                long recordId = db.getLatestRecordId();
+                db.addSupplyInwardItemDetails(supplyItemDetails, recordId);
+
                 ViewSelected.getInstance().setSelected(ViewSelected.Dashboard);
             }
         }

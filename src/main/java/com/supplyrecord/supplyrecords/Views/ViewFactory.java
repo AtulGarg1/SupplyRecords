@@ -48,27 +48,21 @@ public class ViewFactory {
     }
 
     public AnchorPane getAddSupplyInwardsView() {
-        if (addSupplyInwardsView == null) {
-            try {
-                addSupplyInwardsView =
-                        new FXMLLoader(getClass().getResource("/Fxml/SupplyInwards/Add.fxml")).load();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+        try {
+            return new FXMLLoader(getClass().getResource("/Fxml/SupplyInwards/Add.fxml")).load();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        return addSupplyInwardsView;
+        return null;
     }
 
     public AnchorPane getEditSupplyInwardsView() {
-        if (editSupplyInwardsView == null) {
-            try {
-                editSupplyInwardsView =
-                        new FXMLLoader(getClass().getResource("/Fxml/SupplyInwards/Edit.fxml")).load();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+        try {
+            return new FXMLLoader(getClass().getResource("/Fxml/SupplyInwards/Edit.fxml")).load();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        return editSupplyInwardsView;
+        return null;
     }
 
     public AnchorPane getEditRecordSupplyInwardsView() {
@@ -84,15 +78,12 @@ public class ViewFactory {
     }
 
     public AnchorPane getListSupplyInwardsView() {
-        if (listSupplyInwardsView == null) {
-            try {
-                listSupplyInwardsView =
-                        new FXMLLoader(getClass().getResource("/Fxml/SupplyInwards/List.fxml")).load();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+        try {
+            return new FXMLLoader(getClass().getResource("/Fxml/SupplyInwards/List.fxml")).load();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        return listSupplyInwardsView;
+        return null;
     }
 
     public AnchorPane getListRecordSupplyInwardsView() {
@@ -108,27 +99,21 @@ public class ViewFactory {
     }
 
     public AnchorPane getAddSupplyOutwardsView() {
-        if (addSupplyOutwardsView == null) {
-            try {
-                addSupplyOutwardsView =
-                        new FXMLLoader(getClass().getResource("/Fxml/SupplyOutwards/Add.fxml")).load();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+        try {
+            return new FXMLLoader(getClass().getResource("/Fxml/SupplyOutwards/Add.fxml")).load();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        return addSupplyOutwardsView;
+        return null;
     }
 
     public AnchorPane getEditSupplyOutwardsView() {
-        if (editSupplyOutwardsView == null) {
-            try {
-                editSupplyOutwardsView =
-                        new FXMLLoader(getClass().getResource("/Fxml/SupplyOutwards/Edit.fxml")).load();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+        try {
+            return new FXMLLoader(getClass().getResource("/Fxml/SupplyOutwards/Edit.fxml")).load();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        return editSupplyOutwardsView;
+        return null;
     }
 
     public AnchorPane getEditRecordSupplyOutwardsView() {
@@ -144,15 +129,12 @@ public class ViewFactory {
     }
 
     public AnchorPane getListSupplyOutwardsView() {
-        if (listSupplyOutwardsView == null) {
-            try {
-                listSupplyOutwardsView =
-                        new FXMLLoader(getClass().getResource("/Fxml/SupplyOutwards/List.fxml")).load();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+        try {
+            return new FXMLLoader(getClass().getResource("/Fxml/SupplyOutwards/List.fxml")).load();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        return listSupplyOutwardsView;
+        return null;
     }
 
     public AnchorPane getListRecordSupplyOutwardsView() {

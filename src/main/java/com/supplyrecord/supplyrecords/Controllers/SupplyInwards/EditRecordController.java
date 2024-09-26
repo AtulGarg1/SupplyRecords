@@ -48,7 +48,7 @@ public class EditRecordController implements Initializable {
         text_partyName.setText(String.valueOf(supplyInwardRecord.partyName()));
 
         ArrayList<SupplyItemDetail> supplyItemDetails =
-                db.fetchSupplyItemDetailsFor(supplyInwardRecord.recordId());
+                db.fetchSupplyInwardItemDetailsFor(supplyInwardRecord.recordId());
 
         for (SupplyItemDetail supplyItemDetail : supplyItemDetails) {
             int rowNo = gridPane.getRowCount();
@@ -148,7 +148,7 @@ public class EditRecordController implements Initializable {
             if (i > 251) {
                 db.updateSupplyInwardRecord(supplyInwardRecord);
                 db.deleteSupplyItemDetailsFor(recordId);
-                db.addSupplyItemDetails(supplyItemDetails);
+                db.addSupplyInwardItemDetails(supplyItemDetails, recordId);
                 ViewSelected.getInstance().setSelected(ViewSelected.Dashboard);
             }
         }

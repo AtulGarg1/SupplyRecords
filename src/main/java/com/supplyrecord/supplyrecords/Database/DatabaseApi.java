@@ -18,7 +18,8 @@ public interface DatabaseApi {
 
     void addSupplyInwardRecord(SupplyInwardRecord supplyInwardRecord);
     void addSupplyOutwardRecord(SupplyOutwardRecord supplyOutwardRecord);
-    void addSupplyItemDetails(ArrayList<SupplyItemDetail> supplyItemDetails);
+    void addSupplyInwardItemDetails(ArrayList<SupplyItemDetail> supplyItemDetails, long recordId);
+    void addSupplyOutwardItemDetails(ArrayList<SupplyItemDetail> supplyItemDetails, long recordId);
     void addPaymentRecord(PaymentRecord paymentRecord);
 
     /* ----READ---- */
@@ -31,7 +32,8 @@ public interface DatabaseApi {
 
     ArrayList<SupplyInwardRecord> fetchSupplyInwardRecordsList(String firmName);
     ArrayList<SupplyOutwardRecord> fetchSupplyOutwardRecordsList(String firmName);
-    ArrayList<SupplyItemDetail> fetchSupplyItemDetailsFor(long recordId);
+    ArrayList<SupplyItemDetail> fetchSupplyInwardItemDetailsFor(long recordId);
+    ArrayList<SupplyItemDetail> fetchSupplyOutwardItemDetailsFor(long recordId);
     ArrayList<PaymentRecord> fetchPaymentsMadeList(String firmName);
     ArrayList<PaymentRecord> fetchPaymentsReceivedList(String firmName);
 

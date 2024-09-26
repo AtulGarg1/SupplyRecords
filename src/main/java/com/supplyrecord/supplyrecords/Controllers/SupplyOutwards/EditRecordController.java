@@ -65,7 +65,7 @@ public class EditRecordController implements Initializable {
         text_otherExpenses.setText(String.valueOf(supplyOutwardRecord.otherExpenses()));
 
         ArrayList<SupplyItemDetail> supplyItemDetails =
-                db.fetchSupplyItemDetailsFor(supplyOutwardRecord.recordId());
+                db.fetchSupplyOutwardItemDetailsFor(supplyOutwardRecord.recordId());
         double subTotal = 0;
 
         for (SupplyItemDetail supplyItemDetail : supplyItemDetails) {
@@ -176,7 +176,7 @@ public class EditRecordController implements Initializable {
             if (i > 251) {
                 db.updateSupplyOutwardRecord(supplyOutwardRecord);
                 db.deleteSupplyItemDetailsFor(recordId);
-                db.addSupplyItemDetails(supplyItemDetails);
+                db.addSupplyOutwardItemDetails(supplyItemDetails, recordId);
                 ViewSelected.getInstance().setSelected(ViewSelected.Dashboard);
             }
         }

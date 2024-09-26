@@ -39,7 +39,7 @@ public class ListRecordController implements Initializable {
         text_partyName.setText(String.valueOf(supplyInwardRecord.partyName()));
 
         ArrayList<SupplyItemDetail> supplyItemDetails =
-                db.fetchSupplyItemDetailsFor(supplyInwardRecord.recordId());
+                db.fetchSupplyInwardItemDetailsFor(supplyInwardRecord.recordId());
 
         for (int i = 0; i < supplyItemDetails.size(); i++) {
             SupplyItemDetail supplyItemDetail = supplyItemDetails.get(i);

@@ -55,7 +55,12 @@ public class DatabaseImpl implements DatabaseApi {
     }
 
     @Override
-    public ArrayList<SupplyItemDetail> fetchSupplyItemDetailsFor(long recordId) {
+    public ArrayList<SupplyItemDetail> fetchSupplyInwardItemDetailsFor(long recordId) {
+        return SupplyItemDetail.generateDummyData();
+    }
+
+    @Override
+    public ArrayList<SupplyItemDetail> fetchSupplyOutwardItemDetailsFor(long recordId) {
         return SupplyItemDetail.generateDummyData();
     }
 
@@ -85,11 +90,6 @@ public class DatabaseImpl implements DatabaseApi {
     }
 
     @Override
-    public void addSupplyItemDetails(ArrayList<SupplyItemDetail> supplyItemDetails) {
-
-    }
-
-    @Override
     public void updateSupplyInwardRecord(SupplyInwardRecord supplyInwardRecord) {
 
     }
@@ -101,6 +101,16 @@ public class DatabaseImpl implements DatabaseApi {
 
     @Override
     public void addSupplyOutwardRecord(SupplyOutwardRecord supplyOutwardRecord) {
+
+    }
+
+    @Override
+    public void addSupplyInwardItemDetails(ArrayList<SupplyItemDetail> supplyItemDetails, long recordId) {
+
+    }
+
+    @Override
+    public void addSupplyOutwardItemDetails(ArrayList<SupplyItemDetail> supplyItemDetails, long recordId) {
 
     }
 
