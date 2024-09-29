@@ -1,5 +1,6 @@
 package com.supplyrecord.supplyrecords.Database;
 
+import com.supplyrecord.supplyrecords.Models.AutoSuggestions;
 import com.supplyrecord.supplyrecords.Models.DataClasses.PaymentRecord;
 import com.supplyrecord.supplyrecords.Models.DataClasses.SupplyInwardRecord;
 import com.supplyrecord.supplyrecords.Models.DataClasses.SupplyItemDetail;
@@ -8,13 +9,13 @@ import com.supplyrecord.supplyrecords.Models.DataClasses.SupplyOutwardRecord;
 import java.util.ArrayList;
 
 public interface DatabaseApi {
+    void dbTest();
     /* ----CREATE---- */
     void createFirm(String firmName, String password);
 
     void addBankAccount(String bank);
     void addParty(String party);
-
-    void addItem(String item);
+    void addItem(AutoSuggestions.Item item);
 
     void addSupplyInwardRecord(SupplyInwardRecord supplyInwardRecord);
     void addSupplyOutwardRecord(SupplyOutwardRecord supplyOutwardRecord);
@@ -26,7 +27,7 @@ public interface DatabaseApi {
     boolean verifyLogin(String firmName, String password);
 
     ArrayList<String> fetchFirmNames();
-    ArrayList<String> fetchItemNames();
+    ArrayList<AutoSuggestions.Item> fetchItems();
     ArrayList<String> fetchBankNames();
     ArrayList<String> fetchPartyNames();
 

@@ -6,6 +6,7 @@ import com.supplyrecord.supplyrecords.Models.LocalData;
 import com.supplyrecord.supplyrecords.Models.ViewSelected;
 import com.supplyrecord.supplyrecords.customComponents.AutoCompleteTextField;
 import javafx.fxml.Initializable;
+import javafx.geometry.Pos;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
@@ -44,6 +45,8 @@ public class ListController implements Initializable {
         TextField partyName = new TextField(supplyInwardRecord.partyName());
         TextField totalAmount = new TextField("₹" + supplyInwardRecord.totalAmount());
         TextField date = new TextField(supplyInwardRecord.formattedDate());
+
+        totalAmount.setAlignment(Pos.CENTER_RIGHT);
 
         makeFieldsNonEditable(sno, partyName, totalAmount, date);
         attachOnClickListener(supplyInwardRecord, sno, partyName, totalAmount, date);

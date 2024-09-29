@@ -14,6 +14,7 @@ import com.supplyrecord.supplyrecords.customComponents.UppercaseTextField;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.fxml.Initializable;
+import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -77,10 +78,17 @@ public class EditRecordController implements Initializable {
             TextField sno = new TextField(rowNo + ".");
             AutoCompleteTextField itemName = new AutoCompleteTextField(supplyItemDetail.itemName(), AutoSuggestions.ItemNames);
             DecimalTextField qty = new DecimalTextField(String.valueOf(supplyItemDetail.qty()));
+            UppercaseTextField unit = new UppercaseTextField(AutoSuggestions.getUnit(supplyItemDetail.itemName()));
             DecimalTextField price = new DecimalTextField(String.valueOf(supplyItemDetail.price()));
             DecimalTextField total = new DecimalTextField(String.valueOf(itemTotal));
 
             makeNotEditable(sno, total);
+
+            qty.setAlignment(Pos.CENTER_RIGHT);
+            price.setAlignment(Pos.CENTER_RIGHT);
+            total.setAlignment(Pos.CENTER_RIGHT);
+
+            itemName.textProperty().addListener((observableVal, oldVal, newVal) -> changeUnit(unit, newVal));
 
             qty.textProperty().addListener((observableVal, oldVal, newVal) -> updateItemTotal(qty, price, total));
             price.textProperty().addListener((observableVal, oldVal, newVal) -> updateItemTotal(qty, price, total));
@@ -89,8 +97,10 @@ public class EditRecordController implements Initializable {
             gridPane.add(sno, 0, rowNo);
             gridPane.add(itemName, 1, rowNo);
             gridPane.add(qty, 2, rowNo);
-            gridPane.add(price, 3, rowNo);
-            gridPane.add(total, 4, rowNo);
+            gridPane.add(unit, 3, rowNo);
+            gridPane.add(price, 4, rowNo);
+            gridPane.add(total, 5, rowNo);
+
             subTotal += itemTotal;
         }
 
@@ -105,10 +115,17 @@ public class EditRecordController implements Initializable {
             TextField sno = new TextField(rowNo + ".");
             AutoCompleteTextField itemName = new AutoCompleteTextField(AutoSuggestions.ItemNames);
             DecimalTextField qty = new DecimalTextField();
+            UppercaseTextField unit = new UppercaseTextField();
             DecimalTextField price = new DecimalTextField();
             DecimalTextField total = new DecimalTextField();
 
             makeNotEditable(sno, total);
+
+            qty.setAlignment(Pos.CENTER_RIGHT);
+            price.setAlignment(Pos.CENTER_RIGHT);
+            total.setAlignment(Pos.CENTER_RIGHT);
+
+            itemName.textProperty().addListener((observableVal, oldVal, newVal) -> changeUnit(unit, newVal));
 
             qty.textProperty().addListener((observableVal, oldVal, newVal) -> updateItemTotal(qty, price, total));
             price.textProperty().addListener((observableVal, oldVal, newVal) -> updateItemTotal(qty, price, total));
@@ -117,8 +134,16 @@ public class EditRecordController implements Initializable {
             gridPane.add(sno, 0, rowNo);
             gridPane.add(itemName, 1, rowNo);
             gridPane.add(qty, 2, rowNo);
-            gridPane.add(price, 3, rowNo);
-            gridPane.add(total, 4, rowNo);
+            gridPane.add(unit, 3, rowNo);
+            gridPane.add(price, 4, rowNo);
+            gridPane.add(total, 5, rowNo);
+        }
+    }
+
+    private void changeUnit(TextField tf_unit, String itemName) {
+        String unit = AutoSuggestions.getUnit(itemName);
+        if (!unit.equals("")) {
+            tf_unit.setText(unit);
         }
     }
 

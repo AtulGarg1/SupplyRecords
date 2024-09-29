@@ -28,17 +28,16 @@ public class AddItemController implements Initializable {
     public void onSave() {
         String itemName = text_itemName.getText().trim();
         String unit = text_unit.getText().trim();
-        String itemUnit = itemWithUnit(itemName, unit);
 
         if (itemName.isEmpty()) {
             displayError("Please enter an Item Name.");
         } else if (unit.isEmpty()) {
             displayError("Please enter a Unit.");
-        } else if(AutoSuggestions.ItemNames.contains(itemUnit)) {
+        } else if(AutoSuggestions.ItemNames.contains(itemName)) {
             displayError("Item already exists.");
         } else {
-            AutoSuggestions.ItemNames.add(itemUnit);
-            db.addItem(itemUnit);
+            AutoSuggestions.addItem(itemName, unit);
+            db.addItem(new AutoSuggestions.Item(itemName, unit));
             getStage().close();
         }
     }
@@ -46,10 +45,6 @@ public class AddItemController implements Initializable {
     private void displayError(String msg) {
         label_err.setText(msg);
         label_err.setVisible(true);
-    }
-
-    private String itemWithUnit(String itemName, String unit) {
-        return itemName + " (" + unit + ")";
     }
 
     private Stage getStage() {

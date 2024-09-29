@@ -69,9 +69,9 @@
                            <padding>
                               <Insets left="8.0" />
                            </padding></Label>
-                        <Label maxWidth="100.0" minWidth="100.0" prefWidth="100.0" styleClass="bold_label" text="Amount" GridPane.columnIndex="2">
+                        <Label alignment="CENTER_RIGHT" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" styleClass="bold_label" text="Amount" GridPane.columnIndex="2">
                            <padding>
-                              <Insets left="8.0" />
+                              <Insets left="8.0" right="8.0" />
                            </padding></Label>
                         <Label maxWidth="100.0" minWidth="100.0" prefWidth="100.0" styleClass="bold_label" text="Date" GridPane.columnIndex="3">
                            <padding>

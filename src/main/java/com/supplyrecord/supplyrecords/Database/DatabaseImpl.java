@@ -1,14 +1,50 @@
 package com.supplyrecord.supplyrecords.Database;
 
+import com.supplyrecord.supplyrecords.Models.AutoSuggestions;
 import com.supplyrecord.supplyrecords.Models.DataClasses.PaymentRecord;
 import com.supplyrecord.supplyrecords.Models.DataClasses.SupplyInwardRecord;
 import com.supplyrecord.supplyrecords.Models.DataClasses.SupplyItemDetail;
 import com.supplyrecord.supplyrecords.Models.DataClasses.SupplyOutwardRecord;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Arrays;
 
 public class DatabaseImpl implements DatabaseApi {
+    private Connection connection;
+
+    private Connection getConnection() {
+        if (connection == null) {
+            try {
+                Class.forName("org.sqlite.JDBC");
+                connection = DriverManager.getConnection("jdbc:sqlite:supply-records.db");
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return connection;
+    }
+
+    @Override
+    public void dbTest() {
+        String query = "SELECT * FROM firm_credentials";
+        try {
+            Statement statement = getConnection().createStatement();
+            ResultSet result = statement.executeQuery(query);
+            while (result.next()) {
+                String name = result.getString("firm_name");
+                String pass = result.getString(2);
+
+                System.out.println("name: " + name + ", pass: " + pass);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     @Override
     public void createFirm(String firmName, String password) {
 
@@ -20,8 +56,13 @@ public class DatabaseImpl implements DatabaseApi {
     }
 
     @Override
-    public ArrayList<String> fetchItemNames() {
-        return new ArrayList<>(Arrays.asList("ALMOND (KILOS)", "KAJU (KILOS)", "AKHROT (BAGS)", "ANJEER (KILOS)", "PISTA (UNIT)"));
+    public ArrayList<AutoSuggestions.Item> fetchItems() {
+        return new ArrayList<>(Arrays.asList(
+                new AutoSuggestions.Item("ALMOND", "KGS"),
+                new AutoSuggestions.Item("CASHEW", "KGS"),
+                new AutoSuggestions.Item("WALNUT", "BAGS"),
+                new AutoSuggestions.Item("PISTA", "UNIT")
+        ));
     }
 
     @Override
@@ -75,7 +116,7 @@ public class DatabaseImpl implements DatabaseApi {
     }
 
     @Override
-    public void addItem(String item) {
+    public void addItem(AutoSuggestions.Item item) {
 
     }
 

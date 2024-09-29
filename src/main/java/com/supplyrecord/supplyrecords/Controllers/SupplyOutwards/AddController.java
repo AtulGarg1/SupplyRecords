@@ -9,7 +9,9 @@ import com.supplyrecord.supplyrecords.Models.ViewSelected;
 import com.supplyrecord.supplyrecords.customComponents.AutoCompleteTextField;
 import com.supplyrecord.supplyrecords.customComponents.DecimalTextField;
 import com.supplyrecord.supplyrecords.Models.AutoSuggestions;
+import com.supplyrecord.supplyrecords.customComponents.UppercaseTextField;
 import javafx.fxml.Initializable;
+import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -56,11 +58,17 @@ public class AddController implements Initializable {
         TextField sno = new TextField(rowNo + ".");
         AutoCompleteTextField item = new AutoCompleteTextField(AutoSuggestions.ItemNames);
         DecimalTextField qty = new DecimalTextField();
+        UppercaseTextField unit = new UppercaseTextField();
         DecimalTextField price = new DecimalTextField();
         DecimalTextField total = new DecimalTextField();
 
-        makeNotEditable(sno);
-        makeNotEditable(total);
+        makeNotEditable(sno, total);
+
+        qty.setAlignment(Pos.CENTER_RIGHT);
+        price.setAlignment(Pos.CENTER_RIGHT);
+        total.setAlignment(Pos.CENTER_RIGHT);
+
+        item.textProperty().addListener((observableVal, oldVal, newVal) -> changeUnit(unit, newVal));
 
         qty.textProperty().addListener((observableVal, oldVal, newVal) -> updateItemTotal(qty, price, total));
         price.textProperty().addListener((observableVal, oldVal, newVal) -> updateItemTotal(qty, price, total));
@@ -69,8 +77,16 @@ public class AddController implements Initializable {
         gridPane.add(sno, 0, rowNo);
         gridPane.add(item, 1, rowNo);
         gridPane.add(qty, 2, rowNo);
-        gridPane.add(price, 3, rowNo);
-        gridPane.add(total, 4, rowNo);
+        gridPane.add(unit, 3, rowNo);
+        gridPane.add(price, 4, rowNo);
+        gridPane.add(total, 5, rowNo);
+    }
+
+    private void changeUnit(TextField tf_unit, String itemName) {
+        String unit = AutoSuggestions.getUnit(itemName);
+        if (!unit.equals("")) {
+            tf_unit.setText(unit);
+        }
     }
 
     private void updateItemTotal(DecimalTextField tf_qty, DecimalTextField tf_price, DecimalTextField tf_total) {
