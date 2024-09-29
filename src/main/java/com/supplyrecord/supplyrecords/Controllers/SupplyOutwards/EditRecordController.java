@@ -3,6 +3,7 @@ package com.supplyrecord.supplyrecords.Controllers.SupplyOutwards;
 import com.supplyrecord.supplyrecords.Database.DatabaseApi;
 import com.supplyrecord.supplyrecords.Database.DatabaseImpl;
 import com.supplyrecord.supplyrecords.Models.AutoSuggestions;
+import com.supplyrecord.supplyrecords.Models.DataClasses.SupplyInwardRecord;
 import com.supplyrecord.supplyrecords.Models.DataClasses.SupplyOutwardRecord;
 import com.supplyrecord.supplyrecords.Models.DataClasses.SupplyItemDetail;
 import com.supplyrecord.supplyrecords.Models.LocalData;
@@ -40,6 +41,7 @@ public class EditRecordController implements Initializable {
 
     private DatabaseApi db;
     private static final ObjectProperty<SupplyOutwardRecord> record = new SimpleObjectProperty<>();
+    private ArrayList<SupplyItemDetail> oldSupplyItemDetails;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -64,11 +66,11 @@ public class EditRecordController implements Initializable {
         text_bazaarCharges.setText(String.valueOf(supplyOutwardRecord.bazaarCharges()));
         text_otherExpenses.setText(String.valueOf(supplyOutwardRecord.otherExpenses()));
 
-        ArrayList<SupplyItemDetail> supplyItemDetails =
+        oldSupplyItemDetails =
                 db.fetchSupplyOutwardItemDetailsFor(supplyOutwardRecord.recordId());
         double subTotal = 0;
 
-        for (SupplyItemDetail supplyItemDetail : supplyItemDetails) {
+        for (SupplyItemDetail supplyItemDetail : oldSupplyItemDetails) {
             int rowNo = gridPane.getRowCount();
             double itemTotal = supplyItemDetail.qty() * supplyItemDetail.price();
 
@@ -174,12 +176,36 @@ public class EditRecordController implements Initializable {
             }
 
             if (i > 251) {
-                db.updateSupplyOutwardRecord(supplyOutwardRecord);
-                db.deleteSupplyItemDetailsFor(recordId);
-                db.addSupplyOutwardItemDetails(supplyItemDetails, recordId);
+                LocalData.getInstance().updateSupplyOutwardRecordsList(supplyOutwardRecord);
+                persistToDb(supplyOutwardRecord, supplyItemDetails);
                 ViewSelected.getInstance().setSelected(ViewSelected.Dashboard);
             }
         }
+    }
+
+    private void persistToDb(SupplyOutwardRecord supplyOutwardRecord, ArrayList<SupplyItemDetail> newList) {
+        db.updateSupplyOutwardRecord(supplyOutwardRecord);
+        diff(oldSupplyItemDetails, newList, supplyOutwardRecord.recordId());
+    }
+
+    private void diff(ArrayList<SupplyItemDetail> oldList, ArrayList<SupplyItemDetail> newList, long recordId) {
+        ArrayList<SupplyItemDetail> toBeRemoved = new ArrayList<>();
+        ArrayList<SupplyItemDetail> toBeInserted = new ArrayList<>();
+        int lim = Math.min(oldList.size(), newList.size());
+
+        for (int i = 0; i < lim; i++) {
+            if (oldList.get(i) != newList.get(i)) {
+                toBeRemoved.add(oldList.get(i));
+                toBeInserted.add(newList.get(i));
+            }
+        }
+
+        for (int i = lim; i < newList.size(); i++) {
+            toBeInserted.add(newList.get(i));
+        }
+
+        db.deleteSupplyOutwardItemDetails(toBeRemoved);
+        db.addSupplyOutwardItemDetails(toBeInserted, recordId);
     }
 
     private void makeNotEditable(TextField... textFields) {

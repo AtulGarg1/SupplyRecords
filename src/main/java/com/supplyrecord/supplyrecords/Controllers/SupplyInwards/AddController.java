@@ -133,14 +133,17 @@ public class AddController implements Initializable {
             }
 
             if (i > 251) {
-                LocalData.getInstance().getSupplyInwardRecordsList().add(supplyInwardRecord);
-                db.addSupplyInwardRecord(supplyInwardRecord);
-                long recordId = db.getLatestRecordId();
-                db.addSupplyInwardItemDetails(supplyItemDetails, recordId);
-
+                LocalData.getInstance().insertIntoSupplyInwardRecordsList(supplyInwardRecord);
+                persistToDb(supplyInwardRecord, supplyItemDetails);
                 ViewSelected.getInstance().setSelected(ViewSelected.Dashboard);
             }
         }
+    }
+
+    private void persistToDb(SupplyInwardRecord supplyInwardRecord, ArrayList<SupplyItemDetail> supplyItemDetails) {
+        db.addSupplyInwardRecord(supplyInwardRecord);
+        long recordId = db.getLatestRecordId();
+        db.addSupplyInwardItemDetails(supplyItemDetails, recordId);
     }
 
     private void displayError(String msg) {

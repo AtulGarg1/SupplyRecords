@@ -70,4 +70,56 @@ public class LocalData {
     public ArrayList<PaymentRecord> getPaymentsReceivedList() {
         return paymentsReceivedList;
     }
+
+    public void insertIntoSupplyInwardRecordsList(SupplyInwardRecord supplyInwardRecord) {
+        supplyInwardRecordsList.add(supplyInwardRecord);
+    }
+
+    public void insertIntoSupplyOutwardRecordsList(SupplyOutwardRecord supplyOutwardRecord) {
+        supplyOutwardRecordsList.add(supplyOutwardRecord);
+    }
+
+    public void insertIntoPaymentsMadeList(PaymentRecord paymentRecord) {
+        paymentsMadeList.add(paymentRecord);
+    }
+
+    public void insertIntoPaymentsReceivedList(PaymentRecord paymentRecord) {
+        paymentsReceivedList.add(paymentRecord);
+    }
+
+    public void updateSupplyInwardRecordsList(SupplyInwardRecord supplyInwardRecord) {
+        try {
+            int position = (int) supplyInwardRecord.recordId() - 1;
+            supplyInwardRecordsList.set(position, supplyInwardRecord);
+        } catch (Exception e) {
+            supplyInwardRecordsList = db.fetchSupplyInwardRecordsList(firmName);
+        }
+    }
+
+    public void updateSupplyOutwardRecordsList(SupplyOutwardRecord supplyOutwardRecord) {
+        try {
+            int position = (int) supplyOutwardRecord.recordId() - 1;
+            supplyOutwardRecordsList.set(position, supplyOutwardRecord);
+        } catch (Exception e) {
+            supplyOutwardRecordsList = db.fetchSupplyOutwardRecordsList(firmName);
+        }
+    }
+
+    public void updatePaymentsMadeList(PaymentRecord paymentRecord) {
+        try {
+            int position = (int) paymentRecord.recordId() - 1;
+            paymentsMadeList.set(position, paymentRecord);
+        } catch (Exception e) {
+            paymentsMadeList = db.fetchPaymentsMadeList(firmName);
+        }
+    }
+
+    public void updatePaymentsReceivedList(PaymentRecord paymentRecord) {
+        try {
+            int position = (int) paymentRecord.recordId() - 1;
+            paymentsReceivedList.set(position, paymentRecord);
+        } catch (Exception e) {
+            paymentsReceivedList = db.fetchPaymentsReceivedList(firmName);
+        }
+    }
 }

@@ -9,7 +9,6 @@ import com.supplyrecord.supplyrecords.Models.ViewSelected;
 import com.supplyrecord.supplyrecords.customComponents.AutoCompleteTextField;
 import com.supplyrecord.supplyrecords.customComponents.DecimalTextField;
 import com.supplyrecord.supplyrecords.Models.AutoSuggestions;
-import com.supplyrecord.supplyrecords.customComponents.UppercaseTextField;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -162,14 +161,17 @@ public class AddController implements Initializable {
             }
 
             if (i > 251) {
-                LocalData.getInstance().getSupplyOutwardRecordsList().add(supplyOutwardRecord);
-                db.addSupplyOutwardRecord(supplyOutwardRecord);
-                long recordId = db.getLatestRecordId();
-                db.addSupplyOutwardItemDetails(supplyItemDetails, recordId);
-
+                LocalData.getInstance().insertIntoSupplyOutwardRecordsList(supplyOutwardRecord);
+                persistToDb(supplyOutwardRecord, supplyItemDetails);
                 ViewSelected.getInstance().setSelected(ViewSelected.Dashboard);
             }
         }
+    }
+
+    private void persistToDb(SupplyOutwardRecord supplyOutwardRecord, ArrayList<SupplyItemDetail> supplyItemDetails) {
+        db.addSupplyOutwardRecord(supplyOutwardRecord);
+        long recordId = db.getLatestRecordId();
+        db.addSupplyOutwardItemDetails(supplyItemDetails, recordId);
     }
 
     private void displayError(String msg) {

@@ -44,6 +44,6 @@ public interface DatabaseApi {
     void updateSupplyOutwardRecord(SupplyOutwardRecord supplyOutwardRecord);
     void updatePaymentRecord(PaymentRecord paymentRecord);
 
-    /* ----DELETE---- */
-    void deleteSupplyItemDetailsFor(long recordId);
+    void deleteSupplyInwardItemDetails(ArrayList<SupplyItemDetail> supplyItemDetails);
+    void deleteSupplyOutwardItemDetails(ArrayList<SupplyItemDetail> supplyItemDetails);
 }

@@ -54,6 +54,7 @@ public class AddController implements Initializable {
                     -1, LocalData.getInstance().getFirmName(), partyName,
                     Double.parseDouble(amount), bankName, LocalDate.now(), false
             );
+            LocalData.getInstance().insertIntoPaymentsMadeList(paymentRecord);
             db.addPaymentRecord(paymentRecord);
 
             getStage().close();

@@ -59,6 +59,7 @@ public class EditRecordController implements Initializable {
                     record.getValue().recordId(), LocalData.getInstance().getFirmName(), partyName,
                     Double.parseDouble(amount), bankName, LocalDate.now(), true
             );
+            LocalData.getInstance().updatePaymentsReceivedList(paymentRecord);
             db.updatePaymentRecord(paymentRecord);
 
             getStage().close();

@@ -31,6 +31,7 @@ public class EditRecordController implements Initializable {
 
     private DatabaseApi db;
     private static final ObjectProperty<SupplyInwardRecord> record = new SimpleObjectProperty<>();
+    private ArrayList<SupplyItemDetail> oldSupplyItemDetails;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -47,10 +48,10 @@ public class EditRecordController implements Initializable {
 
         text_partyName.setText(String.valueOf(supplyInwardRecord.partyName()));
 
-        ArrayList<SupplyItemDetail> supplyItemDetails =
+        oldSupplyItemDetails =
                 db.fetchSupplyInwardItemDetailsFor(supplyInwardRecord.recordId());
 
-        for (SupplyItemDetail supplyItemDetail : supplyItemDetails) {
+        for (SupplyItemDetail supplyItemDetail : oldSupplyItemDetails) {
             int rowNo = gridPane.getRowCount();
             double itemTotal = supplyItemDetail.qty() * supplyItemDetail.price();
 
@@ -146,12 +147,36 @@ public class EditRecordController implements Initializable {
             }
 
             if (i > 251) {
-                db.updateSupplyInwardRecord(supplyInwardRecord);
-                db.deleteSupplyItemDetailsFor(recordId);
-                db.addSupplyInwardItemDetails(supplyItemDetails, recordId);
+                LocalData.getInstance().updateSupplyInwardRecordsList(supplyInwardRecord);
+                persistToDb(supplyInwardRecord, supplyItemDetails);
                 ViewSelected.getInstance().setSelected(ViewSelected.Dashboard);
             }
         }
+    }
+
+    private void persistToDb(SupplyInwardRecord supplyInwardRecord, ArrayList<SupplyItemDetail> newList) {
+        db.updateSupplyInwardRecord(supplyInwardRecord);
+        diff(oldSupplyItemDetails, newList, supplyInwardRecord.recordId());
+    }
+
+    private void diff(ArrayList<SupplyItemDetail> oldList, ArrayList<SupplyItemDetail> newList, long recordId) {
+        ArrayList<SupplyItemDetail> toBeRemoved = new ArrayList<>();
+        ArrayList<SupplyItemDetail> toBeInserted = new ArrayList<>();
+        int lim = Math.min(oldList.size(), newList.size());
+
+        for (int i = 0; i < lim; i++) {
+            if (oldList.get(i) != newList.get(i)) {
+                toBeRemoved.add(oldList.get(i));
+                toBeInserted.add(newList.get(i));
+            }
+        }
+
+        for (int i = lim; i < newList.size(); i++) {
+            toBeInserted.add(newList.get(i));
+        }
+
+        db.deleteSupplyInwardItemDetails(toBeRemoved);
+        db.addSupplyInwardItemDetails(toBeInserted, recordId);
     }
 
     private void makeNotEditable(TextField... textFields) {

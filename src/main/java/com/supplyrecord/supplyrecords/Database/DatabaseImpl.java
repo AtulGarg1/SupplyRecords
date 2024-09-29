@@ -95,11 +95,6 @@ public class DatabaseImpl implements DatabaseApi {
     }
 
     @Override
-    public void deleteSupplyItemDetailsFor(long recordId) {
-
-    }
-
-    @Override
     public void addSupplyOutwardRecord(SupplyOutwardRecord supplyOutwardRecord) {
 
     }
@@ -126,6 +121,16 @@ public class DatabaseImpl implements DatabaseApi {
 
     @Override
     public void updatePaymentRecord(PaymentRecord paymentRecord) {
+
+    }
+
+    @Override
+    public void deleteSupplyInwardItemDetails(ArrayList<SupplyItemDetail> supplyItemDetails) {
+
+    }
+
+    @Override
+    public void deleteSupplyOutwardItemDetails(ArrayList<SupplyItemDetail> supplyItemDetails) {
 
     }
 

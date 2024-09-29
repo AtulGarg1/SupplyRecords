@@ -31,19 +31,19 @@ public record SupplyInwardRecord(
                         1, "ABC", "ATUL", 100000, LocalDate.now()
                 ),
                 new SupplyInwardRecord(
-                        1, "ABC", "ATUL1", 100000, LocalDate.now()
+                        2, "ABC", "ATUL1", 100000, LocalDate.now()
                 ),
                 new SupplyInwardRecord(
-                        1, "ABC", "ATUL", 100000, LocalDate.now()
+                        3, "ABC", "ATUL", 100000, LocalDate.now()
                 ),
                 new SupplyInwardRecord(
-                        1, "ABC", "ATUL1", 100000, LocalDate.now()
+                        4, "ABC", "ATUL1", 100000, LocalDate.now()
                 ),
                 new SupplyInwardRecord(
-                        1, "ABC", "ATUL", 100000, LocalDate.now()
+                        5, "ABC", "ATUL", 100000, LocalDate.now()
                 ),
                 new SupplyInwardRecord(
-                        1, "ABC", "ATUL2", 100000, LocalDate.now()
+                        6, "ABC", "ATUL2", 100000, LocalDate.now()
                 )
         ));
     }
