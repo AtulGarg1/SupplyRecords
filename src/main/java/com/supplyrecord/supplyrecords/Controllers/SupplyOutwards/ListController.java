@@ -7,7 +7,6 @@ import com.supplyrecord.supplyrecords.Models.ViewSelected;
 import com.supplyrecord.supplyrecords.customComponents.AutoCompleteTextField;
 import javafx.fxml.Initializable;
 import javafx.scene.control.DatePicker;
-import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;

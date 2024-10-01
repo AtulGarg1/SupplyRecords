@@ -40,4 +40,7 @@
       <MenuItem fx:id="menu_editPaymentsReceived" mnemonicParsing="false" text="Edit"/>
       <MenuItem fx:id="menu_listPaymentsReceived" mnemonicParsing="false" text="List"/>
    </Menu>
+   <Menu mnemonicParsing="false" text="Ledger">
+      <MenuItem fx:id="menu_listLedger" mnemonicParsing="false" text="List"/>
+   </Menu>
 </MenuBar>

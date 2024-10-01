@@ -29,6 +29,7 @@ public class NavigationLayoutController implements Initializable {
                 case ViewSelected.ListPaymentsMade -> nav_layout.setCenter(ViewFactory.getInstance().getListPaymentsMadeView());
                 case ViewSelected.EditPaymentsReceived -> nav_layout.setCenter(ViewFactory.getInstance().getEditPaymentsReceivedView());
                 case ViewSelected.ListPaymentsReceived -> nav_layout.setCenter(ViewFactory.getInstance().getListPaymentsReceivedView());
+                case ViewSelected.ListLedger -> nav_layout.setCenter(ViewFactory.getInstance().getListLedgerView());
                 default -> nav_layout.setCenter(ViewFactory.getInstance().getDashboardView());
             }
         }));

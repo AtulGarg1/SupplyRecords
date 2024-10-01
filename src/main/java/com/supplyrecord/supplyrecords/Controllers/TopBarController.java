@@ -24,6 +24,7 @@ public class TopBarController implements Initializable {
     public MenuItem menu_listPaymentsReceived;
     public MenuItem menu_listSupplyInwards;
     public MenuItem menu_listSupplyOutwards;
+    public MenuItem menu_listLedger;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -46,6 +47,8 @@ public class TopBarController implements Initializable {
         menu_addPaymentsReceived.setOnAction(event -> ViewFactory.getInstance().showAddPaymentsReceivedWindow());
         menu_editPaymentsReceived.setOnAction(event -> setMenuItemSelected(ViewSelected.EditPaymentsReceived));
         menu_listPaymentsReceived.setOnAction(event -> setMenuItemSelected(ViewSelected.ListPaymentsReceived));
+
+        menu_listLedger.setOnAction(event -> setMenuItemSelected(ViewSelected.ListLedger));
     }
 
     private void setMenuItemSelected(String itemSelected) {

@@ -225,6 +225,15 @@ public class ViewFactory {
         return listPaymentsReceivedView;
     }
 
+    public AnchorPane getListLedgerView() {
+        try {
+            return new FXMLLoader(getClass().getResource("/Fxml/Ledger/List.fxml")).load();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
     public void showLoginWindow() {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/Fxml/Login.fxml"));
         Stage stage = setStage(fxmlLoader, "Login");

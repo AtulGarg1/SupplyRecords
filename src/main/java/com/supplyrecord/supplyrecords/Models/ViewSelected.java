@@ -45,4 +45,6 @@ public class ViewSelected {
 
     public static final String EditPaymentsReceived = "edit_payments_received";
     public static final String ListPaymentsReceived = "list_payments_received";
+
+    public static final String ListLedger = "list_ledger";
 }

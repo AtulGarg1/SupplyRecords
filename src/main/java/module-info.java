@@ -10,6 +10,7 @@ module com.supplyrecord.supplyrecords {
     exports com.supplyrecord.supplyrecords;
     exports com.supplyrecord.supplyrecords.Controllers;
     exports com.supplyrecord.supplyrecords.Controllers.Add;
+    exports com.supplyrecord.supplyrecords.Controllers.Ledger;
     exports com.supplyrecord.supplyrecords.Controllers.PaymentsMade;
     exports com.supplyrecord.supplyrecords.Controllers.PaymentsReceived;
     exports com.supplyrecord.supplyrecords.Controllers.SupplyInwards;

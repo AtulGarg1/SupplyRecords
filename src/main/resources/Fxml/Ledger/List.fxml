@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.supplyrecord.supplyrecords.customComponents.AutoCompleteTextField?>
+<?import com.supplyrecord.supplyrecords.customComponents.DecimalTextField?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="750.0" prefWidth="1000.0" stylesheets="@../../Styles/common.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.supplyrecord.supplyrecords.Controllers.Ledger.ListController">
+   <children>
+      <VBox prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <HBox alignment="CENTER_LEFT" maxWidth="620.0" minWidth="620.0" prefWidth="620.0">
+               <children>
+                  <Label styleClass="bold_label" text="Party Name :">
+                     <HBox.margin>
+                        <Insets right="8.0" top="6.0" />
+                     </HBox.margin>
+                  </Label>
+                  <AutoCompleteTextField fx:id="text_partyName" />
+                  <Button mnemonicParsing="false" onAction="#onSearch" prefWidth="60.0" styleClass="btn" text="Search">
+                     <HBox.margin>
+                        <Insets left="40.0" right="20.0" />
+                     </HBox.margin>
+                  </Button>
+                  <Button mnemonicParsing="false" onAction="#onClear" prefWidth="60.0" styleClass="btn" text="Clear" />
+               </children>
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+            </HBox>
+            <ScrollPane maxWidth="720.0" minWidth="720.0" prefHeight="340.0" prefWidth="720.0" vbarPolicy="ALWAYS">
+               <content>
+                  <GridPane fx:id="gridPane" hgap="5.0" prefHeight="100.0" vgap="5.0">
+                     <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="50.0" />
+                        <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" minWidth="10.0" prefWidth="250.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="75.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                     </columnConstraints>
+                     <rowConstraints>
+                        <RowConstraints maxHeight="35.0" minHeight="35.0" prefHeight="35.0" valignment="CENTER" />
+                     </rowConstraints>
+                     <children>
+                        <Label maxWidth="50.0" minWidth="50.0" prefWidth="50.0" styleClass="bold_label" text="S. No.">
+                           <padding>
+                              <Insets left="8.0" />
+                           </padding>
+                        </Label>
+                        <Label maxWidth="250.0" minWidth="250.0" prefWidth="250.0" styleClass="bold_label" text="Description" GridPane.columnIndex="1">
+                           <padding>
+                              <Insets left="8.0" />
+                           </padding>
+                        </Label>
+                        <Label maxWidth="75.0" minWidth="75.0" prefWidth="75.0" styleClass="bold_label" text="Date" GridPane.columnIndex="2">
+                           <padding>
+                              <Insets left="8.0" right="8.0" />
+                           </padding>
+                        </Label>
+                        <Label alignment="CENTER_RIGHT" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" styleClass="bold_label" text="Credit" GridPane.columnIndex="3">
+                           <padding>
+                              <Insets left="8.0" right="8.0" />
+                           </padding>
+                        </Label>
+                        <Label alignment="CENTER_RIGHT" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" styleClass="bold_label" text="Debit" GridPane.columnIndex="4">
+                           <padding>
+                              <Insets left="8.0" right="8.0" />
+                           </padding>
+                        </Label>
+                        <Label alignment="CENTER_RIGHT" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" styleClass="bold_label" text="Balance" GridPane.columnIndex="5">
+                           <padding>
+                              <Insets left="8.0" right="8.0" />
+                           </padding>
+                        </Label>
+                     </children>
+                     <padding>
+                        <Insets left="4.0" />
+                     </padding>
+                  </GridPane>
+               </content>
+               <VBox.margin>
+                  <Insets top="20.0" />
+               </VBox.margin>
+            </ScrollPane>
+            <HBox alignment="TOP_RIGHT" maxWidth="720.0" minWidth="720.0" prefWidth="720.0">
+               <children>
+                  <Label styleClass="bold_label" text="Total :">
+                     <HBox.margin>
+                        <Insets right="8.0" top="6.0" />
+                     </HBox.margin>
+                  </Label>
+                  <DecimalTextField fx:id="text_totalCredit" alignment="CENTER_RIGHT" maxWidth="100.0" minWidth="100.0">
+                     <HBox.margin>
+                        <Insets right="5.0" />
+                     </HBox.margin></DecimalTextField>
+                  <DecimalTextField fx:id="text_totalDebit" alignment="CENTER_RIGHT" maxWidth="100.0" minWidth="100.0">
+                     <HBox.margin>
+                        <Insets right="5.0" />
+                     </HBox.margin>
+                  </DecimalTextField>
+                  <DecimalTextField fx:id="text_totalBalance" alignment="CENTER_RIGHT" maxWidth="100.0" minWidth="100.0">
+                     <HBox.margin>
+                        <Insets right="13.0" />
+                     </HBox.margin>
+                  </DecimalTextField>
+               </children>
+               <VBox.margin>
+                  <Insets top="8.0" />
+               </VBox.margin>
+            </HBox>
+         </children>
+         <padding>
+            <Insets bottom="20.0" left="40.0" right="40.0" top="20.0" />
+         </padding>
+      </VBox>
+   </children>
+</AnchorPane>
