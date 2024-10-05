@@ -122,11 +122,12 @@ public class AddController implements Initializable {
 
             ArrayList<SupplyItemDetail> supplyItemDetails = new ArrayList<>();
 
-            int i = 6;
-            for (; i <= 251; i += 5) {
+            int i = 7;
+            for (; i <= 301; i += 6) {
+                System.out.println(i);
                 String item = ((AutoCompleteTextField) gridPane.getChildren().get(i)).getText();
                 String qty = ((DecimalTextField) gridPane.getChildren().get(i + 1)).getText();
-                String price = ((DecimalTextField) gridPane.getChildren().get(i + 2)).getText();
+                String price = ((DecimalTextField) gridPane.getChildren().get(i + 3)).getText();
 
                 if (item.isEmpty() && qty.isEmpty() && price.isEmpty()) {
                     continue;

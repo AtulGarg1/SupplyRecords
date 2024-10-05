@@ -46,13 +46,11 @@ public class EditRecordController implements Initializable {
             displayError("Please enter a Party Name.");
         } else if (amount.isEmpty()) {
             displayError("Please enter an Amount.");
-        } else if (bankName.isEmpty()) {
-            displayError("Please enter a Bank Name.");
         } else if (!AutoSuggestions.PartyNames.contains(partyName)) {
             displayError("Party Name does not exist.");
         } else if (!isDouble(amount)) {
             displayError("Please enter a valid Amount.");
-        } else if (!AutoSuggestions.BankNames.contains(bankName)) {
+        } else if (!bankName.isEmpty() && !AutoSuggestions.BankNames.contains(bankName)) {
             displayError("Bank Name does not exist.");
         } else {
             PaymentRecord paymentRecord = new PaymentRecord(
