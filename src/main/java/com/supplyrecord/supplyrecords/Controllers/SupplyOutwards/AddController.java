@@ -3,6 +3,7 @@ package com.supplyrecord.supplyrecords.Controllers.SupplyOutwards;
 import com.supplyrecord.supplyrecords.Database.DatabaseApi;
 import com.supplyrecord.supplyrecords.Database.DatabaseImpl;
 import com.supplyrecord.supplyrecords.Models.AutoSuggestions;
+import com.supplyrecord.supplyrecords.Models.Constants;
 import com.supplyrecord.supplyrecords.Models.DataClasses.SupplyItemDetail;
 import com.supplyrecord.supplyrecords.Models.DataClasses.SupplyRecord;
 import com.supplyrecord.supplyrecords.Models.LocalData;
@@ -150,8 +151,8 @@ public class AddController implements Initializable {
 
             ArrayList<SupplyItemDetail> supplyItemDetails = new ArrayList<>();
 
-            int i = 6;
-            for (; i <= 251; i += 5) {
+            int i = Constants.GRID_EDITABLE_CELL_START;
+            for (; i <= Constants.GRID_EDITABLE_CELL_END; i += Constants.GRID_EDITABLE_CELL_INCREMENT) {
                 String item = ((AutoCompleteTextField) gridPane.getChildren().get(i)).getText();
                 String qty = ((DecimalTextField) gridPane.getChildren().get(i + 1)).getText();
                 String price = ((DecimalTextField) gridPane.getChildren().get(i + 2)).getText();
@@ -160,9 +161,6 @@ public class AddController implements Initializable {
                     continue;
                 } else if (item.isEmpty()) {
                     displayError("An Item Name is missing");
-                    break;
-                } else if (!AutoSuggestions.ItemNames.contains(item)) {
-                    displayError("Item does not exist.");
                     break;
                 } else if (!isDouble(qty)) {
                     displayError("A Quantity is missing or invalid.");
@@ -177,7 +175,7 @@ public class AddController implements Initializable {
                 }
             }
 
-            if (i > 251) {
+            if (i > Constants.GRID_EDITABLE_CELL_END) {
                 LocalData.getInstance().insertIntoSupplyOutwardRecordsList(supplyOutwardRecord);
                 persistToDb(supplyOutwardRecord, supplyItemDetails);
                 ViewSelected.getInstance().setSelected(ViewSelected.Dashboard);
