@@ -3,8 +3,8 @@ package com.supplyrecord.supplyrecords.Controllers.SupplyOutwards;
 import com.supplyrecord.supplyrecords.Database.DatabaseApi;
 import com.supplyrecord.supplyrecords.Database.DatabaseImpl;
 import com.supplyrecord.supplyrecords.Models.AutoSuggestions;
-import com.supplyrecord.supplyrecords.Models.DataClasses.SupplyOutwardRecord;
 import com.supplyrecord.supplyrecords.Models.DataClasses.SupplyItemDetail;
+import com.supplyrecord.supplyrecords.Models.DataClasses.SupplyRecord;
 import com.supplyrecord.supplyrecords.customComponents.DecimalTextField;
 import com.supplyrecord.supplyrecords.customComponents.UppercaseTextField;
 import javafx.beans.property.ObjectProperty;
@@ -33,7 +33,7 @@ public class ListRecordController implements Initializable {
     public DecimalTextField text_total;
 
     private DatabaseApi db;
-    private static final ObjectProperty<SupplyOutwardRecord> record = new SimpleObjectProperty<>();
+    private static final ObjectProperty<SupplyRecord> record = new SimpleObjectProperty<>();
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -48,7 +48,7 @@ public class ListRecordController implements Initializable {
 
     private void fillValues() {
         gridPane.getChildren().removeIf(TextField.class::isInstance);
-        SupplyOutwardRecord supplyOutwardRecord = record.getValue();
+        SupplyRecord supplyOutwardRecord = record.getValue();
 
         text_partyName.setText(String.valueOf(supplyOutwardRecord.partyName()));
         text_biltiCharge.setText(String.valueOf(supplyOutwardRecord.biltiCharge()));
@@ -102,7 +102,7 @@ public class ListRecordController implements Initializable {
         }
     }
 
-    public static void setRecord(SupplyOutwardRecord record) {
+    public static void setRecord(SupplyRecord record) {
         ListRecordController.record.set(record);
     }
 }

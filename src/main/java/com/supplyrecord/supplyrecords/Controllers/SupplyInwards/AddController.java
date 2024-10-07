@@ -2,8 +2,8 @@ package com.supplyrecord.supplyrecords.Controllers.SupplyInwards;
 
 import com.supplyrecord.supplyrecords.Database.DatabaseApi;
 import com.supplyrecord.supplyrecords.Database.DatabaseImpl;
-import com.supplyrecord.supplyrecords.Models.DataClasses.SupplyInwardRecord;
 import com.supplyrecord.supplyrecords.Models.DataClasses.SupplyItemDetail;
+import com.supplyrecord.supplyrecords.Models.DataClasses.SupplyRecord;
 import com.supplyrecord.supplyrecords.Models.LocalData;
 import com.supplyrecord.supplyrecords.Models.ViewSelected;
 import com.supplyrecord.supplyrecords.customComponents.AutoCompleteTextField;
@@ -113,11 +113,13 @@ public class AddController implements Initializable {
         } else if (!AutoSuggestions.PartyNames.contains(partyName)) {
             displayError("Party does not exist.");
         } else {
-            SupplyInwardRecord supplyInwardRecord =
-                    new SupplyInwardRecord(
+            // TODO
+            SupplyRecord supplyInwardRecord =
+                    new SupplyRecord(
                             -1, LocalData.getInstance().getFirmName(), partyName,
                             isDouble(text_total.getText()) ? Double.parseDouble(text_total.getText()) : 0,
-                            LocalDate.now()
+                            LocalDate.now(),
+                            0 , 0, 0, 0, 0, 0, 0, true
                     );
 
             ArrayList<SupplyItemDetail> supplyItemDetails = new ArrayList<>();
@@ -158,8 +160,8 @@ public class AddController implements Initializable {
         }
     }
 
-    private void persistToDb(SupplyInwardRecord supplyInwardRecord, ArrayList<SupplyItemDetail> supplyItemDetails) {
-        db.addSupplyInwardRecord(supplyInwardRecord);
+    private void persistToDb(SupplyRecord supplyInwardRecord, ArrayList<SupplyItemDetail> supplyItemDetails) {
+        db.addSupplyRecord(supplyInwardRecord);
         long recordId = db.getLatestRecordId();
         db.addSupplyInwardItemDetails(supplyItemDetails, recordId);
     }

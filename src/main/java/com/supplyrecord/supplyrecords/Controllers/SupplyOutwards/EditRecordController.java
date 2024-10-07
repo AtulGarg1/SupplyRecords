@@ -3,9 +3,8 @@ package com.supplyrecord.supplyrecords.Controllers.SupplyOutwards;
 import com.supplyrecord.supplyrecords.Database.DatabaseApi;
 import com.supplyrecord.supplyrecords.Database.DatabaseImpl;
 import com.supplyrecord.supplyrecords.Models.AutoSuggestions;
-import com.supplyrecord.supplyrecords.Models.DataClasses.SupplyInwardRecord;
-import com.supplyrecord.supplyrecords.Models.DataClasses.SupplyOutwardRecord;
 import com.supplyrecord.supplyrecords.Models.DataClasses.SupplyItemDetail;
+import com.supplyrecord.supplyrecords.Models.DataClasses.SupplyRecord;
 import com.supplyrecord.supplyrecords.Models.LocalData;
 import com.supplyrecord.supplyrecords.Models.ViewSelected;
 import com.supplyrecord.supplyrecords.customComponents.AutoCompleteTextField;
@@ -41,7 +40,7 @@ public class EditRecordController implements Initializable {
     public Label label_err;
 
     private DatabaseApi db;
-    private static final ObjectProperty<SupplyOutwardRecord> record = new SimpleObjectProperty<>();
+    private static final ObjectProperty<SupplyRecord> record = new SimpleObjectProperty<>();
     private ArrayList<SupplyItemDetail> oldSupplyItemDetails;
 
     @Override
@@ -56,7 +55,7 @@ public class EditRecordController implements Initializable {
 
     private void fillValues() {
         gridPane.getChildren().removeIf(TextField.class::isInstance);
-        SupplyOutwardRecord supplyOutwardRecord = record.getValue();
+        SupplyRecord supplyOutwardRecord = record.getValue();
 
         text_partyName.setText(String.valueOf(supplyOutwardRecord.partyName()));
         text_biltiCharge.setText(String.valueOf(supplyOutwardRecord.biltiCharge()));
@@ -158,8 +157,8 @@ public class EditRecordController implements Initializable {
         } else {
             long recordId = record.getValue().recordId();
 
-            SupplyOutwardRecord supplyOutwardRecord =
-                    new SupplyOutwardRecord(
+            SupplyRecord supplyOutwardRecord =
+                    new SupplyRecord(
                             recordId, LocalData.getInstance().getFirmName(), partyName,
                             isDouble(text_total.getText()) ? Double.parseDouble(text_total.getText()) : 0,
                             LocalDate.now(),
@@ -169,7 +168,8 @@ public class EditRecordController implements Initializable {
                             isDouble(text_commission.getText()) ? Double.parseDouble(text_total.getText()) : 0,
                             isDouble(text_postage.getText()) ? Double.parseDouble(text_total.getText()) : 0,
                             isDouble(text_bazaarCharges.getText()) ? Double.parseDouble(text_total.getText()) : 0,
-                            isDouble(text_otherExpenses.getText()) ? Double.parseDouble(text_total.getText()) : 0
+                            isDouble(text_otherExpenses.getText()) ? Double.parseDouble(text_total.getText()) : 0,
+                            false
                     );
 
             ArrayList<SupplyItemDetail> supplyItemDetails = new ArrayList<>();
@@ -208,8 +208,8 @@ public class EditRecordController implements Initializable {
         }
     }
 
-    private void persistToDb(SupplyOutwardRecord supplyOutwardRecord, ArrayList<SupplyItemDetail> newList) {
-        db.updateSupplyOutwardRecord(supplyOutwardRecord);
+    private void persistToDb(SupplyRecord supplyOutwardRecord, ArrayList<SupplyItemDetail> newList) {
+        db.updateSupplyRecord(supplyOutwardRecord);
         diff(oldSupplyItemDetails, newList, supplyOutwardRecord.recordId());
     }
 
@@ -300,7 +300,7 @@ public class EditRecordController implements Initializable {
         }
     }
 
-    public static void setRecord(SupplyOutwardRecord record) {
+    public static void setRecord(SupplyRecord record) {
         EditRecordController.record.set(record);
     }
 }

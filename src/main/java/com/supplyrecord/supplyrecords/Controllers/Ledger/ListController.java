@@ -2,7 +2,6 @@ package com.supplyrecord.supplyrecords.Controllers.Ledger;
 
 import com.supplyrecord.supplyrecords.Models.AutoSuggestions;
 import com.supplyrecord.supplyrecords.Models.DataClasses.LedgerRecord;
-import com.supplyrecord.supplyrecords.Models.DataClasses.SupplyInwardRecord;
 import com.supplyrecord.supplyrecords.Models.LocalData;
 import com.supplyrecord.supplyrecords.customComponents.AutoCompleteTextField;
 import com.supplyrecord.supplyrecords.customComponents.DecimalTextField;
@@ -16,7 +15,6 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
-import java.util.stream.Collectors;
 
 public class ListController implements Initializable {
     public AutoCompleteTextField text_partyName;
@@ -94,18 +92,18 @@ public class ListController implements Initializable {
         List<LedgerRecord> supplyInward = LocalData.getInstance()
                 .getSupplyInwardRecordsList()
                 .stream()
-                .filter(supplyInwardRecord -> supplyInwardRecord.partyName().equals(partyName))
-                .map(supplyInwardRecord ->
-                        new LedgerRecord("Inward", supplyInwardRecord.date(), supplyInwardRecord.totalAmount())
+                .filter(supplyRecord -> supplyRecord.partyName().equals(partyName))
+                .map(supplyRecord ->
+                        new LedgerRecord("Inward", supplyRecord.date(), supplyRecord.totalAmount())
                 )
                 .toList();
 
         List<LedgerRecord> supplyOutward = LocalData.getInstance()
                 .getSupplyOutwardRecordsList()
                 .stream()
-                .filter(supplyOutwardRecord -> supplyOutwardRecord.partyName().equals(partyName))
-                .map(supplyOutwardRecord ->
-                        new LedgerRecord("Outward", supplyOutwardRecord.date(), supplyOutwardRecord.totalAmount())
+                .filter(supplyRecord -> supplyRecord.partyName().equals(partyName))
+                .map(supplyRecord ->
+                        new LedgerRecord("Outward", supplyRecord.date(), supplyRecord.totalAmount())
                 )
                 .toList();
 
@@ -156,6 +154,3 @@ public class ListController implements Initializable {
         label_err.setVisible(true);
     }
 }
-
-// TODO: add listeners to each record to show list view of that record
-// TODO: implement getLedgerRecordFor() method

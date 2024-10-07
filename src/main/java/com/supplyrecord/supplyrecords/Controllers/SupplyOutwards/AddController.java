@@ -2,13 +2,13 @@ package com.supplyrecord.supplyrecords.Controllers.SupplyOutwards;
 
 import com.supplyrecord.supplyrecords.Database.DatabaseApi;
 import com.supplyrecord.supplyrecords.Database.DatabaseImpl;
+import com.supplyrecord.supplyrecords.Models.AutoSuggestions;
 import com.supplyrecord.supplyrecords.Models.DataClasses.SupplyItemDetail;
-import com.supplyrecord.supplyrecords.Models.DataClasses.SupplyOutwardRecord;
+import com.supplyrecord.supplyrecords.Models.DataClasses.SupplyRecord;
 import com.supplyrecord.supplyrecords.Models.LocalData;
 import com.supplyrecord.supplyrecords.Models.ViewSelected;
 import com.supplyrecord.supplyrecords.customComponents.AutoCompleteTextField;
 import com.supplyrecord.supplyrecords.customComponents.DecimalTextField;
-import com.supplyrecord.supplyrecords.Models.AutoSuggestions;
 import com.supplyrecord.supplyrecords.customComponents.UppercaseTextField;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
@@ -133,8 +133,8 @@ public class AddController implements Initializable {
         } else if (!AutoSuggestions.PartyNames.contains(partyName)) {
             displayError("Party does not exist.");
         } else {
-            SupplyOutwardRecord supplyOutwardRecord =
-                    new SupplyOutwardRecord(
+            SupplyRecord supplyOutwardRecord =
+                    new SupplyRecord(
                             -1, LocalData.getInstance().getFirmName(), partyName,
                             isDouble(text_total.getText()) ? Double.parseDouble(text_total.getText()) : 0,
                             LocalDate.now(),
@@ -144,7 +144,8 @@ public class AddController implements Initializable {
                             isDouble(text_commission.getText()) ? Double.parseDouble(text_total.getText()) : 0,
                             isDouble(text_postage.getText()) ? Double.parseDouble(text_total.getText()) : 0,
                             isDouble(text_bazaarCharges.getText()) ? Double.parseDouble(text_total.getText()) : 0,
-                            isDouble(text_otherExpenses.getText()) ? Double.parseDouble(text_total.getText()) : 0
+                            isDouble(text_otherExpenses.getText()) ? Double.parseDouble(text_total.getText()) : 0,
+                            false
                     );
 
             ArrayList<SupplyItemDetail> supplyItemDetails = new ArrayList<>();
@@ -184,8 +185,8 @@ public class AddController implements Initializable {
         }
     }
 
-    private void persistToDb(SupplyOutwardRecord supplyOutwardRecord, ArrayList<SupplyItemDetail> supplyItemDetails) {
-        db.addSupplyOutwardRecord(supplyOutwardRecord);
+    private void persistToDb(SupplyRecord supplyOutwardRecord, ArrayList<SupplyItemDetail> supplyItemDetails) {
+        db.addSupplyRecord(supplyOutwardRecord);
         long recordId = db.getLatestRecordId();
         db.addSupplyOutwardItemDetails(supplyItemDetails, recordId);
     }

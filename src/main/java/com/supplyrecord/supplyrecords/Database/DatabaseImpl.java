@@ -1,10 +1,7 @@
 package com.supplyrecord.supplyrecords.Database;
 
 import com.supplyrecord.supplyrecords.Models.AutoSuggestions;
-import com.supplyrecord.supplyrecords.Models.DataClasses.PaymentRecord;
-import com.supplyrecord.supplyrecords.Models.DataClasses.SupplyInwardRecord;
-import com.supplyrecord.supplyrecords.Models.DataClasses.SupplyItemDetail;
-import com.supplyrecord.supplyrecords.Models.DataClasses.SupplyOutwardRecord;
+import com.supplyrecord.supplyrecords.Models.DataClasses.*;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -76,13 +73,13 @@ public class DatabaseImpl implements DatabaseApi {
     }
 
     @Override
-    public ArrayList<SupplyInwardRecord> fetchSupplyInwardRecordsList(String firmName) {
-        return SupplyInwardRecord.generateDummyData();
+    public ArrayList<SupplyRecord> fetchSupplyInwardRecordsList(String firmName) {
+        return SupplyRecord.generateDummyData(true);
     }
 
     @Override
-    public ArrayList<SupplyOutwardRecord> fetchSupplyOutwardRecordsList(String firmName) {
-        return SupplyOutwardRecord.generateDummyData();
+    public ArrayList<SupplyRecord> fetchSupplyOutwardRecordsList(String firmName) {
+        return SupplyRecord.generateDummyData(false);
     }
 
     @Override
@@ -121,23 +118,13 @@ public class DatabaseImpl implements DatabaseApi {
     }
 
     @Override
-    public void addSupplyInwardRecord(SupplyInwardRecord supplyInwardRecord) {
+    public void addSupplyRecord(SupplyRecord supplyRecord) {
 
     }
 
     @Override
     public long getLatestRecordId() {
         return 0;
-    }
-
-    @Override
-    public void updateSupplyInwardRecord(SupplyInwardRecord supplyInwardRecord) {
-
-    }
-
-    @Override
-    public void addSupplyOutwardRecord(SupplyOutwardRecord supplyOutwardRecord) {
-
     }
 
     @Override
@@ -151,7 +138,7 @@ public class DatabaseImpl implements DatabaseApi {
     }
 
     @Override
-    public void updateSupplyOutwardRecord(SupplyOutwardRecord supplyOutwardRecord) {
+    public void updateSupplyRecord(SupplyRecord supplyRecord) {
 
     }
 

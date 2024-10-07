@@ -1,7 +1,7 @@
 package com.supplyrecord.supplyrecords.Controllers.SupplyInwards;
 
 import com.supplyrecord.supplyrecords.Models.AutoSuggestions;
-import com.supplyrecord.supplyrecords.Models.DataClasses.SupplyInwardRecord;
+import com.supplyrecord.supplyrecords.Models.DataClasses.SupplyRecord;
 import com.supplyrecord.supplyrecords.Models.LocalData;
 import com.supplyrecord.supplyrecords.Models.ViewSelected;
 import com.supplyrecord.supplyrecords.customComponents.AutoCompleteTextField;
@@ -22,8 +22,8 @@ public class ListController implements Initializable {
     public DatePicker dp_dateTo;
     public GridPane gridPane;
 
-    private ArrayList<SupplyInwardRecord> list;
-    private ArrayList<SupplyInwardRecord> filteredList;
+    private ArrayList<SupplyRecord> list;
+    private ArrayList<SupplyRecord> filteredList;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -39,7 +39,7 @@ public class ListController implements Initializable {
 
     private void addRow(int index) {
         int rowNo = gridPane.getRowCount();
-        SupplyInwardRecord supplyInwardRecord = filteredList.get(index);
+        SupplyRecord supplyInwardRecord = filteredList.get(index);
 
         TextField sno = new TextField((index+1) + ".");
         TextField partyName = new TextField(supplyInwardRecord.partyName());
@@ -58,12 +58,12 @@ public class ListController implements Initializable {
     }
 
     public void onSearch() {
-        SupplyInwardRecord.Filter filter = new SupplyInwardRecord.Filter(
+        SupplyRecord.Filter filter = new SupplyRecord.Filter(
                 text_partyName.getText(),
                 dp_dateFrom.getValue(),
                 dp_dateTo.getValue()
         );
-        filteredList = SupplyInwardRecord.filterList(list, filter);
+        filteredList = SupplyRecord.filterList(list, filter);
         setupGridPane();
     }
 
@@ -75,7 +75,7 @@ public class ListController implements Initializable {
         setupGridPane();
     }
 
-    private void attachOnClickListener(SupplyInwardRecord supplyInwardRecord, TextField... textFields) {
+    private void attachOnClickListener(SupplyRecord supplyInwardRecord, TextField... textFields) {
         for (TextField textField: textFields) {
             textField.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
                 ListRecordController.setRecord(supplyInwardRecord);

@@ -6,15 +6,15 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.stream.Collectors;
 
-public record SupplyOutwardRecord(
+public record SupplyRecord(
         long recordId, String firmName, String partyName, double totalAmount,
         LocalDate date, double biltiCharge, double bardana, double labourCost,
-        double commission, double postage, double bazaarCharges, double otherExpenses
+        double commission, double postage, double bazaarCharges, double otherExpenses, boolean isInward
 ) {
     public record Filter(String partyName, LocalDate dateFrom, LocalDate dateTo) {}
 
-    public static ArrayList<SupplyOutwardRecord> filterList(ArrayList<SupplyOutwardRecord> list, Filter filter) {
-        return (ArrayList<SupplyOutwardRecord>) list.stream()
+    public static ArrayList<SupplyRecord> filterList(ArrayList<SupplyRecord> list, Filter filter) {
+        return (ArrayList<SupplyRecord>) list.stream()
                 .filter(item ->
                         (filter.partyName.isEmpty() || item.partyName.equals(filter.partyName)) &&
                         (filter.dateFrom == null || (item.date.isEqual(filter.dateFrom) || item.date.isAfter(filter.dateFrom))) &&
@@ -27,37 +27,37 @@ public record SupplyOutwardRecord(
         return date.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
     }
 
-    public static ArrayList<SupplyOutwardRecord> generateDummyData() {
+    public static ArrayList<SupplyRecord> generateDummyData(boolean isInward) {
         return new ArrayList<>(Arrays.asList(
-                new SupplyOutwardRecord(
+                new SupplyRecord(
                         1, "ABC", "ATUL", 100000,
                         LocalDate.now(), 0, 1, 2,
-                        3, 4, 5, 6
+                        3, 4, 5, 6, isInward
                 ),
-                new SupplyOutwardRecord(
+                new SupplyRecord(
                         2, "RAJENDAR ANIL", "ATUL1", 100000,
                         LocalDate.now(), 0, 1.0, 2,
-                        3, 4.3, 5, 6
+                        3, 4.3, 5, 6, isInward
                 ),
-                new SupplyOutwardRecord(
+                new SupplyRecord(
                         3, "ABC", "ATUL", 100000,
                         LocalDate.now(), 0, 1, 2,
-                        3, 4, 5, 6
+                        3, 4, 5, 6, isInward
                 ),
-                new SupplyOutwardRecord(
+                new SupplyRecord(
                         4, "ABC", "ATUL1", 100000,
                         LocalDate.now(), 0, 1, 2,
-                        3, 4, 5, 6
+                        3, 4, 5, 6, isInward
                 ),
-                new SupplyOutwardRecord(
+                new SupplyRecord(
                         5, "ABC", "ATUL", 100000,
                         LocalDate.now(), 0, 1, 2,
-                        3, 4, 5, 6
+                        3, 4, 5, 6, isInward
                 ),
-                new SupplyOutwardRecord(
+                new SupplyRecord(
                         6, "ABC", "ATUL", 100000,
                         LocalDate.now(), 0, 1, 2,
-                        3, 4, 5, 6
+                        3, 4, 5, 6, isInward
                 )
         ));
     }

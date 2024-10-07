@@ -1,10 +1,7 @@
 package com.supplyrecord.supplyrecords.Database;
 
 import com.supplyrecord.supplyrecords.Models.AutoSuggestions;
-import com.supplyrecord.supplyrecords.Models.DataClasses.PaymentRecord;
-import com.supplyrecord.supplyrecords.Models.DataClasses.SupplyInwardRecord;
-import com.supplyrecord.supplyrecords.Models.DataClasses.SupplyItemDetail;
-import com.supplyrecord.supplyrecords.Models.DataClasses.SupplyOutwardRecord;
+import com.supplyrecord.supplyrecords.Models.DataClasses.*;
 
 import java.util.ArrayList;
 
@@ -16,9 +13,7 @@ public interface DatabaseApi {
     void addBankAccount(String bank);
     void addParty(String party);
     void addItem(AutoSuggestions.Item item);
-
-    void addSupplyInwardRecord(SupplyInwardRecord supplyInwardRecord);
-    void addSupplyOutwardRecord(SupplyOutwardRecord supplyOutwardRecord);
+    void addSupplyRecord(SupplyRecord supplyRecord);
     void addSupplyInwardItemDetails(ArrayList<SupplyItemDetail> supplyItemDetails, long recordId);
     void addSupplyOutwardItemDetails(ArrayList<SupplyItemDetail> supplyItemDetails, long recordId);
     void addPaymentRecord(PaymentRecord paymentRecord);
@@ -31,8 +26,8 @@ public interface DatabaseApi {
     ArrayList<String> fetchBankNames();
     ArrayList<String> fetchPartyNames();
 
-    ArrayList<SupplyInwardRecord> fetchSupplyInwardRecordsList(String firmName);
-    ArrayList<SupplyOutwardRecord> fetchSupplyOutwardRecordsList(String firmName);
+    ArrayList<SupplyRecord> fetchSupplyInwardRecordsList(String firmName);
+    ArrayList<SupplyRecord> fetchSupplyOutwardRecordsList(String firmName);
     ArrayList<SupplyItemDetail> fetchSupplyInwardItemDetailsFor(long recordId);
     ArrayList<SupplyItemDetail> fetchSupplyOutwardItemDetailsFor(long recordId);
     ArrayList<PaymentRecord> fetchPaymentsMadeList(String firmName);
@@ -41,8 +36,7 @@ public interface DatabaseApi {
     long getLatestRecordId();
 
     /* ----UPDATE---- */
-    void updateSupplyInwardRecord(SupplyInwardRecord supplyInwardRecord);
-    void updateSupplyOutwardRecord(SupplyOutwardRecord supplyOutwardRecord);
+    void updateSupplyRecord(SupplyRecord supplyRecord);
     void updatePaymentRecord(PaymentRecord paymentRecord);
 
     void deleteSupplyInwardItemDetails(ArrayList<SupplyItemDetail> supplyItemDetails);

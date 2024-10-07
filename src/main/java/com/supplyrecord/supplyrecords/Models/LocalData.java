@@ -3,8 +3,7 @@ package com.supplyrecord.supplyrecords.Models;
 import com.supplyrecord.supplyrecords.Database.DatabaseApi;
 import com.supplyrecord.supplyrecords.Database.DatabaseImpl;
 import com.supplyrecord.supplyrecords.Models.DataClasses.PaymentRecord;
-import com.supplyrecord.supplyrecords.Models.DataClasses.SupplyInwardRecord;
-import com.supplyrecord.supplyrecords.Models.DataClasses.SupplyOutwardRecord;
+import com.supplyrecord.supplyrecords.Models.DataClasses.SupplyRecord;
 
 import java.util.ArrayList;
 
@@ -20,8 +19,8 @@ public class LocalData {
     private static DatabaseApi db;
 
     private static String firmName;
-    private static ArrayList<SupplyInwardRecord> supplyInwardRecordsList;
-    private static ArrayList<SupplyOutwardRecord> supplyOutwardRecordsList;
+    private static ArrayList<SupplyRecord> supplyInwardRecordsList;
+    private static ArrayList<SupplyRecord> supplyOutwardRecordsList;
     private static ArrayList<PaymentRecord> paymentsMadeList;
     private static ArrayList<PaymentRecord> paymentsReceivedList;
 
@@ -55,11 +54,11 @@ public class LocalData {
         return firmName;
     }
 
-    public ArrayList<SupplyInwardRecord> getSupplyInwardRecordsList() {
+    public ArrayList<SupplyRecord> getSupplyInwardRecordsList() {
         return supplyInwardRecordsList;
     }
 
-    public ArrayList<SupplyOutwardRecord> getSupplyOutwardRecordsList() {
+    public ArrayList<SupplyRecord> getSupplyOutwardRecordsList() {
         return supplyOutwardRecordsList;
     }
 
@@ -71,11 +70,11 @@ public class LocalData {
         return paymentsReceivedList;
     }
 
-    public void insertIntoSupplyInwardRecordsList(SupplyInwardRecord supplyInwardRecord) {
+    public void insertIntoSupplyInwardRecordsList(SupplyRecord supplyInwardRecord) {
         supplyInwardRecordsList.add(supplyInwardRecord);
     }
 
-    public void insertIntoSupplyOutwardRecordsList(SupplyOutwardRecord supplyOutwardRecord) {
+    public void insertIntoSupplyOutwardRecordsList(SupplyRecord supplyOutwardRecord) {
         supplyOutwardRecordsList.add(supplyOutwardRecord);
     }
 
@@ -87,7 +86,7 @@ public class LocalData {
         paymentsReceivedList.add(paymentRecord);
     }
 
-    public void updateSupplyInwardRecordsList(SupplyInwardRecord supplyInwardRecord) {
+    public void updateSupplyInwardRecordsList(SupplyRecord supplyInwardRecord) {
         try {
             int position = (int) supplyInwardRecord.recordId() - 1;
             supplyInwardRecordsList.set(position, supplyInwardRecord);
@@ -96,7 +95,7 @@ public class LocalData {
         }
     }
 
-    public void updateSupplyOutwardRecordsList(SupplyOutwardRecord supplyOutwardRecord) {
+    public void updateSupplyOutwardRecordsList(SupplyRecord supplyOutwardRecord) {
         try {
             int position = (int) supplyOutwardRecord.recordId() - 1;
             supplyOutwardRecordsList.set(position, supplyOutwardRecord);

@@ -3,8 +3,8 @@ package com.supplyrecord.supplyrecords.Controllers.SupplyInwards;
 import com.supplyrecord.supplyrecords.Database.DatabaseApi;
 import com.supplyrecord.supplyrecords.Database.DatabaseImpl;
 import com.supplyrecord.supplyrecords.Models.AutoSuggestions;
-import com.supplyrecord.supplyrecords.Models.DataClasses.SupplyInwardRecord;
 import com.supplyrecord.supplyrecords.Models.DataClasses.SupplyItemDetail;
+import com.supplyrecord.supplyrecords.Models.DataClasses.SupplyRecord;
 import com.supplyrecord.supplyrecords.Models.LocalData;
 import com.supplyrecord.supplyrecords.Models.ViewSelected;
 import com.supplyrecord.supplyrecords.customComponents.AutoCompleteTextField;
@@ -32,7 +32,7 @@ public class EditRecordController implements Initializable {
     public Label label_err;
 
     private DatabaseApi db;
-    private static final ObjectProperty<SupplyInwardRecord> record = new SimpleObjectProperty<>();
+    private static final ObjectProperty<SupplyRecord> record = new SimpleObjectProperty<>();
     private ArrayList<SupplyItemDetail> oldSupplyItemDetails;
 
     @Override
@@ -46,7 +46,7 @@ public class EditRecordController implements Initializable {
 
     private void fillValues() {
         gridPane.getChildren().removeIf(TextField.class::isInstance);
-        SupplyInwardRecord supplyInwardRecord = record.getValue();
+        SupplyRecord supplyInwardRecord = record.getValue();
 
         text_partyName.setText(String.valueOf(supplyInwardRecord.partyName()));
 
@@ -136,11 +136,13 @@ public class EditRecordController implements Initializable {
         } else {
             long recordId = record.getValue().recordId();
 
-            SupplyInwardRecord supplyInwardRecord =
-                    new SupplyInwardRecord(
+            // TODO: add charges fields
+            SupplyRecord supplyInwardRecord =
+                    new SupplyRecord(
                             recordId, LocalData.getInstance().getFirmName(), partyName,
                             isDouble(text_total.getText()) ? Double.parseDouble(text_total.getText()) : 0,
-                            LocalDate.now()
+                            LocalDate.now(),
+                            0, 0, 0, 0, 0, 0, 0, true
                     );
 
             ArrayList<SupplyItemDetail> supplyItemDetails = new ArrayList<>();
@@ -179,8 +181,8 @@ public class EditRecordController implements Initializable {
         }
     }
 
-    private void persistToDb(SupplyInwardRecord supplyInwardRecord, ArrayList<SupplyItemDetail> newList) {
-        db.updateSupplyInwardRecord(supplyInwardRecord);
+    private void persistToDb(SupplyRecord supplyInwardRecord, ArrayList<SupplyItemDetail> newList) {
+        db.updateSupplyRecord(supplyInwardRecord);
         diff(oldSupplyItemDetails, newList, supplyInwardRecord.recordId());
     }
 
@@ -249,7 +251,7 @@ public class EditRecordController implements Initializable {
         }
     }
 
-    public static void setRecord(SupplyInwardRecord record) {
+    public static void setRecord(SupplyRecord record) {
         EditRecordController.record.set(record);
     }
 }
