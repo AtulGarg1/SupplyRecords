@@ -163,13 +163,13 @@ public class EditRecordController implements Initializable {
                             recordId, LocalData.getInstance().getFirmName(), partyName,
                             isDouble(text_total.getText()) ? Double.parseDouble(text_total.getText()) : 0,
                             LocalDate.now(),
-                            isDouble(text_biltiCharge.getText()) ? Double.parseDouble(text_total.getText()) : 0,
-                            isDouble(text_bardana.getText()) ? Double.parseDouble(text_total.getText()) : 0,
-                            isDouble(text_labourCost.getText()) ? Double.parseDouble(text_total.getText()) : 0,
-                            isDouble(text_commission.getText()) ? Double.parseDouble(text_total.getText()) : 0,
-                            isDouble(text_postage.getText()) ? Double.parseDouble(text_total.getText()) : 0,
-                            isDouble(text_bazaarCharges.getText()) ? Double.parseDouble(text_total.getText()) : 0,
-                            isDouble(text_otherExpenses.getText()) ? Double.parseDouble(text_total.getText()) : 0,
+                            isDouble(text_biltiCharge.getText()) ? Double.parseDouble(text_biltiCharge.getText()) : 0,
+                            isDouble(text_bardana.getText()) ? Double.parseDouble(text_bardana.getText()) : 0,
+                            isDouble(text_labourCost.getText()) ? Double.parseDouble(text_labourCost.getText()) : 0,
+                            isDouble(text_commission.getText()) ? Double.parseDouble(text_commission.getText()) : 0,
+                            isDouble(text_postage.getText()) ? Double.parseDouble(text_postage.getText()) : 0,
+                            isDouble(text_bazaarCharges.getText()) ? Double.parseDouble(text_bazaarCharges.getText()) : 0,
+                            isDouble(text_otherExpenses.getText()) ? Double.parseDouble(text_otherExpenses.getText()) : 0,
                             false
                     );
 

@@ -28,6 +28,14 @@ import java.util.ResourceBundle;
 public class EditRecordController implements Initializable {
     public AutoCompleteTextField text_partyName;
     public GridPane gridPane;
+    public DecimalTextField text_subTotal;
+    public DecimalTextField text_biltiCharge;
+    public DecimalTextField text_bardana;
+    public DecimalTextField text_labourCost;
+    public DecimalTextField text_commission;
+    public DecimalTextField text_postage;
+    public DecimalTextField text_bazaarCharges;
+    public DecimalTextField text_otherExpenses;
     public DecimalTextField text_total;
     public Button btn_save;
     public Label label_err;
@@ -40,7 +48,8 @@ public class EditRecordController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         db = new DatabaseImpl();
         text_partyName.getSuggestions().addAll(AutoSuggestions.PartyNames);
-        makeNotEditable(text_total);
+        makeNotEditable(text_total, text_subTotal);
+        attachUpdateTotal();
         fillValues();
         record.addListener((observableVal, oldVal, newVal) -> fillValues());
     }
@@ -50,9 +59,17 @@ public class EditRecordController implements Initializable {
         SupplyRecord supplyInwardRecord = record.getValue();
 
         text_partyName.setText(String.valueOf(supplyInwardRecord.partyName()));
+        text_biltiCharge.setText(String.valueOf(supplyInwardRecord.biltiCharge()));
+        text_bardana.setText(String.valueOf(supplyInwardRecord.bardana()));
+        text_labourCost.setText(String.valueOf(supplyInwardRecord.labourCost()));
+        text_commission.setText(String.valueOf(supplyInwardRecord.commission()));
+        text_postage.setText(String.valueOf(supplyInwardRecord.postage()));
+        text_bazaarCharges.setText(String.valueOf(supplyInwardRecord.bazaarCharges()));
+        text_otherExpenses.setText(String.valueOf(supplyInwardRecord.otherExpenses()));
 
         oldSupplyItemDetails =
                 db.fetchSupplyInwardItemDetailsFor(supplyInwardRecord.recordId());
+        double subTotal = 0;
 
         for (SupplyItemDetail supplyItemDetail : oldSupplyItemDetails) {
             int rowNo = gridPane.getRowCount();
@@ -75,7 +92,7 @@ public class EditRecordController implements Initializable {
 
             qty.textProperty().addListener((observableVal, oldVal, newVal) -> updateItemTotal(qty, price, total));
             price.textProperty().addListener((observableVal, oldVal, newVal) -> updateItemTotal(qty, price, total));
-            total.textProperty().addListener((observableVal, oldVal, newVal) -> updateTotal(oldVal, newVal));
+            total.textProperty().addListener((observableVal, oldVal, newVal) -> updateSubTotal(oldVal, newVal));
 
             gridPane.add(sno, 0, rowNo);
             gridPane.add(itemName, 1, rowNo);
@@ -83,9 +100,13 @@ public class EditRecordController implements Initializable {
             gridPane.add(unit, 3, rowNo);
             gridPane.add(price, 4, rowNo);
             gridPane.add(total, 5, rowNo);
+
+            subTotal += itemTotal;
         }
 
+        text_subTotal.setText(String.valueOf(subTotal));
         text_total.setText(String.valueOf(supplyInwardRecord.totalAmount()));
+
         addEmptyRows();
     }
 
@@ -108,7 +129,7 @@ public class EditRecordController implements Initializable {
 
             qty.textProperty().addListener((observableVal, oldVal, newVal) -> updateItemTotal(qty, price, total));
             price.textProperty().addListener((observableVal, oldVal, newVal) -> updateItemTotal(qty, price, total));
-            total.textProperty().addListener((observableVal, oldVal, newVal) -> updateTotal(oldVal, newVal));
+            total.textProperty().addListener((observableVal, oldVal, newVal) -> updateSubTotal(oldVal, newVal));
 
             gridPane.add(sno, 0, rowNo);
             gridPane.add(itemName, 1, rowNo);
@@ -137,13 +158,19 @@ public class EditRecordController implements Initializable {
         } else {
             long recordId = record.getValue().recordId();
 
-            // TODO: add charges fields
             SupplyRecord supplyInwardRecord =
                     new SupplyRecord(
                             recordId, LocalData.getInstance().getFirmName(), partyName,
                             isDouble(text_total.getText()) ? Double.parseDouble(text_total.getText()) : 0,
                             LocalDate.now(),
-                            0, 0, 0, 0, 0, 0, 0, true
+                            isDouble(text_biltiCharge.getText()) ? Double.parseDouble(text_biltiCharge.getText()) : 0,
+                            isDouble(text_bardana.getText()) ? Double.parseDouble(text_bardana.getText()) : 0,
+                            isDouble(text_labourCost.getText()) ? Double.parseDouble(text_labourCost.getText()) : 0,
+                            isDouble(text_commission.getText()) ? Double.parseDouble(text_commission.getText()) : 0,
+                            isDouble(text_postage.getText()) ? Double.parseDouble(text_postage.getText()) : 0,
+                            isDouble(text_bazaarCharges.getText()) ? Double.parseDouble(text_bazaarCharges.getText()) : 0,
+                            isDouble(text_otherExpenses.getText()) ? Double.parseDouble(text_otherExpenses.getText()) : 0,
+                            true
                     );
 
             ArrayList<SupplyItemDetail> supplyItemDetails = new ArrayList<>();
@@ -225,6 +252,17 @@ public class EditRecordController implements Initializable {
         );
     }
 
+    private void updateSubTotal(String oldVal, String newVal) {
+        double subTotal =
+                (isDouble(text_subTotal.getText()) ? Double.parseDouble(text_subTotal.getText()) : 0) -
+                        (isDouble(oldVal) ? Double.parseDouble(oldVal) : 0) +
+                        (isDouble(newVal) ? Double.parseDouble(newVal) : 0);
+
+        text_subTotal.setText(
+                subTotal == 0 ? "" : String.format("%.2f", subTotal)
+        );
+    }
+
     private void updateTotal(String oldVal, String newVal) {
         double total =
                 (isDouble(text_total.getText()) ? Double.parseDouble(text_total.getText()) : 0) -
@@ -234,6 +272,17 @@ public class EditRecordController implements Initializable {
         text_total.setText(
                 total == 0 ? "" : String.format("%.2f", total)
         );
+    }
+
+    private void attachUpdateTotal() {
+        text_subTotal.textProperty().addListener((observableVal, oldVal, newVal) -> updateTotal(oldVal, newVal));
+        text_biltiCharge.textProperty().addListener((observableVal, oldVal, newVal) -> updateTotal(oldVal, newVal));
+        text_bardana.textProperty().addListener((observableVal, oldVal, newVal) -> updateTotal(oldVal, newVal));
+        text_labourCost.textProperty().addListener((observableVal, oldVal, newVal) -> updateTotal(oldVal, newVal));
+        text_commission.textProperty().addListener((observableVal, oldVal, newVal) -> updateTotal(oldVal, newVal));
+        text_postage.textProperty().addListener((observableVal, oldVal, newVal) -> updateTotal(oldVal, newVal));
+        text_bazaarCharges.textProperty().addListener((observableVal, oldVal, newVal) -> updateTotal(oldVal, newVal));
+        text_otherExpenses.textProperty().addListener((observableVal, oldVal, newVal) -> updateTotal(oldVal, newVal));
     }
 
     private void displayError(String msg) {

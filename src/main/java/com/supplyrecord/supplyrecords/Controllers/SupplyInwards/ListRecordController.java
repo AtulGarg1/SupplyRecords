@@ -21,6 +21,14 @@ import java.util.ResourceBundle;
 public class ListRecordController implements Initializable {
     public UppercaseTextField text_partyName;
     public GridPane gridPane;
+    public DecimalTextField text_subTotal;
+    public DecimalTextField text_biltiCharge;
+    public DecimalTextField text_bardana;
+    public DecimalTextField text_labourCost;
+    public DecimalTextField text_commission;
+    public DecimalTextField text_postage;
+    public DecimalTextField text_bazaarCharges;
+    public DecimalTextField text_otherExpenses;
     public DecimalTextField text_total;
 
     private DatabaseApi db;
@@ -29,7 +37,10 @@ public class ListRecordController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         db = new DatabaseImpl();
-        makeFieldsNonEditable(text_partyName, text_total);
+        makeFieldsNonEditable(
+                text_partyName, text_subTotal, text_biltiCharge, text_bardana, text_labourCost,
+                text_commission, text_postage, text_bazaarCharges, text_otherExpenses, text_total
+        );
         fillValues();
         record.addListener((observableVal, oldVal, newVal) -> fillValues());
     }
@@ -39,9 +50,17 @@ public class ListRecordController implements Initializable {
         SupplyRecord supplyInwardRecord = record.getValue();
 
         text_partyName.setText(String.valueOf(supplyInwardRecord.partyName()));
+        text_biltiCharge.setText(String.valueOf(supplyInwardRecord.biltiCharge()));
+        text_bardana.setText(String.valueOf(supplyInwardRecord.bardana()));
+        text_labourCost.setText(String.valueOf(supplyInwardRecord.labourCost()));
+        text_commission.setText(String.valueOf(supplyInwardRecord.commission()));
+        text_postage.setText(String.valueOf(supplyInwardRecord.postage()));
+        text_bazaarCharges.setText(String.valueOf(supplyInwardRecord.bazaarCharges()));
+        text_otherExpenses.setText(String.valueOf(supplyInwardRecord.otherExpenses()));
 
         ArrayList<SupplyItemDetail> supplyItemDetails =
                 db.fetchSupplyInwardItemDetailsFor(supplyInwardRecord.recordId());
+        double subTotal = 0;
 
         for (int i = 0; i < supplyItemDetails.size(); i++) {
             SupplyItemDetail supplyItemDetail = supplyItemDetails.get(i);
@@ -67,8 +86,11 @@ public class ListRecordController implements Initializable {
             gridPane.add(unit, 3, rowNo);
             gridPane.add(price, 4, rowNo);
             gridPane.add(total, 5, rowNo);
+
+            subTotal += itemTotal;
         }
 
+        text_subTotal.setText(String.valueOf(subTotal));
         text_total.setText(String.valueOf(supplyInwardRecord.totalAmount()));
     }
 
