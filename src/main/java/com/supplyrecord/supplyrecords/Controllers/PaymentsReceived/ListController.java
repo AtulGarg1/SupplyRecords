@@ -47,6 +47,7 @@ public class ListController implements Initializable {
         TextField date = new TextField(paymentRecord.formattedDate());
 
         makeFieldsNonEditable(sno, partyName, amount, bankName, date);
+        attachOnClickListeners(paymentRecord, sno, partyName, amount, bankName, date);
 
         gridPane.add(sno, 0, rowNo);
         gridPane.add(partyName, 1, rowNo);
@@ -71,6 +72,15 @@ public class ListController implements Initializable {
         dp_dateTo.getEditor().setText("");
         dp_dateFrom.getEditor().setText("");
         setupGridPane();
+    }
+
+    private void attachOnClickListeners(PaymentRecord record, TextField... textFields) {
+        for (TextField textField : textFields) {
+            textField.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
+                ListRecordController.setRecord(record);
+                ViewFactory.getInstance().showListRecordPaymentsReceivedWindow();
+            });
+        }
     }
 
     private void makeFieldsNonEditable(TextField... textFields) {

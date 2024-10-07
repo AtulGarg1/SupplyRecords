@@ -194,6 +194,13 @@ public class ViewFactory {
         return listPaymentsMadeView;
     }
 
+    public void showListRecordPaymentsMadeWindow() {
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/Fxml/PaymentsMade/ListRecord.fxml"));
+        Stage stage = setStage(fxmlLoader, "Payment Made");
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.show();
+    }
+
     public AnchorPane getEditPaymentsReceivedView() {
         if (editPaymentsReceivedView == null) {
             try {
@@ -223,6 +230,13 @@ public class ViewFactory {
             }
         }
         return listPaymentsReceivedView;
+    }
+
+    public void showListRecordPaymentsReceivedWindow() {
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/Fxml/PaymentsReceived/ListRecord.fxml"));
+        Stage stage = setStage(fxmlLoader, "Payment Received");
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.show();
     }
 
     public AnchorPane getListLedgerView() {

@@ -3,10 +3,12 @@ package com.supplyrecord.supplyrecords.Controllers.PaymentsMade;
 import com.supplyrecord.supplyrecords.Models.AutoSuggestions;
 import com.supplyrecord.supplyrecords.Models.DataClasses.PaymentRecord;
 import com.supplyrecord.supplyrecords.Models.LocalData;
+import com.supplyrecord.supplyrecords.Views.ViewFactory;
 import com.supplyrecord.supplyrecords.customComponents.AutoCompleteTextField;
 import javafx.fxml.Initializable;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 
 import java.net.URL;
@@ -45,6 +47,7 @@ public class ListController implements Initializable {
         TextField date = new TextField(paymentRecord.formattedDate());
 
         makeFieldsNonEditable(sno, partyName, amount, bankName, date);
+        attachOnClickListeners(paymentRecord, sno, partyName, amount, bankName, date);
 
         gridPane.add(sno, 0, rowNo);
         gridPane.add(partyName, 1, rowNo);
@@ -69,6 +72,15 @@ public class ListController implements Initializable {
         dp_dateTo.getEditor().setText("");
         dp_dateFrom.getEditor().setText("");
         setupGridPane();
+    }
+
+    private void attachOnClickListeners(PaymentRecord record, TextField... textFields) {
+        for (TextField textField : textFields) {
+            textField.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
+                ListRecordController.setRecord(record);
+                ViewFactory.getInstance().showListRecordPaymentsMadeWindow();
+            });
+        }
     }
 
     private void makeFieldsNonEditable(TextField... textFields) {

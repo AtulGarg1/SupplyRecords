@@ -179,7 +179,7 @@ public class EditRecordController implements Initializable {
             for (; i <= Constants.GRID_EDITABLE_CELL_END; i += Constants.GRID_EDITABLE_CELL_INCREMENT) {
                 String item = ((AutoCompleteTextField) gridPane.getChildren().get(i)).getText();
                 String qty = ((DecimalTextField) gridPane.getChildren().get(i + 1)).getText();
-                String price = ((DecimalTextField) gridPane.getChildren().get(i + 2)).getText();
+                String price = ((DecimalTextField) gridPane.getChildren().get(i + 3)).getText();
 
                 if (item.isEmpty() && qty.isEmpty() && price.isEmpty()) {
                     continue;

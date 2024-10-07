@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.supplyrecord.supplyrecords.customComponents.AutoCompleteTextField?>
+<?import com.supplyrecord.supplyrecords.customComponents.DecimalTextField?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="450.0" stylesheets="@../../Styles/common.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.supplyrecord.supplyrecords.Controllers.PaymentsReceived.ListRecordController">
+    <children>
+        <VBox alignment="CENTER" prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <children>
+                <HBox alignment="CENTER" prefHeight="40.0" prefWidth="200.0" spacing="20.0">
+                    <children>
+                        <Label styleClass="bold_label" text="Party Name :" />
+                        <AutoCompleteTextField fx:id="text_partyName" />
+                    </children>
+                    <VBox.margin>
+                        <Insets right="24.0" />
+                    </VBox.margin>
+                </HBox>
+                <HBox alignment="CENTER" prefHeight="40.0" prefWidth="200.0" spacing="20.0">
+                    <children>
+                        <Label styleClass="bold_label" text="Amount :" />
+                        <DecimalTextField fx:id="text_amount" />
+                    </children>
+                </HBox>
+                <HBox alignment="CENTER" prefHeight="40.0" prefWidth="200.0" spacing="20.0">
+                    <children>
+                        <Label styleClass="bold_label" text="Bank Name :" />
+                        <AutoCompleteTextField fx:id="text_bankName" />
+                    </children>
+                    <VBox.margin>
+                        <Insets right="24.0" />
+                    </VBox.margin>
+                </HBox>
+            </children>
+        </VBox>
+    </children>
+</AnchorPane>

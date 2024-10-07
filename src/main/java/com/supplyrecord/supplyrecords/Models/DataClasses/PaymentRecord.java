@@ -9,7 +9,7 @@ import java.util.stream.Collectors;
 public record PaymentRecord(
         long recordId, String firmName, String partyName,
         double amount, String bankName, LocalDate date, boolean isCredit
-) {
+) implements Record {
     public record Filter(String partyName, LocalDate dateFrom, LocalDate dateTo) {}
 
     public static ArrayList<PaymentRecord> filterList(ArrayList<PaymentRecord> list, Filter filter) {

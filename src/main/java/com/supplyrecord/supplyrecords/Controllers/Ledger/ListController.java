@@ -1,14 +1,21 @@
 package com.supplyrecord.supplyrecords.Controllers.Ledger;
 
+import com.supplyrecord.supplyrecords.Controllers.PaymentsReceived.ListRecordController;
 import com.supplyrecord.supplyrecords.Models.AutoSuggestions;
 import com.supplyrecord.supplyrecords.Models.DataClasses.LedgerRecord;
+import com.supplyrecord.supplyrecords.Models.DataClasses.PaymentRecord;
+import com.supplyrecord.supplyrecords.Models.DataClasses.Record;
+import com.supplyrecord.supplyrecords.Models.DataClasses.SupplyRecord;
 import com.supplyrecord.supplyrecords.Models.LocalData;
+import com.supplyrecord.supplyrecords.Models.ViewSelected;
+import com.supplyrecord.supplyrecords.Views.ViewFactory;
 import com.supplyrecord.supplyrecords.customComponents.AutoCompleteTextField;
 import com.supplyrecord.supplyrecords.customComponents.DecimalTextField;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 
 import java.net.URL;
@@ -75,6 +82,7 @@ public class ListController implements Initializable {
             balance.setText(String.valueOf(totalBalance));
 
             makeFieldsNonEditable(sno, desc, date, credit, debit, balance);
+            attachOnClickListeners(ledgerRecord.reference(), sno, desc, date, credit, debit, balance);
             credit.setAlignment(Pos.CENTER_RIGHT);
             debit.setAlignment(Pos.CENTER_RIGHT);
             balance.setAlignment(Pos.CENTER_RIGHT);
@@ -94,7 +102,7 @@ public class ListController implements Initializable {
                 .stream()
                 .filter(supplyRecord -> supplyRecord.partyName().equals(partyName))
                 .map(supplyRecord ->
-                        new LedgerRecord("Inward", supplyRecord.date(), supplyRecord.totalAmount())
+                        new LedgerRecord("Inward", supplyRecord.date(), supplyRecord.totalAmount(), supplyRecord)
                 )
                 .toList();
 
@@ -103,7 +111,7 @@ public class ListController implements Initializable {
                 .stream()
                 .filter(supplyRecord -> supplyRecord.partyName().equals(partyName))
                 .map(supplyRecord ->
-                        new LedgerRecord("Outward", supplyRecord.date(), supplyRecord.totalAmount())
+                        new LedgerRecord("Outward", supplyRecord.date(), supplyRecord.totalAmount(), supplyRecord)
                 )
                 .toList();
 
@@ -112,7 +120,7 @@ public class ListController implements Initializable {
                 .stream()
                 .filter(paymentRecord -> paymentRecord.partyName().equals(partyName))
                 .map(paymentRecord ->
-                        new LedgerRecord("Inward", paymentRecord.date(), paymentRecord.amount())
+                        new LedgerRecord("Inward", paymentRecord.date(), paymentRecord.amount(), paymentRecord)
                 )
                 .toList();
 
@@ -121,7 +129,7 @@ public class ListController implements Initializable {
                 .stream()
                 .filter(paymentRecord -> paymentRecord.partyName().equals(partyName))
                 .map(paymentRecord ->
-                        new LedgerRecord("Outward", paymentRecord.date(), paymentRecord.amount())
+                        new LedgerRecord("Outward", paymentRecord.date(), paymentRecord.amount(), paymentRecord)
                 )
                 .toList();
 
@@ -133,6 +141,33 @@ public class ListController implements Initializable {
         ledgerRecords.addAll(paymentMade);
 
         return ledgerRecords;
+    }
+
+    private void attachOnClickListeners(Record reference, TextField... textFields) {
+        for (TextField textField: textFields) {
+            textField.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
+                if (reference instanceof SupplyRecord) {
+                    SupplyRecord supplyRecord = (SupplyRecord) reference;
+                    if (supplyRecord.isInward()) {
+                        com.supplyrecord.supplyrecords.Controllers.SupplyInwards.ListRecordController.setRecord(supplyRecord);
+                        ViewSelected.getInstance().setSelected(ViewSelected.ListRecordSupplyInwards);
+                    } else {
+                        com.supplyrecord.supplyrecords.Controllers.SupplyOutwards.ListRecordController.setRecord(supplyRecord);
+                        ViewSelected.getInstance().setSelected(ViewSelected.ListRecordSupplyOutwards);
+                    }
+                }
+                else if (reference instanceof PaymentRecord) {
+                    PaymentRecord paymentRecord = (PaymentRecord) reference;
+                    if (paymentRecord.isCredit()) {
+                        com.supplyrecord.supplyrecords.Controllers.PaymentsReceived.ListRecordController.setRecord(paymentRecord);
+                        ViewFactory.getInstance().showListRecordPaymentsReceivedWindow();
+                    } else {
+                        com.supplyrecord.supplyrecords.Controllers.PaymentsMade.ListRecordController.setRecord(paymentRecord);
+                        ViewFactory.getInstance().showListRecordPaymentsMadeWindow();
+                    }
+                }
+            });
+        }
     }
 
     private void clearFields() {

@@ -10,7 +10,7 @@ public record SupplyRecord(
         long recordId, String firmName, String partyName, double totalAmount,
         LocalDate date, double biltiCharge, double bardana, double labourCost,
         double commission, double postage, double bazaarCharges, double otherExpenses, boolean isInward
-) {
+) implements Record {
     public record Filter(String partyName, LocalDate dateFrom, LocalDate dateTo) {}
 
     public static ArrayList<SupplyRecord> filterList(ArrayList<SupplyRecord> list, Filter filter) {
