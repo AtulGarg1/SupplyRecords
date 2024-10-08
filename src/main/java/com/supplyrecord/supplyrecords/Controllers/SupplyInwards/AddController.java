@@ -19,7 +19,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 
 import java.net.URL;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
@@ -138,7 +138,7 @@ public class AddController implements Initializable {
                     new SupplyRecord(
                             -1, LocalData.getInstance().getFirmName(), partyName,
                             isDouble(text_total.getText()) ? Double.parseDouble(text_total.getText()) : 0,
-                            LocalDate.now(),
+                            LocalDateTime.now(),
                             isDouble(text_biltiCharge.getText()) ? Double.parseDouble(text_biltiCharge.getText()) : 0,
                             isDouble(text_bardana.getText()) ? Double.parseDouble(text_bardana.getText()) : 0,
                             isDouble(text_labourCost.getText()) ? Double.parseDouble(text_labourCost.getText()) : 0,
@@ -186,7 +186,7 @@ public class AddController implements Initializable {
     private void persistToDb(SupplyRecord supplyInwardRecord, ArrayList<SupplyItemDetail> supplyItemDetails) {
         db.addSupplyRecord(supplyInwardRecord);
         long recordId = db.getLatestRecordId();
-        db.addSupplyInwardItemDetails(supplyItemDetails, recordId);
+        db.addSupplyItemDetails(supplyItemDetails, recordId);
     }
 
     private void displayError(String msg) {

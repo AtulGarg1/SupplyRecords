@@ -15,7 +15,7 @@ import javafx.scene.control.Label;
 import javafx.stage.Stage;
 
 import java.net.URL;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ResourceBundle;
 
 public class EditRecordController implements Initializable {
@@ -55,7 +55,7 @@ public class EditRecordController implements Initializable {
         } else {
             PaymentRecord paymentRecord = new PaymentRecord(
                     record.getValue().recordId(), LocalData.getInstance().getFirmName(), partyName,
-                    Double.parseDouble(amount), bankName, LocalDate.now(), true
+                    Double.parseDouble(amount), bankName, LocalDateTime.now(), true
             );
             LocalData.getInstance().updatePaymentsReceivedList(paymentRecord);
             db.updatePaymentRecord(paymentRecord);

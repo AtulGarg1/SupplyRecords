@@ -1,6 +1,6 @@
 package com.supplyrecord.supplyrecords.Models.DataClasses;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -8,9 +8,9 @@ import java.util.stream.Collectors;
 
 public record PaymentRecord(
         long recordId, String firmName, String partyName,
-        double amount, String bankName, LocalDate date, boolean isCredit
+        double amount, String bankName, LocalDateTime date, boolean isCredit
 ) implements Record {
-    public record Filter(String partyName, LocalDate dateFrom, LocalDate dateTo) {}
+    public record Filter(String partyName, LocalDateTime dateFrom, LocalDateTime dateTo) {}
 
     public static ArrayList<PaymentRecord> filterList(ArrayList<PaymentRecord> list, Filter filter) {
         return (ArrayList<PaymentRecord>) list.stream()
@@ -30,19 +30,19 @@ public record PaymentRecord(
         return new ArrayList<>(Arrays.asList(
                 new PaymentRecord(
                         1, "ABC", "LT/CH", 100000,
-                        "PNB", LocalDate.now(), isCredit
+                        "PNB", LocalDateTime.now(), isCredit
                 ),
                 new PaymentRecord(
                         2, "ABC", "LT/BLP", 150000,
-                        "AXIS", LocalDate.now(), isCredit
+                        "AXIS", LocalDateTime.now(), isCredit
                 ),
                 new PaymentRecord(
                         3, "ABC", "OD", 300000,
-                        "BOB", LocalDate.now(), isCredit
+                        "BOB", LocalDateTime.now(), isCredit
                 ),
                 new PaymentRecord(
                         4, "ABC", "XYZ", 250000,
-                        "PNB", LocalDate.now(), isCredit
+                        "PNB", LocalDateTime.now(), isCredit
                 )
         ));
     }

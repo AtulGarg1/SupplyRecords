@@ -88,8 +88,12 @@ public class LocalData {
 
     public void updateSupplyInwardRecordsList(SupplyRecord supplyInwardRecord) {
         try {
-            int position = (int) supplyInwardRecord.recordId() - 1;
-            supplyInwardRecordsList.set(position, supplyInwardRecord);
+            for (int i = 0; i < supplyInwardRecordsList.size(); i++) {
+                if (supplyInwardRecordsList.get(i).recordId() == supplyInwardRecord.recordId()) {
+                    supplyInwardRecordsList.set(i, supplyInwardRecord);
+                    break;
+                }
+            }
         } catch (Exception e) {
             supplyInwardRecordsList = db.fetchSupplyInwardRecordsList(firmName);
         }
@@ -97,8 +101,12 @@ public class LocalData {
 
     public void updateSupplyOutwardRecordsList(SupplyRecord supplyOutwardRecord) {
         try {
-            int position = (int) supplyOutwardRecord.recordId() - 1;
-            supplyOutwardRecordsList.set(position, supplyOutwardRecord);
+            for (int i = 0; i < supplyOutwardRecordsList.size(); i++) {
+                if (supplyOutwardRecordsList.get(i).recordId() == supplyOutwardRecord.recordId()) {
+                    supplyOutwardRecordsList.set(i, supplyOutwardRecord);
+                    break;
+                }
+            }
         } catch (Exception e) {
             supplyOutwardRecordsList = db.fetchSupplyOutwardRecordsList(firmName);
         }
@@ -106,8 +114,12 @@ public class LocalData {
 
     public void updatePaymentsMadeList(PaymentRecord paymentRecord) {
         try {
-            int position = (int) paymentRecord.recordId() - 1;
-            paymentsMadeList.set(position, paymentRecord);
+            for (int i = 0; i < paymentsMadeList.size(); i++) {
+                if (paymentsMadeList.get(i).recordId() == paymentRecord.recordId()) {
+                    paymentsMadeList.set(i, paymentRecord);
+                    break;
+                }
+            }
         } catch (Exception e) {
             paymentsMadeList = db.fetchPaymentsMadeList(firmName);
         }
@@ -115,8 +127,12 @@ public class LocalData {
 
     public void updatePaymentsReceivedList(PaymentRecord paymentRecord) {
         try {
-            int position = (int) paymentRecord.recordId() - 1;
-            paymentsReceivedList.set(position, paymentRecord);
+            for (int i = 0; i < paymentsReceivedList.size(); i++) {
+                if (paymentsReceivedList.get(i).recordId() == paymentRecord.recordId()) {
+                    paymentsReceivedList.set(i, paymentRecord);
+                    break;
+                }
+            }
         } catch (Exception e) {
             paymentsReceivedList = db.fetchPaymentsReceivedList(firmName);
         }

@@ -57,8 +57,8 @@ public class EditController implements Initializable {
     public void onSearch() {
         SupplyRecord.Filter filter = new SupplyRecord.Filter(
                 text_partyName.getText(),
-                dp_dateFrom.getValue(),
-                dp_dateTo.getValue()
+                dp_dateFrom.getValue() != null ? dp_dateFrom.getValue().atStartOfDay() : null,
+                dp_dateTo.getValue() != null ? dp_dateTo.getValue().atStartOfDay() : null
         );
         filteredList = SupplyRecord.filterList(list, filter);
         setupGridPane();

@@ -21,7 +21,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 
 import java.net.URL;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
@@ -67,8 +67,7 @@ public class EditRecordController implements Initializable {
         text_bazaarCharges.setText(String.valueOf(supplyOutwardRecord.bazaarCharges()));
         text_otherExpenses.setText(String.valueOf(supplyOutwardRecord.otherExpenses()));
 
-        oldSupplyItemDetails =
-                db.fetchSupplyOutwardItemDetailsFor(supplyOutwardRecord.recordId());
+        oldSupplyItemDetails = db.fetchSupplyItemDetailsFor(supplyOutwardRecord.recordId());
         double subTotal = 0;
 
         for (SupplyItemDetail supplyItemDetail : oldSupplyItemDetails) {
@@ -162,7 +161,7 @@ public class EditRecordController implements Initializable {
                     new SupplyRecord(
                             recordId, LocalData.getInstance().getFirmName(), partyName,
                             isDouble(text_total.getText()) ? Double.parseDouble(text_total.getText()) : 0,
-                            LocalDate.now(),
+                            LocalDateTime.now(),
                             isDouble(text_biltiCharge.getText()) ? Double.parseDouble(text_biltiCharge.getText()) : 0,
                             isDouble(text_bardana.getText()) ? Double.parseDouble(text_bardana.getText()) : 0,
                             isDouble(text_labourCost.getText()) ? Double.parseDouble(text_labourCost.getText()) : 0,
@@ -228,8 +227,8 @@ public class EditRecordController implements Initializable {
             toBeInserted.add(newList.get(i));
         }
 
-        db.deleteSupplyOutwardItemDetails(toBeRemoved);
-        db.addSupplyOutwardItemDetails(toBeInserted, recordId);
+        db.deleteSupplyItemDetails(toBeRemoved);
+        db.addSupplyItemDetails(toBeInserted, recordId);
     }
 
     private void makeNotEditable(TextField... textFields) {

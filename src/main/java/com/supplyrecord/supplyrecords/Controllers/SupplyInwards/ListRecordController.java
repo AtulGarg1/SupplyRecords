@@ -58,8 +58,7 @@ public class ListRecordController implements Initializable {
         text_bazaarCharges.setText(String.valueOf(supplyInwardRecord.bazaarCharges()));
         text_otherExpenses.setText(String.valueOf(supplyInwardRecord.otherExpenses()));
 
-        ArrayList<SupplyItemDetail> supplyItemDetails =
-                db.fetchSupplyInwardItemDetailsFor(supplyInwardRecord.recordId());
+        ArrayList<SupplyItemDetail> supplyItemDetails = db.fetchSupplyItemDetailsFor(supplyInwardRecord.recordId());
         double subTotal = 0;
 
         for (int i = 0; i < supplyItemDetails.size(); i++) {

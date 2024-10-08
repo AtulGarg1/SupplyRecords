@@ -14,8 +14,7 @@ public interface DatabaseApi {
     void addParty(String party);
     void addItem(AutoSuggestions.Item item);
     void addSupplyRecord(SupplyRecord supplyRecord);
-    void addSupplyInwardItemDetails(ArrayList<SupplyItemDetail> supplyItemDetails, long recordId);
-    void addSupplyOutwardItemDetails(ArrayList<SupplyItemDetail> supplyItemDetails, long recordId);
+    void addSupplyItemDetails(ArrayList<SupplyItemDetail> supplyItemDetails, long recordId);
     void addPaymentRecord(PaymentRecord paymentRecord);
 
     /* ----READ---- */
@@ -28,8 +27,7 @@ public interface DatabaseApi {
 
     ArrayList<SupplyRecord> fetchSupplyInwardRecordsList(String firmName);
     ArrayList<SupplyRecord> fetchSupplyOutwardRecordsList(String firmName);
-    ArrayList<SupplyItemDetail> fetchSupplyInwardItemDetailsFor(long recordId);
-    ArrayList<SupplyItemDetail> fetchSupplyOutwardItemDetailsFor(long recordId);
+    ArrayList<SupplyItemDetail> fetchSupplyItemDetailsFor(long recordId);
     ArrayList<PaymentRecord> fetchPaymentsMadeList(String firmName);
     ArrayList<PaymentRecord> fetchPaymentsReceivedList(String firmName);
 
@@ -39,6 +37,5 @@ public interface DatabaseApi {
     void updateSupplyRecord(SupplyRecord supplyRecord);
     void updatePaymentRecord(PaymentRecord paymentRecord);
 
-    void deleteSupplyInwardItemDetails(ArrayList<SupplyItemDetail> supplyItemDetails);
-    void deleteSupplyOutwardItemDetails(ArrayList<SupplyItemDetail> supplyItemDetails);
+    void deleteSupplyItemDetails(ArrayList<SupplyItemDetail> supplyItemDetails);
 }

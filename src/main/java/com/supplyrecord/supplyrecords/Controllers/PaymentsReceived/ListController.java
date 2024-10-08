@@ -59,8 +59,8 @@ public class ListController implements Initializable {
     public void onSearch() {
         PaymentRecord.Filter filter = new PaymentRecord.Filter(
                 text_partyName.getText().trim(),
-                dp_dateFrom.getValue(),
-                dp_dateTo.getValue()
+                dp_dateFrom.getValue() != null ? dp_dateFrom.getValue().atStartOfDay() : null,
+                dp_dateTo.getValue() != null ? dp_dateTo.getValue().atStartOfDay() : null
         );
         filteredList = PaymentRecord.filterList(list, filter);
         setupGridPane();

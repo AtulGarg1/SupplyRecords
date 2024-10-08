@@ -13,7 +13,7 @@ import javafx.scene.control.Label;
 import javafx.stage.Stage;
 
 import java.net.URL;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ResourceBundle;
 
 public class AddController implements Initializable {
@@ -50,7 +50,7 @@ public class AddController implements Initializable {
         } else {
             PaymentRecord paymentRecord = new PaymentRecord(
                     -1, LocalData.getInstance().getFirmName(), partyName,
-                    Double.parseDouble(amount), bankName, LocalDate.now(), false
+                    Double.parseDouble(amount), bankName, LocalDateTime.now(), false
             );
             LocalData.getInstance().insertIntoPaymentsMadeList(paymentRecord);
             db.addPaymentRecord(paymentRecord);

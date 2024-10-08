@@ -1,6 +1,5 @@
 package com.supplyrecord.supplyrecords.Controllers.Ledger;
 
-import com.supplyrecord.supplyrecords.Controllers.PaymentsReceived.ListRecordController;
 import com.supplyrecord.supplyrecords.Models.AutoSuggestions;
 import com.supplyrecord.supplyrecords.Models.DataClasses.LedgerRecord;
 import com.supplyrecord.supplyrecords.Models.DataClasses.PaymentRecord;
@@ -20,6 +19,7 @@ import javafx.scene.layout.GridPane;
 
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -140,14 +140,15 @@ public class ListController implements Initializable {
         ledgerRecords.addAll(paymentReceived);
         ledgerRecords.addAll(paymentMade);
 
+        ledgerRecords.sort(Comparator.comparing(LedgerRecord::date));
+
         return ledgerRecords;
     }
 
     private void attachOnClickListeners(Record reference, TextField... textFields) {
         for (TextField textField: textFields) {
             textField.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
-                if (reference instanceof SupplyRecord) {
-                    SupplyRecord supplyRecord = (SupplyRecord) reference;
+                if (reference instanceof SupplyRecord supplyRecord) {
                     if (supplyRecord.isInward()) {
                         com.supplyrecord.supplyrecords.Controllers.SupplyInwards.ListRecordController.setRecord(supplyRecord);
                         ViewSelected.getInstance().setSelected(ViewSelected.ListRecordSupplyInwards);
@@ -156,8 +157,7 @@ public class ListController implements Initializable {
                         ViewSelected.getInstance().setSelected(ViewSelected.ListRecordSupplyOutwards);
                     }
                 }
-                else if (reference instanceof PaymentRecord) {
-                    PaymentRecord paymentRecord = (PaymentRecord) reference;
+                else if (reference instanceof PaymentRecord paymentRecord) {
                     if (paymentRecord.isCredit()) {
                         com.supplyrecord.supplyrecords.Controllers.PaymentsReceived.ListRecordController.setRecord(paymentRecord);
                         ViewFactory.getInstance().showListRecordPaymentsReceivedWindow();
