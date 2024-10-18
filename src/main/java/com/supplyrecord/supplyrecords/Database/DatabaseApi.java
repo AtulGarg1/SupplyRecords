@@ -6,7 +6,6 @@ import com.supplyrecord.supplyrecords.Models.DataClasses.*;
 import java.util.ArrayList;
 
 public interface DatabaseApi {
-    void dbTest();
     /* ----CREATE---- */
     void createFirm(String firmName, String password);
 
