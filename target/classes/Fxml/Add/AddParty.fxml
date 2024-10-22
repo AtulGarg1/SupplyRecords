@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.VBox?>
 
 <?import com.supplyrecord.supplyrecords.customComponents.UppercaseTextField?>
-<AnchorPane prefHeight="200.0" prefWidth="450.0" stylesheets="@../../Styles/common.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.supplyrecord.supplyrecords.Controllers.Add.AddPartyController">
+<AnchorPane prefHeight="200.0" prefWidth="450.0" stylesheets="@../../Styles/common.css" xmlns="http://javafx.com/javafx/17.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.supplyrecord.supplyrecords.Controllers.Add.AddPartyController">
    <children>
       <VBox layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
