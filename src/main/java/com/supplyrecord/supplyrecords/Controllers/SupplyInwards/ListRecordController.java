@@ -2,15 +2,18 @@ package com.supplyrecord.supplyrecords.Controllers.SupplyInwards;
 
 import com.supplyrecord.supplyrecords.Database.DatabaseApi;
 import com.supplyrecord.supplyrecords.Database.DatabaseImpl;
+import com.supplyrecord.supplyrecords.FileOps.FileOps;
 import com.supplyrecord.supplyrecords.Models.AutoSuggestions;
 import com.supplyrecord.supplyrecords.Models.DataClasses.SupplyItemDetail;
 import com.supplyrecord.supplyrecords.Models.DataClasses.SupplyRecord;
+import com.supplyrecord.supplyrecords.Pdf.PdfGenerator;
 import com.supplyrecord.supplyrecords.customComponents.DecimalTextField;
 import com.supplyrecord.supplyrecords.customComponents.UppercaseTextField;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
+import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 
@@ -30,9 +33,13 @@ public class ListRecordController implements Initializable {
     public DecimalTextField text_bazaarCharges;
     public DecimalTextField text_otherExpenses;
     public DecimalTextField text_total;
+    public Button btn_print;
 
     private DatabaseApi db;
     private static final ObjectProperty<SupplyRecord> record = new SimpleObjectProperty<>();
+
+    SupplyRecord supplyInwardRecord;
+    ArrayList<SupplyItemDetail> supplyItemDetails;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -47,7 +54,7 @@ public class ListRecordController implements Initializable {
 
     private void fillValues() {
         gridPane.getChildren().removeIf(TextField.class::isInstance);
-        SupplyRecord supplyInwardRecord = record.getValue();
+        supplyInwardRecord = record.getValue();
 
         text_partyName.setText(String.valueOf(supplyInwardRecord.partyName()));
         text_biltiCharge.setText(String.valueOf(supplyInwardRecord.biltiCharge()));
@@ -58,7 +65,7 @@ public class ListRecordController implements Initializable {
         text_bazaarCharges.setText(String.valueOf(supplyInwardRecord.bazaarCharges()));
         text_otherExpenses.setText(String.valueOf(supplyInwardRecord.otherExpenses()));
 
-        ArrayList<SupplyItemDetail> supplyItemDetails = db.fetchSupplyItemDetailsFor(supplyInwardRecord.recordId());
+        supplyItemDetails = db.fetchSupplyItemDetailsFor(supplyInwardRecord.recordId());
         double subTotal = 0;
 
         for (int i = 0; i < supplyItemDetails.size(); i++) {
@@ -91,6 +98,15 @@ public class ListRecordController implements Initializable {
 
         text_subTotal.setText(String.valueOf(subTotal));
         text_total.setText(String.valueOf(supplyInwardRecord.totalAmount()));
+    }
+
+    public void onPrint() {
+        String path = FileOps.getFileLocation(btn_print.getScene().getWindow());
+        if (!path.equals("")) {
+            PdfGenerator pdfGenerator = new PdfGenerator();
+            pdfGenerator.generatePdf(supplyInwardRecord, supplyItemDetails, path);
+            FileOps.openFile(path);
+        }
     }
 
     private void makeFieldsNonEditable(TextField... textFields) {

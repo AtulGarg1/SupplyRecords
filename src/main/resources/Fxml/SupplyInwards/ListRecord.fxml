@@ -3,6 +3,7 @@
 <?import com.supplyrecord.supplyrecords.customComponents.AutoCompleteTextField?>
 <?import com.supplyrecord.supplyrecords.customComponents.DecimalTextField?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Separator?>
@@ -212,18 +213,11 @@
                   <Insets top="20.0" />
                </VBox.margin>
             </HBox>
-            <HBox alignment="CENTER" prefWidth="200.0">
-               <children>
-                  <Label fx:id="label_err" styleClass="err_label" visible="false">
-                     <HBox.margin>
-                        <Insets />
-                     </HBox.margin>
-                  </Label>
-               </children>
+            <Button fx:id="btn_print" mnemonicParsing="false" onAction="#onPrint" styleClass="btn" text="Print">
                <VBox.margin>
-                  <Insets top="6.0" />
+                  <Insets left="400.0" top="14.0" />
                </VBox.margin>
-            </HBox>
+            </Button>
          </children>
          <padding>
             <Insets bottom="20.0" left="40.0" right="40.0" top="20.0" />

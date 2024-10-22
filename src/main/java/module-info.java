@@ -4,6 +4,8 @@ module com.supplyrecord.supplyrecords {
     requires de.jensd.fx.glyphs.fontawesome;
     requires java.sql;
     requires org.xerial.sqlitejdbc;
+    requires kernel;
+    requires layout;
 
 
     opens com.supplyrecord.supplyrecords to javafx.fxml;
